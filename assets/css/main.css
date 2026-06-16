@@ -953,6 +953,10 @@ footer {
 .footer-links a:hover {
   color: #00e5ff;
 }
+.footer-logo{
+  width: 290px;
+  height: auto;
+}
 
 .social-icons {
   display: flex;
