@@ -47,32 +47,41 @@ nav {
   padding: 20px 40px;
 }
 
-/* ==========================================================================
-   🧱 左上角 Logo 點擊回頂部樣式優化
+//* ==========================================================================
+   🖼️ 左上角圖片 Logo 樣式優化
    ========================================================================== */
 
 .logo-link-top {
   text-decoration: none !important;
-  /* 👈 絕對消除瀏覽器預設的藍色底線 */
   background: transparent !important;
   display: inline-block;
   cursor: pointer;
 }
 
 .logo {
-  font-size: 24px;
-  font-weight: 600;
-  color: #ffffff;
-  /* 保持純白乾淨 */
-  letter-spacing: 2px;
+  display: flex;
+  align-items: center;
+}
+
+/* 💡 控制 Logo 圖片的寬度與高度 */
+.logo-img {
+  width: auto;
+  height: 36px; /* 👈 依據您的設計體感，自由微調高度（建議 24px - 40px 之間） */
+  display: block;
   transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1);
 }
 
-/* 💡 Hover 觸發時：產生極其微弱、內斂的霓虹青藍（#00e5ff）發光回饋 */
-.logo-link-top:hover .logo {
-  color: #a9f6ff;
-  font-size: 25px;
-  text-shadow: 0 0 8px rgb(0, 255, 234);
+/* Hover 觸發時：圖片微亮或產生微弱光暈 */
+.logo-link-top:hover .logo-img {
+  opacity: 0.7;
+  filter: drop-shadow(0 0 8px rgb(0, 247, 255)); /* 霓虹青藍光暈 */
+}
+
+/* 📱 手機端自動微調尺寸 */
+@media (max-width: 768px) {
+  .logo-img {
+    height: 28px; /* 👈 手機端稍微縮小，確保不擠壓導覽列 */
+  }
 }
 
 .nav-links a {
