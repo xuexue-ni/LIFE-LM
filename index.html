@@ -9,17 +9,47 @@
     <link rel="stylesheet" href="assets/css/life-code.css">
     <link rel="preconnect" href="https://fonts.googleapis.com/">
     <link rel="stylesheet" href="assets/css/css2">
+    <link rel="icon" href="assets/images/favicon.svg" type="image/svg+xml">
+    <link rel="icon" href="assets/images/favicon-32x32.png" type="image/png" sizes="32x32">
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+    <link rel="apple-touch-icon" href="assets/images/apple-touch-icon.png" sizes="180x180">
+</head>
 
 <body>
     <canvas id="life-space-canvas"></canvas>
+    <div class="desktop-social-sidebar">
+        <a href="https://social-plugins.line.me/lineit/share?url=https://xuexue-ni.github.io/LIFE-LM/" target="_blank"
+            class="social-btn" title="分享至 LINE">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round">
+                <path
+                    d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z">
+                </path>
+            </svg>
+        </a>
+        <a href="https://www.facebook.com/sharer/sharer.php?u=https://xuexue-ni.github.io/LIFE-LM/" target="_blank"
+            class="social-btn" title="分享至 Facebook">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round">
+                <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path>
+            </svg>
+        </a>
+        <button class="social-btn" onclick="copyCurrentUrl()" title="複製網頁連結">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round">
+                <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path>
+                <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path>
+            </svg>
+        </button>
+    </div>
     <div id="back-to-top-btn" onclick="scrollToTop()">
         <span class="arrow-icon">↑</span>
         <span>TOP</span>
     </div>
     <nav>
         <a href="#" class="logo-link-top" title="回到頂部">
-           <div class="logo">
-                <img src="assets/images/logo.png" alt="LIFE+" class="logo-img">
+            <div class="logo">
+                <img src="assets/images/logo.png" alt="LIFE+ Legacy Matrix" class="logo-img">
             </div>
         </a>
         <div class="menu-toggle" id="mobile-menu-btn" onclick="toggleMobileMenu()">
@@ -32,8 +62,34 @@
             <a href="#philosophy" onclick="closeMobileMenu()">核心原理</a>
             <a href="#solutions" onclick="closeMobileMenu()">留住記憶</a>
             <a href="#booking" onclick="closeMobileMenu()">專屬預約</a>
+            <div class="mobile-menu-social-footer" aria-label="社群分享">
+                <a href="https://social-plugins.line.me/lineit/share?url=https://xuexue-ni.github.io/LIFE-LM/" target="_blank"
+                    class="social-btn" title="分享至 LINE" onclick="closeMobileMenu()">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <path
+                            d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z">
+                        </path>
+                    </svg>
+                </a>
+                <a href="https://www.facebook.com/sharer/sharer.php?u=https://xuexue-ni.github.io/LIFE-LM/" target="_blank"
+                    class="social-btn" title="分享至 Facebook" onclick="closeMobileMenu()">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path>
+                    </svg>
+                </a>
+                <button class="social-btn" onclick="copyCurrentUrl(); closeMobileMenu();" title="複製網頁連結">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path>
+                        <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path>
+                    </svg>
+                </button>
+            </div>
         </div>
     </nav>
+
     <div class="content-container">
         <header>
             <h1>瞬間即是永恆 </h1>
@@ -894,73 +950,64 @@
         <!--理念說明 / END -->
         <!-- 產品方案-->
         <div id="solutions" class="section-card">
-            <h1>✦ 留住記憶</h1>
-            <p class="desc">我們提供多種數位封存與實體定製服務，
-                您可直接選擇適合需求的方案，或是選擇私人顧問級的訂製項目，來為您定錨生命中最珍貴的記憶軌跡。
-            </p>
-
-            <div class="tab-menu">
-                <button class="tab-btn active" onclick="switchSlide(0)">【歲月書】<br>數位/實體</button>
-                <button class="tab-btn" onclick="switchSlide(1)">【光軌】<br>實體藝術展品</button>
-                <button class="tab-btn" onclick="switchSlide(2)">【我在】<br>實體藝術展品</button>
-                <button class="tab-btn" onclick="switchSlide(3)">【生命樹】<br>數位空間</button>
-            </div>
-
-            <div class="carousel-wrapper-3d">
-                <div class="carousel-arrow arrow-left" onclick="moveSlide(-1)">&#10229;</div>
-                <div class="carousel-arrow arrow-right" onclick="moveSlide(1)">&#10230;</div>
-
-                <div class="carousel-container">
-                    <div class="carousel-track" id="carouselTrack">
-
-                        <div class="carousel-slide">
-                            <div class="slide-image-placeholder">
-                                <div class="totem-center-glow"></div>
-                                <span>[ GENERATIONAL LEGACY ]</span>
-                            </div>
-                            <div class="slide-intro">
-                                專為家族傳承打造。我們進行溫暖且深度的私人訪談，將長輩塵封的老照片與聲音影像梳理編織，
-                                化為可永久流傳的數位生命故事。
-                            </div>
-                        </div>
-                        <div class="carousel-slide">
-                            <div class="slide-image-placeholder"
-                                style="background-image: radial-gradient(circle at 50% 50%, rgba(51, 255, 170, 0.15), transparent 70%), linear-gradient(45deg, #091214 0%, #040406 100%);">
-                                <div class="totem-center-glow"
-                                    style="transform: rotate(0deg); width: 45px; height: 45px;"></div>
-                                <span>[ IDENTITY CACHE ]</span>
-                            </div>
-                            <div class="slide-intro">
-                                將生命數據實體化。將專屬生命代碼，轉譯為頂級幾何藝術品。
-                            </div>
-                        </div>
-                        <div class="carousel-slide">
-                            <div class="slide-image-placeholder"
-                                style="background-image: radial-gradient(circle at 30% 70%, rgba(112, 0, 255, 0.25), transparent 60%), linear-gradient(45deg, #070b19 0%, #050508 100%);">
-                                <div class="totem-center-glow" style="border-radius: 50%;"></div>
-                                <span>[ COMPANIONSHIP BOND ]</span>
-                            </div>
-                            <div class="slide-intro">
-                                專屬毛孩的生命視覺紀念。
-                                將愛寵的獨特數據凝練為實體美學展品，讓「我在」的溫暖承諾，在空間裡永恆定格。
-                            </div>
-                        </div>
-                        <div class="carousel-slide">
-                            <div class="slide-image-placeholder"
-                                style="background-image: radial-gradient(circle at 50% 50%, rgba(255, 252, 51, 0.15), transparent 70%), linear-gradient(45deg, #091214 0%, #040406 100%);">
-                                <div class="totem-center-glow"
-                                    style="transform: rotate(0deg); width: 45px; height: 45px;"></div>
-                                <span>[ IDENTITY CACHE ]</span>
-                            </div>
-                            <div class="slide-intro">
-                                家族共享的線上數位空間。
-                                打破時空限制，讓多位家族成員共同參與、攜手編織並封存彼此的溫暖記憶年輪。
-                            </div>
-                        </div>
-
-                    </div>
+            <section class="products-grid-section">
+                <div class="section-title-container">
+                    <h1>✦ 留住記憶</h1>
+                    <h4>我們提供多種數位封存與實體定製服務</h4>
                 </div>
-            </div>
+                <div class="matrix-products-grid">
+                    <div class="product-card">
+                        <div class="product-image-container">
+                            <img src="assets/images/p1-1.jpg" alt="樣式一" class="img-loop img-1">
+                            <img src="assets/images/p1-2.jpg" alt="樣式二" class="img-loop img-2">
+                            <img src="assets/images/p1-3.jpg" alt="樣式三" class="img-loop img-3">
+                        </div>
+                        <div class="product-meta">
+                            <h3>🎨《歲月書》數位/實體</h3>
+                            <p>專為傳承打造。我們進行溫暖且深度的私人訪談，將塵封的老照片與聲音影像梳理編織， 化為可永久流傳的數位生命故事。</p>
+                        </div>
+                    </div>
+
+                    <div class="product-card">
+                        <div class="product-image-container">
+                            <img src="assets/images/p2-1.jpg" alt="樣式一" class="img-loop img-1">
+                            <img src="assets/images/p2-2.jpg" alt="樣式二" class="img-loop img-2">
+                            <img src="assets/images/p2-3.jpg" alt="樣式三" class="img-loop img-3">
+                        </div>
+                        <div class="product-meta">
+                            <h3>🎨《光軌》數位/實體</h3>
+                            <p>將生命數據實體化。將專屬生命代碼，轉譯為頂級幾何藝術品。</p>
+                        </div>
+                    </div>
+
+                    <div class="product-card">
+                        <div class="product-image-container">
+                            <img src="assets/images/p3-1.jpg" alt="樣式一" class="img-loop img-1">
+                            <img src="assets/images/p3-2.jpg" alt="樣式二" class="img-loop img-2">
+                            <img src="assets/images/p3-3.jpg" alt="樣式三" class="img-loop img-3">
+                        </div>
+                        <div class="product-meta">
+                            <h3>🎨《我在》數位/實體</h3>
+                            <p>針對毛孩的生命視覺紀念。 將愛的陪伴凝練為實體美學展品，讓「我在」的溫暖承諾，在空間裡永恆定格。</p>
+                        </div>
+                    </div>
+
+                    <div class="product-card">
+                        <div class="product-image-container">
+                            <img src="assets/images/p4-1.jpg" alt="樣式一" class="img-loop img-1">
+                            <img src="assets/images/p4-2.jpg" alt="樣式二" class="img-loop img-2">
+                            <img src="assets/images/p4-3.jpg" alt="樣式三" class="img-loop img-3">
+                        </div>
+                        <div class="product-meta">
+                            <h3>🎨《生命樹》數位/實體</h3>
+                            <p>適合家族共享的線上數位空間。 打破時空限制，可讓多位家族成員共同參與、攜手編織並封存彼此的溫暖記憶年輪。</p>
+                        </div>
+                    </div>
+
+                </div>
+                <p>可直接選擇適合需求的方案與加值服務，或私人顧問級訂製，來為您定錨生命中最珍貴的記憶軌跡。</p>
+            </section>
+
         </div>
         <!--產品方案 / END -->
         <!--與我聯繫 -->
@@ -1039,7 +1086,7 @@
     <footer>
         <div class="footer-content">
             <div class="footer-brand">
-               <img src="assets/images/logo.png" alt="LIFE+ Logo" class="footer-logo">
+                <img src="assets/images/logo.png" alt="LIFE+ Legacy Matrix" class="footer-logo">
                 <p>記憶傳承 · 本我印記 · 時間流轉 · 座標元素</p>
                 <div class="social-icons">
                     <a href="https://www.facebook.com/LifeMatrixLab" target="_blank" class="icon-mock" title="Facebook">
@@ -1106,7 +1153,7 @@
             </div>
         </div>
         <div class="footer-bottom">
-            <div>&copy; 2026 LIFE System & XUEXUEni Studio. All Rights Reserved.</div>
+            <div>&copy; 2026 LIFE+ Legacy Matrix System & XUEXUEni Studio. All Rights Reserved.</div>
             <div class="footer-bottom-right">
                 <button class="lang-toggle-btn" onclick="switchLang()">EN</button>
                 <button class="btn-footer-science" onclick="downloadScienceReport()">
