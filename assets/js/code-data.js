@@ -306,7 +306,7 @@ function copyPrompt() {
 }
 
 // ── 權限系統 ──
-const MASTER_PW = 'LIFE+MASTER'; // 主用戶密碼，可自行修改
+const MASTER_PW = '0000'; // 主用戶密碼，可自行修改
 let isAdmin = false;
 
 function openAuthModal() {

@@ -1,4 +1,8 @@
 
+function downloadMatrix() {
+    document.querySelector('#booking').scrollIntoView({ behavior: 'smooth' });
+}
+
 // 1. 宇宙背景動態 Canvas 引擎（重構版：幾何年輪與生命漣漪）
 const canvas = document.getElementById('life-space-canvas');
 const ctx = canvas.getContext('2d');
@@ -202,6 +206,23 @@ function runExperience() {
     document.getElementById('result-text').innerHTML = `暨定主體 ── <strong>${name.toUpperCase()}</strong>，座標已定錨：<br><br>■ 五行屬性：${elements[seed % 5]}<br>■ 吠陀星宿：第 ${result.id} 星宿 ── ${result.name}<br>■ 幾何頻率：${result.desc}`;
 }
 
+// 🔗 一鍵複製當前網頁網址功能
+function copyCurrentUrl() {
+    const currentUrl = window.location.href;
+    navigator.clipboard.writeText(currentUrl).then(function() {
+        alert('網址已成功複製至剪貼簿');
+    }).catch(function(err) {
+        // 舊版瀏覽器相容備案
+        const textArea = document.createElement("textarea");
+        textArea.value = currentUrl;
+        document.body.appendChild(textArea);
+        textArea.select();
+        document.execCommand('copy');
+        document.body.removeChild(textArea);
+        alert('網址已成功複製至剪貼簿');
+    });
+}
+
 
 // ── 頂部動態文字副標題輪播排程 ──
 document.addEventListener("DOMContentLoaded", () => {
@@ -274,32 +295,6 @@ function closeMobileMenu() {
 }
 
 
-// ── 💡 頁面載入安全防護：檢查是否有來自報告按鈕的「預約捲動信號」 ──
-document.addEventListener("DOMContentLoaded", function () {
-    // 檢查瀏覽器暫存是否有發射過來的信號，或是網址結尾自帶 #booking
-    const hasScrollSignal = localStorage.getItem('trigger_scroll_to_booking');
-    const isBookingHash = window.location.hash === '#booking';
-
-    if (hasScrollSignal === 'true' || isBookingHash) {
-        // 清除信號，避免下次重新整理網頁時又自動捲動
-        localStorage.removeItem('trigger_scroll_to_booking');
-
-        // 延遲 400 毫秒執行，確保您的星空 Canvas 與主網頁 DOM 元素已經完全渲染對齊完畢
-        setTimeout(function () {
-            const bookingSection = document.getElementById('booking') ||
-                document.querySelector('.contact-section') ||
-                document.getElementById('contact');
-
-            if (bookingSection) {
-                bookingSection.scrollIntoView({
-                    behavior: 'smooth', // 👈 絲滑的極簡畫廊捲動感
-                    block: 'start'
-                });
-            }
-        }, 400);
-    }
-});
-
 // ── 核心原理區塊：QA 折疊控制 ──
 function toggleFaq(element) {
     // 如果點擊已打開的，就關閉它；如果點擊其他的，就打開它
@@ -318,9 +313,9 @@ function toggleFaq(element) {
 // ── 4. 終極優化：點擊後另開精緻預覽網頁，內嵌科學實證與下載功能 ──
 function downloadScienceReport() {
     // 💡 核心技術：建立包含完整美學排版與下載按鈕的獨立網頁字串
-    const scienceHtmlContent = `<!DOCTYPE html> 
-
-    <html lang="zh-TW">
+    const scienceHtmlContent = `
+<!DOCTYPE html> 
+<html lang="zh-TW">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -441,14 +436,6 @@ function downloadScienceReport() {
             text-align: center;
         }
 
-        /* 💡 新增：雙按鈕橫向排版與寬度安全防護 */
-        .btn-group-footer {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 16px;
-            flex-wrap: wrap; /* 手機端自動垂直疊放 */
-        }
         .btn-download-now, .btn-back-to-booking {
             display: inline-flex;
             align-items: center;
@@ -461,8 +448,10 @@ function downloadScienceReport() {
             letter-spacing: 1.5px;
             border-radius: 20px;
             cursor: pointer;
+            text-decoration: none !important; /* 👈 絕對消除 a 標籤預設的底線 */
             transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
             white-space: nowrap;
+            box-sizing: border-box;
         }
         .btn-download-now {
             border: 0.5px solid rgba(232, 234, 240, 0.3);
@@ -473,7 +462,6 @@ function downloadScienceReport() {
             color: #ffffff;
             box-shadow: 0 0 12px rgba(255,255,255,0.1);
         }
-        /* 專屬預約按鈕：釋放宇宙青藍光芒 */
         .btn-back-to-booking {
             border: 0.5px solid #00e5ff;
             color: #00e5ff;
@@ -482,7 +470,6 @@ function downloadScienceReport() {
             background: #00e5ff;
             color: #111420;
             box-shadow: 0 0 15px rgba(0,229,255,0.3);
-            font-weight: 400;
         }
 
     @media (max-width: 880px) {
@@ -492,7 +479,7 @@ function downloadScienceReport() {
 </head>
 <body>
     <div class="report-card">
-        <div class="header-logo">L I F E  +  M A T R I X</div>
+        <div class="header-logo">LIFE+ Legacy Matrix</div>
         <div class="title">LIFE+ 記憶與療癒系統計畫科學實證</div>
         <div class="subtitle">設計學、神經科學與大腦健康之實證學術摘要</div>
         
@@ -540,45 +527,19 @@ function downloadScienceReport() {
                     儲存或列印報告
                 </button>
                 
-                <button class="btn-back-to-booking" onclick="scrollToParentBooking()">
+                <a href="https://xuexue-ni.github.io/LIFE-LM/#booking" target="_top" class="btn-back-to-booking">
                     前往專屬預約
                     <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
-                </button>
+                </a>
             </div>
             
             <div class="footer-note">
-                © 2026 LIFE System & XUEXUEni Studio. All Rights Reserved.<br>
+                © 2026 LIFE+ Legacy Matrix System & XUEXUEni Studio. All Rights Reserved.<br>
                 本實證基於神經美學與認知心理學框架推演。
             </div>
         </div>
-
-        <script>
-            function scrollToParentBooking() {
-                // 1. 在使用者的瀏覽器暫存中，寫入一個需要自動捲動到預約區的「幾何信號」
-                try {
-                    localStorage.setItem('trigger_scroll_to_booking', 'true');
-                } catch(e) {
-                    // 防護極端隱私模式
-                }
-
-                // 2. 優先檢查母視窗，如果母視窗還在，直接通知它導向預約區
-                if (window.opener && !window.opener.closed) {
-                    try {
-                        window.opener.location.href = 'https://xuexue-ni.github.io/LIFE-LM/#booking';
-                        window.opener.focus();
-                        window.close();
-                        return; // 成功觸發即中斷
-                    } catch (err) {
-                        // 萬一跨網域安全限制阻擋，則順流進入下方的直接跳轉邏輯
-                    }
-                }
-
-                // 3. 終極絕招（100% 成功）：直接在當前視窗載入主網頁並帶入預約錨點
-                // 這樣不論任何瀏覽器限制，都絕對能在同一個分頁無縫開啟主網頁並對準欄位
-                window.location.href = 'https://xuexue-ni.github.io/LIFE-LM/#booking';
-            }
-        </script>
     </div>
+    
 </body>
 </html>`;
 
