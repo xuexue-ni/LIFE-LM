@@ -48,10 +48,7 @@ nav {
 }
 
 //* ==========================================================================
-   🖼️ 左上角圖片 Logo 樣式優化
-   ========================================================================== */
-
-.logo-link-top {
+🖼️ 左上角圖片 Logo 樣式優化==========================================================================*/ .logo-link-top {
   text-decoration: none !important;
   background: transparent !important;
   display: inline-block;
@@ -66,7 +63,8 @@ nav {
 /* 💡 控制 Logo 圖片的寬度與高度 */
 .logo-img {
   width: auto;
-  height: 36px; /* 👈 依據您的設計體感，自由微調高度（建議 24px - 40px 之間） */
+  height: 30px;
+  /* 👈 依據您的設計體感，自由微調高度（建議 24px - 40px 之間） */
   display: block;
   transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1);
 }
@@ -74,13 +72,15 @@ nav {
 /* Hover 觸發時：圖片微亮或產生微弱光暈 */
 .logo-link-top:hover .logo-img {
   opacity: 0.7;
-  filter: drop-shadow(0 0 8px rgb(0, 247, 255)); /* 霓虹青藍光暈 */
+  filter: drop-shadow(0 0 8px rgb(0, 247, 255));
+  /* 霓虹青藍光暈 */
 }
 
 /* 📱 手機端自動微調尺寸 */
 @media (max-width: 768px) {
   .logo-img {
-    height: 28px; /* 👈 手機端稍微縮小，確保不擠壓導覽列 */
+    height: 28px;
+    /* 👈 手機端稍微縮小，確保不擠壓導覽列 */
   }
 }
 
@@ -93,6 +93,7 @@ nav {
   transition: 0.3s;
   font-weight: 300;
 }
+
 .nav-links a:hover {
   color: #00e5ff;
   text-shadow: 0 0 8px rgba(0, 229, 255, 0.6);
@@ -106,11 +107,12 @@ nav {
 .desktop-social-sidebar {
   position: fixed;
   right: 24px;
-  top: 50%; /* 💡 垂直居中定位：與右下角 Top 鍵完全錯開，互不干涉 */
+  top: 50%;
+  /* 💡 垂直居中定位：與右下角 Top 鍵完全錯開，互不干涉 */
   transform: translateY(-50%);
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 20px;
   z-index: 999;
 }
 
@@ -140,23 +142,25 @@ nav {
 
 /* ── 📱 2. 手機版隱藏機制與選單內部排版防護 ── */
 .mobile-menu-social-footer {
-  display: none; /* 平時在桌面端完全隱藏 */
+  display: none;
+  /* 平時在桌面端完全隱藏 */
 }
 
 /* ── 🛠️ 3. RWD 響應式中斷點（手機端 768px 以下自動切換） ── */
 @media (max-width: 768px) {
-  
+
   /* 🚫 隱藏桌機版側邊欄 */
   .desktop-social-sidebar {
     display: none !important;
   }
-  
+
   /* 📐 修正手機三明治選單容器：改為垂直置中軸線，防止按鈕與✕跑版 */
   .mobile-menu {
     display: flex !important;
     flex-direction: column !important;
     align-items: center !important;
-    justify-content: center !important; /* 讓所有選單內容在手機螢幕內完美垂直居中 */
+    justify-content: center !important;
+    /* 讓所有選單內容在手機螢幕內完美垂直居中 */
     box-sizing: border-box;
   }
 
@@ -165,12 +169,13 @@ nav {
     display: flex !important;
     flex-direction: column !important;
     align-items: center !important;
-    gap: 24px; /* 控制各個選單文字之間的幾何間距 */
+    gap: 24px;
+    /* 控制各個選單文字之間的幾何間距 */
     width: 100%;
   }
 
   /* 🎯 手機版社群分享列：精準定位於「專屬預約」正下方 ── */
-    .mobile-menu-social-footer {
+  .mobile-menu-social-footer {
     display: flex !important;
     flex-direction: column;
     align-items: center !important;
@@ -208,7 +213,73 @@ nav {
     color: #00e5ff;
     box-shadow: 0 0 12px rgba(0, 229, 255, 0.25);
   }
-  }
+}
+
+/**五行大腦*/
+.share-icon-quiz {
+  position: relative;
+  display: flex;
+  width: 34px;
+  height: 120px;
+  border: 0.5px solid rgba(232, 234, 240, 0.1);
+  background: #111420;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  border-radius: 20px;
+  background: #111420;
+  color: #d4c4ae;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+  padding:0 2px 0 0;
+  writing-mode: vertical-rl; /* 直排 */
+  font-size:1rem;
+}
+
+/* 文字型 Icon 的字體風格 */
+.icon-txt {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: .75rem;
+  font-weight:500;
+  color: #a3a3a3;
+  /* 平時低調 */
+  letter-spacing: 0.3em;
+}
+
+/* Hover 時的微互動：外框變亮、文字變白 */
+.share-icon-quiz:hover {
+  border-color: #00e5ff;
+}
+
+.share-icon-quiz:hover .icon-txt {
+  color: #00e5ff;
+}
+
+/* 🧠 小遊戲分享：利用偽元素做出高質感的 Hover 提示字 */
+.share-icon-quiz::after {
+  content: attr(data-tooltip);
+  position: absolute;
+  right: 36px;
+  /* 根據您的側邊欄位置調整 (左側或右側) */
+  white-space: nowrap;
+  background: #000;
+  color: #fff;
+  border: 1px solid #333;
+  font-size: 0.75rem;
+  padding: 6px 6px;
+  letter-spacing: 0.1em;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s ease;
+  transform: translateX(10px);
+  /* 輕微滑出效果 */
+}
+
+.share-icon-quiz:hover::after {
+  opacity: 1;
+  visibility: visible;
+  transform: translateX(0);
+}
 
 /* ── 主容器 ── */
 .content-container {
@@ -343,7 +414,10 @@ p.desc {
   margin-bottom: 30px;
 }
 
-.origin-p{text-align: left;}
+.origin-p {
+  text-align: left;
+}
+
 .intro-section {}
 
 /* ==========================================================================
@@ -580,27 +654,40 @@ li {
 
 /* ── 輪播 ── */
 .slide-video-wrap {
-    height: 0; padding-bottom: 56.25%; position: relative;
+  height: 0;
+  padding-bottom: 56.25%;
+  position: relative;
 }
+
 .slide-video {
-    position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover;
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
+
 .slide-label {
-    position: absolute;
-    bottom: 20px;
-    left: 20px;
-    font-weight: 200;
-    font-size: 0.75rem;
-    letter-spacing: 5px;
-    color: rgba(255,255,255,0.4);
-    text-transform: uppercase;
-    pointer-events: none;
+  position: absolute;
+  bottom: 20px;
+  left: 20px;
+  font-weight: 200;
+  font-size: 0.75rem;
+  letter-spacing: 5px;
+  color: rgba(255, 255, 255, 0.4);
+  text-transform: uppercase;
+  pointer-events: none;
 }
+
 .carousel-container {
-    overflow: hidden; /* 加這行 */
+  overflow: hidden;
+  /* 加這行 */
 }
+
 @media (max-width: 600px) {
-    .slide-video-wrap { height: 200px; }
+  .slide-video-wrap {
+    height: 200px;
+  }
 }
 
 /* ==========================================================================
@@ -623,7 +710,8 @@ li {
 /* 桌機端： 4x1   */
 matrix-products-grid {
   display: grid;
-  grid-template-columns: repeat(4, 100vw); /* 👈 電腦端4格整齊並排 */
+  grid-template-columns: repeat(4, 100vw);
+  /* 👈 電腦端4格整齊並排 */
   grid-template-columns: repeat(4, 1fr);
   gap: 20px;
 }
@@ -631,7 +719,8 @@ matrix-products-grid {
 /*桌機端：嚴格死守 2x2 幾何矩陣 */
 .matrix-products-grid {
   display: grid;
-  grid-template-columns: repeat(2, 1fr); /* 💡 
+  grid-template-columns: repeat(2, 1fr);
+  /* 💡 
   gap: 30px; /* 稍微拉大格子間距，營造畫廊展演的空間呼吸感 */
 }
 
@@ -648,7 +737,8 @@ matrix-products-grid {
 .product-image-container {
   position: relative;
   width: 100%;
-  aspect-ratio: 1 / 1; /* 👈 嚴格死守 1:1 正方形幾何 */
+  aspect-ratio: 1 / 1;
+  /* 👈 嚴格死守 1:1 正方形幾何 */
   background: #0A0C12;
   overflow: hidden;
 }
@@ -664,7 +754,8 @@ matrix-products-grid {
 }
 
 .img-overlay {
-  opacity: 0; /* 👈 平時第二張客製樣式隱藏 */
+  opacity: 0;
+  /* 👈 平時第二張客製樣式隱藏 */
 }
 
 /* 💡 3張圖片絕對定位重疊 */
@@ -676,7 +767,7 @@ matrix-products-grid {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  opacity: 0; 
+  opacity: 0;
   transition: opacity 0.5s ease;
 }
 
@@ -687,29 +778,78 @@ matrix-products-grid {
 
 /* ✨ 不需要 Hover，網頁載入後直接啟動「全自動時空循環」 */
 /* 故意錯開各個品項的啟動時間，讓畫面看起來更自然、像有機體一樣在呼吸 */
-.matrix-products-grid .product-card:nth-child(1) .img-1 { animation: autoImageLoop 9s infinite; }
-.matrix-products-grid .product-card:nth-child(1) .img-2 { animation: autoImageLoop 9s infinite 3s; }
-.matrix-products-grid .product-card:nth-child(1) .img-3 { animation: autoImageLoop 9s infinite 6s; }
+.matrix-products-grid .product-card:nth-child(1) .img-1 {
+  animation: autoImageLoop 9s infinite;
+}
 
-.matrix-products-grid .product-card:nth-child(2) .img-1 { animation: autoImageLoop 9s infinite 1s; }
-.matrix-products-grid .product-card:nth-child(2) .img-2 { animation: autoImageLoop 9s infinite 4s; }
-.matrix-products-grid .product-card:nth-child(2) .img-3 { animation: autoImageLoop 9s infinite 7s; }
+.matrix-products-grid .product-card:nth-child(1) .img-2 {
+  animation: autoImageLoop 9s infinite 3s;
+}
 
-.matrix-products-grid .product-card:nth-child(3) .img-1 { animation: autoImageLoop 9s infinite 2s; }
-.matrix-products-grid .product-card:nth-child(3) .img-2 { animation: autoImageLoop 9s infinite 5s; }
-.matrix-products-grid .product-card:nth-child(3) .img-3 { animation: autoImageLoop 9s infinite 8s; }
+.matrix-products-grid .product-card:nth-child(1) .img-3 {
+  animation: autoImageLoop 9s infinite 6s;
+}
 
-.matrix-products-grid .product-card:nth-child(4) .img-1 { animation: autoImageLoop 9s infinite 0.5s; }
-.matrix-products-grid .product-card:nth-child(4) .img-2 { animation: autoImageLoop 9s infinite 3.5s; }
-.matrix-products-grid .product-card:nth-child(4) .img-3 { animation: autoImageLoop 9s infinite 6.5s; }
+.matrix-products-grid .product-card:nth-child(2) .img-1 {
+  animation: autoImageLoop 9s infinite 1s;
+}
+
+.matrix-products-grid .product-card:nth-child(2) .img-2 {
+  animation: autoImageLoop 9s infinite 4s;
+}
+
+.matrix-products-grid .product-card:nth-child(2) .img-3 {
+  animation: autoImageLoop 9s infinite 7s;
+}
+
+.matrix-products-grid .product-card:nth-child(3) .img-1 {
+  animation: autoImageLoop 9s infinite 2s;
+}
+
+.matrix-products-grid .product-card:nth-child(3) .img-2 {
+  animation: autoImageLoop 9s infinite 5s;
+}
+
+.matrix-products-grid .product-card:nth-child(3) .img-3 {
+  animation: autoImageLoop 9s infinite 8s;
+}
+
+.matrix-products-grid .product-card:nth-child(4) .img-1 {
+  animation: autoImageLoop 9s infinite 0.5s;
+}
+
+.matrix-products-grid .product-card:nth-child(4) .img-2 {
+  animation: autoImageLoop 9s infinite 3.5s;
+}
+
+.matrix-products-grid .product-card:nth-child(4) .img-3 {
+  animation: autoImageLoop 9s infinite 6.5s;
+}
 
 /* 🧱 全自動 9 秒循環動態參數（每張圖完整展示 3 秒，含流暢淡入淡出） */
 @keyframes autoImageLoop {
-  0% { opacity: 0; }
-  5% { opacity: 1; }   /* 淡入 */
-  33% { opacity: 1; }  /* 靜止欣賞 */
-  38% { opacity: 0; }  /* 淡出 */
-  100% { opacity: 0; }
+  0% {
+    opacity: 0;
+  }
+
+  5% {
+    opacity: 1;
+  }
+
+  /* 淡入 */
+  33% {
+    opacity: 1;
+  }
+
+  /* 靜止欣賞 */
+  38% {
+    opacity: 0;
+  }
+
+  /* 淡出 */
+  100% {
+    opacity: 0;
+  }
 }
 
 /* 🎯 保留外框 Hover 回饋：滑鼠移上去時，卡片外框依然會亮起青藍光芒 */
@@ -731,7 +871,8 @@ matrix-products-grid {
 }
 
 .product-meta p {
-  font-size: 12px !important; /* 👈 嚴格死守 12px 適讀底線 */
+  font-size: 12px !important;
+  /* 👈 嚴格死守 12px 適讀底線 */
   color: #8A90A8;
   line-height: 1.6;
   margin: 0;
@@ -740,16 +881,18 @@ matrix-products-grid {
 /* 📱 手機端 RWD 安全防護防爆艙 */
 @media (max-width: 992px) {
   .matrix-products-grid {
-    grid-template-columns: repeat(2, 1fr); /* 中等螢幕變 2x2 */
+    grid-template-columns: repeat(2, 1fr);
+    /* 中等螢幕變 2x2 */
   }
 }
 
 @media (max-width: 768px) {
   .matrix-products-grid {
-    grid-template-columns: 1fr; /* 👈 手機端單行垂直流暢直落 */
+    grid-template-columns: 1fr;
+    /* 👈 手機端單行垂直流暢直落 */
     gap: 16px;
   }
-  
+
   /* 配合您剛剛的指令：手機端 border 強制鎖定 1px */
   .product-card {
     border-width: 1px !important;
@@ -997,9 +1140,9 @@ footer {
   width: 100%;
   background: rgba(4, 4, 6, 0.95);
   border-top: 0.5px solid rgba(255, 255, 255, 0.08);
-  padding: 50px 40px 30px;
+  padding: 30px 40px;
   font-weight: 300;
-  font-size: 0.875rem;
+  font-size: 0.75rem;
   letter-spacing: 1.5px;
   color: #888892;
 }
@@ -1016,7 +1159,7 @@ footer {
 .footer-brand h4 {
   color: #e8eaf0;
   font-weight: 300;
-  font-size: 1.1rem;
+  font-size: 1rem;
   margin: 0 0 15px;
   letter-spacing: 4px;
 }
@@ -1024,14 +1167,14 @@ footer {
 .footer-links h5 {
   color: #c0c0c8;
   font-weight: 400;
-  margin: 0 0 15px;
+  margin: 0 0 12px;
   letter-spacing: 2px;
 }
 
 .footer-links p {
-  margin: 8px 0;
+  margin: 6px 0;
   line-height: 1.8;
-  font-size: 0.875rem;
+  font-size: 0.75rem;
 }
 
 .footer-links a {
@@ -1044,20 +1187,21 @@ footer {
   color: #00e5ff;
 }
 
-.footer-logo{
-  width: 290px;
+.footer-logo {
+  width: 220px;
   height: auto;
+  margin-bottom: 4px;
 }
 
 .social-icons {
   display: flex;
-  gap: 15px;
-  margin-top: 12px;
+  gap: 18px;
+  margin-top: 10px;
 }
 
 .icon-mock {
-  width: 28px;
-  height: 28px;
+  width: 25px;
+  height: 25px;
   border: 0.5px solid rgba(255, 255, 255, 0.2);
   display: flex;
   align-items: center;
@@ -1075,17 +1219,18 @@ footer {
 
 .footer-bottom {
   max-width: 1000px;
-  margin: 1cqmax auto;
+  margin: 12px auto;
   border-top: 0.5px solid rgba(255, 255, 255, 0.05);
   padding-top: 20px;
   display: flex;
   justify-content: space-between;
-  font-size: 0.8rem;
+  font-size: 0.75rem;
 }
+
 /* ── Lang toggle button ── */
 .lang-toggle-btn {
   background: #1b1b29;
-  border: 0.5px solid rgba(255,255,255,0.25);
+  border: 0.5px solid rgba(255, 255, 255, 0.25);
   color: #aaa;
   font-size: 12px;
   letter-spacing: 2px;
@@ -1097,7 +1242,11 @@ footer {
   white-space: nowrap;
   margin-right: 20px;
 }
-.lang-toggle-btn:hover { border-color: #00e5ff; color: #00e5ff; }
+
+.lang-toggle-btn:hover {
+  border-color: #00e5ff;
+  color: #00e5ff;
+}
 
 //* ==========================================================================
 🔬 頁尾：標準幾何下載按鈕（嚴格防撐破、死守 12px 易讀線）==========================================================================*/ .footer-bottom {
@@ -1274,17 +1423,18 @@ footer {
 
 @media (max-width: 768px) {
   .section-card {
-  width: 100%;
-  padding: clamp(24px, 5vw, 60px) clamp(16px, 4vw, 40px);
-  margin-bottom: clamp(24px, 4vw, 60px);
-  background: rgba(10, 10, 15, 0.75);
-  border: 0;
-  backdrop-filter: blur(12px);
-  border-radius: 4px;
-  box-shadow: 0 40px 100px rgba(0, 0, 0, 0.6);
-  text-align: center;
-  box-sizing: border-box;
-}
+    width: 100%;
+    padding: clamp(24px, 5vw, 60px) clamp(16px, 4vw, 40px);
+    margin-bottom: clamp(24px, 4vw, 60px);
+    background: rgba(10, 10, 15, 0.75);
+    border: 0;
+    backdrop-filter: blur(12px);
+    border-radius: 4px;
+    box-shadow: 0 40px 100px rgba(0, 0, 0, 0.6);
+    text-align: center;
+    box-sizing: border-box;
+  }
+
   .section-card h1 {
     font-size: 1.5rem;
   }

@@ -1,0 +1,724 @@
+/* ==========================================================================
+   LIFE+ 檢測艙全域黑白極簡美學核心樣式
+   ========================================================================== */
+
+:root {
+    --bg-color: #0a0a0a;
+    --card-bg: #0a0a11;
+    --text-main: #ffffff;
+    --text-muted: #afafaf;
+    --border-color: #222435;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-color: var(--bg-color);
+    color: var(--text-main);
+    font-family: 'Space Grotesk', 'Noto Serif TC', serif;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+
+/* 幾何點陣背景底紋 */
+body::before {
+    content: "";
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: linear-gradient(rgba(255,255,255,0.01) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255,255,255,0.01) 1px, transparent 1px);
+    background-size: 30px 30px;
+    z-index: -1;
+}
+
+.container {
+    width: 100%;
+    max-width: 640px;
+    text-align: center;
+    margin-top: 200px;
+    margin-bottom: 60px;
+    position: relative;
+    display: block;
+}
+
+.brand-title {
+    font-size: 1.6rem;
+    letter-spacing: 2px;
+    margin-bottom: 5px;
+    font-weight: 800;
+    color: #3f93ff;
+}
+
+.brand-subtitle {
+    font-size: 0.75rem;
+    color:var(--text--muted);
+    letter-spacing: 0.15em;
+    margin-bottom: 30px;
+}
+
+/* --- 輸入艙卡片樣式 --- */
+.quiz-card {
+    width: 480px;
+    margin: 0 auto;
+    background-color: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 10px;
+    padding: 35px 30px;
+    text-align: center;
+}
+
+.section-desc {
+    font-size: 0.85rem;
+    color: var(--text--muted);
+    margin-bottom: 25px;
+    line-height: 1.6;
+    text-align: center;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+label {
+    display: block;
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    margin-bottom: 8px;
+    letter-spacing: 0.1em;
+}
+
+.input-row {
+    display: flex;
+    gap: 10px;
+}
+
+input[type="text"] {
+    width: 100%;
+    background: #181818;
+    border: 1px solid var(--border-color);
+    color: #fff;
+    padding: 12px;
+    font-size: 0.85rem;
+    outline: none;
+}
+
+select {
+    flex: 1;
+    background: #181818;
+    border: 1px solid var(--border-color);
+    color: #fff;
+    padding: 12px;
+    font-size: 0.85rem;
+    outline: none;
+    font-family: 'Space Grotesk', sans-serif;
+}
+
+input[type="text"]:focus, select:focus {
+    border-color: #888;
+}
+
+.submit-btn {
+    width: 100%;
+    background: #050505;
+    color: #ffffff;
+    border: 1px solid rgb(0, 140, 255);
+    padding: 15px;
+    font-weight: 700;
+    font-size: 0.95rem;
+    cursor: pointer;
+    letter-spacing: 0.2em;
+    margin-top: 10px;
+    transition: background 0.2s;
+    border-radius: 30px; cursor: pointer;
+}
+
+.submit-btn:hover {
+     background-color: #3f93ff;
+     color:rgb(0, 0, 0);
+}
+
+/* --- 結果報告字卡主體 --- */
+#result-container
+{width: 100%;
+    height: auto;
+    padding: 50px;
+    margin-top: 320px;
+    position: relative;
+    display: flex;
+    border-radius: 12px;
+}
+.report-card {
+    width: 100%;
+    padding: 30px 40px;
+    margin-top: 200px;
+    background-color: #000000;
+    border: 1px solid #ffffff;
+    border-radius: 4px;
+    text-align: left;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    overflow: hidden;
+    z-index: 5;
+}
+
+.report-header {
+    border-bottom: 1px solid #222;
+    padding-bottom: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+
+.report-tag {
+    font-size: 1rem;
+    letter-spacing: 0.15em;
+    color: var(--text-muted);
+    text-transform: uppercase;
+}
+
+.report-title {
+    font-size: 1.25rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    margin-top: 4px;
+}
+
+.report-subtitle {
+    font-size: 0.75rem;
+    color: #666;
+    font-family: 'Space Grotesk', sans-serif;
+    margin-top: 2px;
+}
+
+.report-body {
+    flex-grow: 1;
+    margin-top: 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.image-placeholder-zone {
+    width: 70%;
+    height:auto;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    background: linear-gradient(45deg, #050505 25%, transparent 25%), 
+                linear-gradient(-45deg, #050505 25%, transparent 25%);
+    background-size: 20px 20px;
+}
+.image-placeholder-zone img{}
+
+.image-placeholder-zone .inner-gfx {
+    font-size: 0.7rem;
+    color: #444;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    text-align: center;
+    line-height: 1.5;
+}
+
+.matrix-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 2px;
+}
+
+.matrix-table th, .matrix-table td {
+    border: 1px solid #222;
+    padding: 4px;
+    text-align: center;
+    font-size: 0.75rem;
+}
+
+.matrix-table th {
+    color: var(--text-muted);
+    font-weight: 400;
+    font-size: 0.75rem;
+    letter-spacing: 0.1em;
+}
+
+.matrix-td-gan {
+    font-weight: 700;
+    font-size: 0.85rem;
+    color: #fff;
+}
+
+.matrix-td-element {
+    font-size: 0.75rem;
+    color: #a3a3a3;
+}
+
+.energy-bar-container {
+    display: flex;
+    width: 100%;
+    height: 6px;
+    background: #222;
+    margin-top: 6px;
+    border-radius: 2px;
+    overflow: hidden;
+}
+
+.energy-segment {
+    height: 100%;
+}
+
+.energy-labels {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 4px;
+    font-size: 0.75rem;
+    color: #888;
+    font-family: 'Space Grotesk', sans-serif;
+}
+
+.section-title {
+    font-size: 1rem;
+    color: #fff;
+    background: #1a1a1a;
+    display: inline-block;
+    padding: 2px 6px;
+    letter-spacing: 0.1em;
+    margin-top: 6px;
+    margin-bottom: 4px;
+    font-weight: 700;
+}
+
+.section-content {
+    font-size: 0.85rem;
+    line-height: 1.6;
+    color: #bbbbbb;
+    text-align: justify;
+}
+
+.match-box {
+    display: flex;
+    gap: 15px;
+    border-top: 1px dashed #222;
+    padding: 10px 0;
+}
+.match-item {
+    flex: 1;
+    font-size: 1rem;
+}
+.match-label {
+    font-size: 1rem;
+    color: var(--text-muted);
+    margin-bottom: 2px;
+}
+.report-footer {
+    border-top: 1px solid #222;
+    padding-top: 8px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+}
+.footer-logo {
+    font-weight: 700;
+    font-size: 0.8rem;
+    letter-spacing: 0.15em;
+    line-height: 1.2;
+}
+.footer-logo span {
+    color: var(--text-muted);
+    font-size: 0.5rem;
+    display: block;
+    margin-top: 1px;
+    letter-spacing: 0.05em;
+}
+.footer-qr-mock {
+    width: 32px;
+    height: 32px;
+    border: 1px solid #333;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.3rem;
+    color: #555;
+    text-align: center;
+    line-height: 1.1;
+}
+/* --- 按鈕操作區控制 --- */
+.action-area {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 100%;
+}
+
+.action-btn {
+    background-color: transparent;
+    color: var(--text-main);
+    border: 1px solid var(--border-color);
+    padding: 14px;
+    font-weight: 700;
+    cursor: pointer;
+    font-size: 0.9rem;
+    letter-spacing: 0.1em;
+    transition: all 0.3s;
+    border-radius: 30px;
+}
+
+.action-btn:hover {
+    border-color: #888;
+}
+/*分享按鈕*/
+.action-btn-text { display: flex; flex-direction: column; justify-content: center;}
+.action-btn-text span{ float: left}
+.action-icon {
+  font-size: 1.125rem; flex-shrink: 0;
+  width: 36px; height: 36px;
+  display: flex; align-items: center; justify-content: center;
+  border-radius: 8px; line-height: 1;
+}
+.action-label { display: block; font-size: 0.9rem; letter-spacing: 2px; font-weight: 500; line-height: 1.2; margin-bottom: 3px; color: inherit; }
+.action-sub   { display: block; font-size: 0.75rem; letter-spacing: 1px; opacity: .7; font-family: 'DM Mono', monospace; }
+
+.action-share   { border: 0.5px solid rgba(51,255,170,0.4); 
+  background: linear-gradient(135deg,rgba(51,255,170,0.08),rgba(0,229,255,0.05)); 
+  color: #ffffff; }
+.action-share .action-icon { background: rgba(51,255,170,0.1); }
+.action-share:hover { border-color: rgba(51,255,170,0.7); background: linear-gradient(135deg,rgba(51,255,170,0.15),rgba(0,229,255,0.1)); box-shadow: 0 0 24px rgba(51,255,170,0.15); transform: translateY(-1px); }
+
+.action-download { border: 0.5px solid rgba(108,142,255,0.4); background: linear-gradient(135deg,rgba(108,142,255,0.1),rgba(155,127,255,0.06)); color: var(--star); }
+.action-download .action-icon { background: rgba(108,142,255,0.12); }
+.action-download:hover { border-color: rgba(108,142,255,0.7); box-shadow: 0 0 24px rgba(108,142,255,0.2); transform: translateY(-1px); }
+
+.action-book     { border: 0.5px solid rgba(201,100,80,0.4); background: linear-gradient(135deg,rgba(201,100,80,0.1),rgba(255,150,100,0.05)); color: #ffaa88; }
+.action-book .action-icon { background: rgba(201,100,80,0.12); }
+.action-book:hover { border-color: rgba(201,100,80,0.7); box-shadow: 0 0 24px rgba(201,100,80,0.2); transform: translateY(-1px); }
+
+
+/* 基礎按鈕防禦與外觀 */
+.btn-action {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 14px 20px;
+    font-family: 'Noto Serif TC', serif;
+    font-size: 14px;
+    font-weight: 700;
+    cursor: pointer;
+    background: transparent;
+    transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+    box-sizing: border-box;
+    letter-spacing: 0.5px;
+}
+
+/* 複製報告按鈕（低調冷白線條） */
+.btn-copy {
+    color: #cccccc;
+    border: 1px solid #333333;
+}
+.btn-copy:hover {
+    color: #ffffff;
+    border-color: #666666;
+    background: rgba(255, 255, 255, 0.03);
+}
+
+/* 下載卡片按鈕（高亮實心白色，突顯主要操作） */
+.btn-download {
+    color: #000000;
+    background: #ffffff;
+    border: 1px solid #ffffff;
+}
+.btn-download:hover {
+    background: #e5e5e5;
+    border-color: #e5e5e5;
+    box-shadow: 0 0 15px rgba(255, 255, 255, 0.2);
+}
+
+/* 按鈕內 SVG 圖示約束 */
+.btn-icon {
+    width: 16px;
+    height: 16px;
+}
+
+/* 📱 響應式：手機版改為垂直雙層按鈕，避免字擠在一起 */
+@media (max-width: 600px) {
+    .result-action-panel {
+        flex-direction: column;
+        gap: 12px;
+    }
+    .btn-action {
+        width: 100%;
+    }
+}
+
+/* 提示標籤樣式 */
+.alert-toast {
+    position: fixed;
+    bottom: 30px;
+    background: #fff;
+    color: #000;
+    padding: 10px 20px;
+    font-size: 0.8rem;
+    display: none;
+    font-weight: 700;
+    z-index: 2000;
+}
+
+/* ==========================================================================
+   方案一：底部摺疊總表卡片專屬樣式
+   ========================================================================== */
+//* ===================================================
+   LIFE+ 五行圖譜卡片「內部左右圖文並排」全新重構樣式
+   =================================================== */
+
+/* 修正總表區塊的基礎樣式 */
+.matrix-collapse-zone {
+    display: none; 
+    margin-top: 40px; 
+    border-top: 1px solid #222; 
+    padding-top: 30px; 
+    text-align: left;
+    max-height: 0;           /* 預設高度為 0 (隱藏) */
+    overflow: hidden;        /* 超出部分隱藏 */
+    opacity: 0;              /* 預設透明度為 0 */
+    transition: max-height 0.5s ease-in-out, opacity 0.4s ease-in-out; /* 流暢的過渡動畫 */
+}
+
+/* 當被激活展開時的樣式 */
+.matrix-collapse-zone.active {
+    max-height: 2000px;      /* 給予一個足夠容納內容的最大高度 */
+    opacity: 1;              /* 恢復不透明 */
+    margin-top: 20px;        /* 可根據畫面視覺自行調整間距 */
+}
+
+/* 1. 矩陣網格主容器：因為卡片變寬，桌機版適合調整為 1欄 或 2欄 的並排 */
+.matrix-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(480px, 1fr)); /* 提升最低寬度，防範文字被擠扁 */
+    gap: 28px;
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 14px;
+    box-sizing: border-box;
+}
+
+/* 2. 基礎細胞艙（Cell）外殼 */
+.matrix-cell {
+    background: rgba(10, 10, 10, 0.85);
+    border: 1px solid #444444;
+    padding: 20px;
+    position: relative;
+    transition: all 0.35s cubic-bezier(0.25, 1, 0.5, 1);
+    box-sizing: border-box; 
+    margin-bottom: 10px;
+}
+
+/* 3. 左右分艙主包裹器 */
+.cell-split-wrapper {
+    display: flex;
+    gap: 16px; /* 左右欄的呼吸間距 */
+    align-items: flex-start; /* 頂部對齊 */
+    width: 100%;
+    box-sizing: border-box;
+}
+
+/* 🎯 【左側艙】：強行扣押 40% 的物理寬度，不允許收縮 */
+.cell-left-image {
+    flex: 0 0 40%;
+    width: 44%;
+    box-sizing: border-box;
+}
+
+/* 幾何約束：強制將圖片容器鎖定為「絕對正方形」 */
+.cell-image-placeholder {
+    width: 100%;
+    aspect-ratio: 1 / 1; /* 1:1 黃金比例 */
+    background: #030303;
+    border: 1px solid #1a1a1a;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* 圖片物理防禦：填滿且不扭曲變形 */
+.cell-image-placeholder img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain; /* 若想裁切填滿正方形可改用 cover */
+    display: block;
+}
+
+/* 🎯 【右側艙】：佔用剩下 60% 的文字解說空間 */
+.cell-right-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+}
+
+/* 4. 內部文字細節樣式排版 */
+.cell-tag {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 10px;
+    color: #555;
+    letter-spacing: 1px;
+    margin-bottom: 12px;
+}
+
+.cell-title-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    border-bottom: 1px solid #1a1a1a;
+    padding-bottom: 8px;
+    margin-bottom: 16px;
+}
+
+.cell-main-name {
+    font-family: 'Noto Serif TC', serif;
+    font-size: 16px;
+    font-weight: 700;
+    color: #ffffff;
+}
+
+.cell-element-label {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 10px;
+    color: #777;
+    background: rgba(255, 255, 255, 0.02);
+    padding: 1px 6px;
+    border: 1px solid #202020;
+}
+
+.cell-section {
+    margin-bottom: 14px;
+}
+.cell-section:last-child {
+    margin-bottom: 0;
+}
+
+.cell-section-title {
+    font-family: 'Noto Serif TC', serif;
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: #7da5a3;
+    margin-bottom: 3px;
+}
+.cell-section-title::before {
+    content: "■ ";
+    font-size: 7px;
+    color: #333;
+    margin-right: 4px;
+}
+
+.cell-section-content {
+    font-size: 0.875rem;
+    line-height: 1.4;
+    color: #b4b4b4;
+    text-align: justify;
+}
+
+/* 5. 當該卡片被 JS 判定為「主屬性高亮」時的激活態樣式外觀 */
+.matrix-cell.highlight-active {
+    border-color: #ffffff;
+    background: rgba(18, 18, 18, 0.98);
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.12);
+}
+.matrix-cell.highlight-active .cell-section-content {
+    color: #cccccc;
+}
+.matrix-cell.highlight-active .cell-section-title::before {
+    color: #fff;
+}
+
+/* 📱 響應式 RWD 斷點微調：當螢幕小於 600px 時（例如手機），自動取消左右並排、還原為上下堆疊，防止手機版畫面過窄 */
+@media (max-width: 600px) {
+    .matrix-grid {
+        grid-template-columns: 1fr;
+        padding: 12px;
+    }
+    .cell-split-wrapper {
+        flex-direction: column;
+        gap: 16px;
+    }
+    .cell-left-image, 
+    .cell-right-content {
+        width: 100%;
+        flex: 0 0 100%;
+    }
+
+}
+
+.event-backhome-btn{
+    display: inline-block; 
+    background: #006eff;
+    color: #ffffff; 
+     padding: 12px 30px; 
+     font-weight: 700; 
+     font-size: 1rem; 
+     text-decoration: none; 
+    letter-spacing: 0.15em;
+ border-radius: 6px;
+ width: 100%;
+}
+
+/*總表五行底卡*/
+#cell-WOOD_CORE{ border: 1px solid #04700d;
+background-color: #00350417;}
+#cell-FIRE_CORE{ border: 1px solid #5f0000;
+background-color: #38000017;}
+#cell-EARTH_CORE{ border: 1px solid #694b12;
+background-color: #33250017;}
+#cell-METAL_CORE{ border: 1px solid #bbba90;
+background-color: #302b2217;}
+#cell-WATER_CORE{ border: 1px solid #006e81;
+background-color: #02292e17;}
+
+
+@media (max-width: 768px) {
+    #result-container{ padding:30px;}
+    .container{
+        padding-top: 300px;
+         margin-bottom: 30px;
+    }
+    .quiz-card {
+        width: 100%;
+        margin: 30px auto 0;
+        border: 0;
+        background-color: transparent;
+    }
+  .report-card {
+    width: 100%;
+    border: 0; padding:50px 0px 20px;
+  }
+  .matrix-collapse-zone{
+    padding-top: 120px;
+  }
+}
+
+@media (max-width: 414px){
+   .report-card {
+    width: 100%;
+    border: 0; padding:100px 0px 30px;
+  }
+}
+
+@media (max-width: 390px){
+   .report-card {
+    width: 100%;
+    border: 0; padding:120px 0px 30px;
+  }
+}
+
