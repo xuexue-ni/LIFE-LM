@@ -41,6 +41,10 @@
                 <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path>
             </svg>
         </button>
+        <!-- 社群測驗分享 -->
+        <a href="event_brain-color.html" class="share-icon-quiz" data-tooltip="馬上分析">
+            <span class="icon-txt">🧠腦體檢中心</span>
+        </a>
     </div>
     <div id="back-to-top-btn" onclick="scrollToTop()">
         <span class="arrow-icon">↑</span>
@@ -63,8 +67,8 @@
             <a href="#solutions" onclick="closeMobileMenu()">留住記憶</a>
             <a href="#booking" onclick="closeMobileMenu()">專屬預約</a>
             <div class="mobile-menu-social-footer" aria-label="社群分享">
-                <a href="https://social-plugins.line.me/lineit/share?url=https://xuexue-ni.github.io/LIFE-LM/" target="_blank"
-                    class="social-btn" title="分享至 LINE" onclick="closeMobileMenu()">
+                <a href="https://social-plugins.line.me/lineit/share?url=https://xuexue-ni.github.io/LIFE-LM/"
+                    target="_blank" class="social-btn" title="分享至 LINE" onclick="closeMobileMenu()">
                     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
                         stroke-linecap="round" stroke-linejoin="round">
                         <path
@@ -72,8 +76,8 @@
                         </path>
                     </svg>
                 </a>
-                <a href="https://www.facebook.com/sharer/sharer.php?u=https://xuexue-ni.github.io/LIFE-LM/" target="_blank"
-                    class="social-btn" title="分享至 Facebook" onclick="closeMobileMenu()">
+                <a href="https://www.facebook.com/sharer/sharer.php?u=https://xuexue-ni.github.io/LIFE-LM/"
+                    target="_blank" class="social-btn" title="分享至 Facebook" onclick="closeMobileMenu()">
                     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
                         stroke-linecap="round" stroke-linejoin="round">
                         <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path>
@@ -118,12 +122,11 @@
                     <div class="pdot" id="d2">3</div>
                     <div class="pline"></div>
                     <div class="pdot" id="d3">4</div>
-                    <div class="pline"></div>
-                    <div class="pdot" id="d4">5</div>
                 </div>
                 <div class="step-label">
-                    <span>生辰輸入</span><span>命盤解碼</span><span>情感連結</span><span>視覺元素</span><span>座標輸出</span>
+                    <span>生辰輸入</span><span>情感連結</span><span>視覺元素</span><span>座標輸出</span>
                 </div>
+
                 <!-- ── Step 0: 輸入 ── -->
                 <div class="step active" id="s0">
                     <div class="card">
@@ -250,12 +253,29 @@
                                     <option value="1918">1918年</option>
                                     <option value="1917">1917年</option>
                                     <option value="1916">1916年</option>
+                                    <option value="1915">1915年</option>
+                                    <option value="1914">1914年</option>
+                                    <option value="1913">1913年</option>
+                                    <option value="1912">1912年</option>
+                                    <option value="1911">1911年</option>
+                                    <option value="1910">1910年</option>
                                 </select>
                             </div>
                             <div>
                                 <div class="field-label">月</div>
                                 <select id="iM">
-
+                                    <option value="1">1月</option>
+                                    <option value="2">2月</option>
+                                    <option value="3">3月</option>
+                                    <option value="4">4月</option>
+                                    <option value="5">5月</option>
+                                    <option value="6">6月</option>
+                                    <option value="7">7月</option>
+                                    <option value="8">8月</option>
+                                    <option value="9">9月</option>
+                                    <option value="10">10月</option>
+                                    <option value="11">11月</option>
+                                    <option value="12">12月</option>
                                 </select>
                             </div>
                             <div>
@@ -327,37 +347,13 @@
                         <button class="btn-p" onclick="compute()">解碼我的生命座標 →</button>
                     </div>
                 </div>
-
-                <!-- ── Step 1: 命盤 + 人格特質 + 構圖預覽 ── -->
+                <!-- ── Step 1: 情感互動（三道問題） ── -->
                 <div class="step" id="s1">
-                    <div class="card">
-                        <div class="card-title">四柱八字 · Eight Characters</div>
-                        <div class="pillar-row" id="pillarD"></div>
-                        <div id="elemBars"></div>
-                        <div id="healAlert"></div>
-                    </div>
-                    <div class="card">
-                        <div class="card-title">你的色彩人格 · 命運特質</div>
-                        <p style="font-size:1rem;color:var(--text3);margin: bottom 16px;font-style:italic">
-                            每個元素的色調，都在說一件關於你的事。</p>
-                        <div class="trait-grid" id="traitGrid"></div>
-                    </div>
-                    <div class="card">
-                        <div class="card-title">初步構圖語言預覽</div>
-                        <div class="palette-strip" id="palStrip"></div>
-                        <div id="compDesc" style="font-size:1rem;color:var(--text2);line-height:1.75;"></div>
-                    </div>
-                    <button class="btn-p" onclick="go(2)">感覺到了，繼續 →</button>
-                    <button class="btn-s" onclick="go(0)">← 重新輸入</button>
-                </div>
-
-                <!-- ── Step 2: 情感互動（三道問題） ── -->
-                <div class="step" id="s2">
                     <div class="card">
                         <div class="card-title">情感記憶 · 視覺喜好</div>
 
                         <div class="q-block">
-                            <div class="q-title">如果這幅畫掛在你最私密的空間裡，你希望它帶給你什麼？</div>
+                            <div class="q-title">Q.如果這幅畫掛在你最私密的空間裡，你希望它帶給你什麼？</div>
                             <div class="q-sub">選一個最貼近現在的你的答案</div>
                             <div class="choice-grid" id="moodG">
                                 <div class="choice-card" onclick="sel(this,&#39;mood&#39;,&#39;healed&#39;)">
@@ -388,9 +384,8 @@
                         </div>
 
                         <div class="divider"></div>
-
                         <div class="q-block">
-                            <div class="q-title">有一個瞬間或場景，是你最不想忘記的感覺——它是什麼？</div>
+                            <div class="q-title">Q.有一個瞬間或場景，是你最不想忘記的感覺——它是什麼？</div>
                             <div class="q-sub">這個選擇會直接影響畫面的光線質感與空間感</div>
                             <div class="choice-grid" id="memG">
                                 <div class="choice-card" onclick="sel(this,&#39;mem&#39;,&#39;morning&#39;)">
@@ -433,9 +428,8 @@
                         </div>
 
                         <div class="divider"></div>
-
                         <div class="q-block">
-                            <div class="q-title">你平常最容易被哪一種視覺感受吸引？</div>
+                            <div class="q-title">Q.你平常最容易被哪一種視覺感受吸引？</div>
                             <div class="q-sub">看圖像時的直覺反應，不需要想太多</div>
                             <div class="choice-grid" id="visG">
                                 <div class="choice-card" onclick="sel(this,&#39;vis&#39;,&#39;dark-depth&#39;)">
@@ -473,27 +467,16 @@
                             </div>
                         </div>
                     </div>
-                    <button class="btn-p" id="s2btn" style="opacity:.4;pointer-events:none" onclick="go(3)">繼續選擇視覺元素
+                    <button class="btn-p" id="s2btn" style="opacity:.4;pointer-events:none" onclick="go(2)">繼續選擇視覺元素
                         →</button>
-                    <button class="btn-s" onclick="go(1)">← 回上一步</button>
+                    <button class="btn-s" onclick="go(0)">← 回上一步</button>
                 </div>
 
-                <!-- ── Step 3: 玄學符號 + 質地 ── -->
+                <!-- ── Step 2: 玄學符號 + 質地 ── -->
                 <div class="step" id="s3">
                     <div class="card">
-                        <div class="card-title">紫微主星 · 命盤性格</div>
-                        <p style="font-size:0.875rem;color:var(--text3);margin-bottom:0.875rem;">
-                            根據你的命盤自動計算的對應主星特質，可加入畫面符號層
-                        </p>
-                        <div id="ziwei"
-                            style="background:var(--bg2);border-radius:10px;padding:1rem;font-size:0.875rem;line-height:1.85;">
-                        </div>
-                    </div>
-
-                    <div class="card">
                         <div class="card-title">玄學符號層（最多選3個）</div>
-                        <p style="font-size0.875rem;color:var(--text3);margin-bottom:0.75rem;font-style:italic">
-                            以極細線條若隱若現地融入畫面背景</p>
+                        <p class="q-title">Q.選擇一個您最有感的符號意義,以極細線條若隱若現地融入畫面背景</p>
                         <div class="sym-grid" id="symG">
                             <div class="sym-card" onclick="togSym(this,&#39;Sri Yantra 宇宙能量幾何矩陣&#39;)">
                                 <div class="sym-g">✦</div>
@@ -560,8 +543,8 @@
 
                     <div class="card">
                         <div class="card-title">圖像質地 · 物件偏好（最多選2個）</div>
-                        <p style="font-size:12px;color:var(--text3);margin-bottom:0.75rem;font-style:italic">
-                            你最容易被哪種觸覺感或物件感吸引？</p>
+                        <p class="q-title">
+                            Q.你最容易被哪種觸覺感或物件感吸引？</p>
                         <div class="tex-grid" id="texG">
                             <div class="tex-card" onclick="togTex(this,&#39;極簡留白 大量負空間 靜默力量&#39;)">
                                 <div class="tex-icon">□</div>
@@ -605,13 +588,12 @@
                             </div>
                         </div>
                     </div>
-                    <button class="btn-p" onclick="go(4)">生成我的專屬圖像描述 →</button>
-                    <button class="btn-s" onclick="go(2)">← 回上一步</button>
+                    <button class="btn-p" onclick="go(3)">生成我的專屬圖像描述 →</button>
+                    <button class="btn-s" onclick="go(1)">← 回上一步</button>
                 </div>
 
-                <!-- ── Step 4: 最終輸出 ── -->
+                <!-- ── Step 3: 座標輸出（命盤解碼 + 紫微 + 情感主張 + 鎖定內容） ── -->
                 <div class="step" id="s4">
-
                     <!-- 權限狀態列 -->
                     <div id="authBar"
                         style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1rem;padding:0.625rem 0.875rem;background:var(--bg3);border:0.5px solid var(--border);border-radius:10px;">
@@ -620,26 +602,52 @@
                                 style="width:7px;height:7px;border-radius:50%;background:var(--text3);box-shadow:0 0 6px var(--text3)">
                             </div>
                             <span id="authLabel"
-                                style="font-size:12px;color:var(--text3);font-family:&#39;DM Mono&#39;,monospace;letter-spacing:1px;">遊客模式
+                                style="font-size:11px;color:var(--text3);font-family:&#39;DM Mono&#39;,monospace;letter-spacing:1px;">遊客模式
                                 · 部分內容已鎖定</span>
                         </div>
                         <button id="authToggleBtn" onclick="openAuthModal()"
-                            style="font-size:12px;padding:4px 12px;border-radius:6px;border:0.5px solid var(--border-glow);background:transparent;color:var(--text3);cursor:pointer;font-family:&#39;DM Mono&#39;,monospace;transition:all .2s;">主用戶登入</button>
+                            style="font-size:11px;padding:4px 12px;border-radius:6px;border:0.5px solid var(--border-glow);background:transparent;color:var(--text2);cursor:pointer;font-family:&#39;DM Mono&#39;,monospace;transition:all .2s;">主用戶登入</button>
                     </div>
-
+                    <!-- 公開：四柱八字命盤解碼 -->
+                    <div class="card">
+                        <div class="card-title">四柱八字 · Eight Characters</div>
+                        <div class="pillar-row" id="pillarD"></div>
+                        <div id="elemBars"></div>
+                        <div id="healAlert"></div>
+                    </div>
+                    <!-- 公開：色彩人格特質 -->
+                    <div class="card">
+                        <div class="card-title">你的色彩人格 · 命運特質</div>
+                        <p style="font-size:11px;color:var(--text3);margin-bottom:0.875rem;font-style:italic">
+                            每個元素的色調，都在說一件關於你的事。</p>
+                        <div class="trait-grid" id="traitGrid"></div>
+                    </div>
+                    <!-- 公開：構圖語言預覽 -->
+                    <div class="card">
+                        <div class="card-title">初步構圖語言預覽</div>
+                        <div class="palette-strip" id="palStrip"></div>
+                        <div id="compDesc" style="font-size:12px;color:var(--text2);line-height:1.75;"></div>
+                    </div>
+                    <!-- 公開：紫微主星 -->
+                    <div class="card">
+                        <div class="card-title">紫微主星 · 命盤性格</div>
+                        <p style="font-size:11px;color:var(--text3);margin-bottom:0.875rem;">根據你的命盤自動計算的對應主星特質</p>
+                        <div id="ziwei"
+                            style="background:var(--bg2);border-radius:10px;padding:1rem;font-size:12px;line-height:1.85;">
+                        </div>
+                    </div>
                     <!-- 公開：情感療育主張 -->
                     <div class="card">
-                        <div class="card-title">你的情感療癒主張</div>
+                        <div class="card-title">你的情感療育主張</div>
                         <div class="heal-box" id="healBox"></div>
                     </div>
-
                     <!-- 鎖定：專屬色彩座標 -->
                     <div class="card locked-card" id="lockCard1">
                         <div class="card-title">專屬色彩座標</div>
                         <div id="outPalWrap">
                             <div class="palette-strip" id="outPal"></div>
                             <div id="colorNote"
-                                style="font-size:12px;color:var(--text3);margin-top:4px;font-family:&#39;DM Mono&#39;,monospace;">
+                                style="font-size:11px;color:var(--text3);margin-top:4px;font-family:&#39;DM Mono&#39;,monospace;">
                             </div>
                         </div>
                         <div class="lock-overlay" id="lockOverlay1">
@@ -648,10 +656,9 @@
                             <button class="lock-btn" onclick="openAuthModal()">解鎖查看</button>
                         </div>
                     </div>
-
-                    <!-- 鎖定：療癒商品延伸方向 -->
+                    <!-- 鎖定：療育商品延伸方向 -->
                     <div class="card locked-card" id="lockCard2">
-                        <div class="card-title">療癒商品延伸方向</div>
+                        <div class="card-title">療育商品延伸方向</div>
                         <div id="prodList"></div>
                         <div class="lock-overlay" id="lockOverlay2">
                             <div class="lock-icon">⬡</div>
@@ -659,41 +666,41 @@
                             <button class="lock-btn" onclick="openAuthModal()">解鎖查看</button>
                         </div>
                     </div>
-
-                    <!-- 鎖定：專屬視覺設計 -->
-                    <div class="card locked-card" id="lockCard3">
-                        <div class="card-title">你的專屬視覺設計</div>
-                        <div class="prompt-box" id="finalPrompt"><button class="copy-btn"
-                                onclick="copyPrompt()">複製</button>
-                            <div id="promptText"></div>
-                        </div>
-                        <div id="promptNote"
-                            style="font-size:10px;color:var(--text3);font-family:&#39;DM Mono&#39;,monospace;">
+                    <!-- 完全隱藏：專屬視覺設計（遊客看不到標題與任何內容） -->
+                    <div class="card locked-card full-hidden" id="lockCard3">
+                        <div class="hidden-content">
+                            <div class="card-title">你的專屬視覺設計</div>
+                            <div class="prompt-box" id="finalPrompt"><button class="copy-btn"
+                                    onclick="copyPrompt()">複製</button>
+                                <div id="promptText"></div>
+                            </div>
+                            <div id="promptNote"
+                                style="font-size:10px;color:var(--text3);font-family:&#39;DM Mono&#39;,monospace;">
+                            </div>
                         </div>
                         <div class="lock-overlay" id="lockOverlay3">
                             <div class="lock-icon">⬡</div>
-                            <div class="lock-msg">主用戶專屬內容</div>
-                            <button class="lock-btn" onclick="openAuthModal()">解鎖查看</button>
+                            <div class="lock-msg">登入後解鎖專屬視覺設計</div>
+                            <button class="lock-btn" onclick="openAuthModal()">主用戶登入</button>
                         </div>
                     </div>
-
-                    <!-- 鎖定：中文創作說明 -->
-                    <div class="card locked-card" id="lockCard4">
-                        <div class="card-title">中文創作說明（設計師溝通用）</div>
-                        <div style="font-size:12px;color:var(--text2);line-height:1.9;" id="finalCN"></div>
+                    <!-- 完全隱藏：中文創作說明（遊客看不到標題與任何內容） -->
+                    <div class="card locked-card full-hidden" id="lockCard4">
+                        <div class="hidden-content">
+                            <div class="card-title">中文創作說明（設計師溝通用）</div>
+                            <div style="font-size:12px;color:var(--text2);line-height:1.9;" id="finalCN"></div>
+                        </div>
                         <div class="lock-overlay" id="lockOverlay4">
                             <div class="lock-icon">⬡</div>
-                            <div class="lock-msg">主用戶專屬內容</div>
-                            <button class="lock-btn" onclick="openAuthModal()">解鎖查看</button>
+                            <div class="lock-msg">登入後解鎖創作說明</div>
+                            <button class="lock-btn" onclick="openAuthModal()">主用戶登入</button>
                         </div>
                     </div>
 
                     <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:0.5rem">
-                        <button class="btn-s" onclick="go(3)">← 調整元素</button>
+                        <button class="btn-s" onclick="go(2)">← 調整元素</button>
                         <button class="btn-s" onclick="go(0)">重新開始</button>
                     </div>
-
-                    <!-- ── 三大行動按鈕 ── -->
                     <div class="action-btns">
                         <button class="action-btn action-share" onclick="shareMatrix()">
                             <span class="action-icon">✦</span>
@@ -735,7 +742,7 @@
                             style="width:100%;padding:11px 14px;border:0.5px solid var(--border2);border-radius:8px;background:var(--bg3);color:var(--text);font-family:&#39;DM Mono&#39;,monospace;font-size:14px;letter-spacing:3px;outline:none;transition:border-color .2s;margin-bottom:0.5rem;"
                             onkeydown="if(event.key===&#39;Enter&#39;)checkAuth()">
                         <div id="pwError"
-                            style="font-size:12px;color:#E05545;min-height:18px;margin-bottom:0.75rem;font-family:&#39;DM Mono&#39;,monospace;">
+                            style="font-size:11px;color:#E05545;min-height:18px;margin-bottom:0.75rem;font-family:&#39;DM Mono&#39;,monospace;">
                         </div>
                         <button onclick="checkAuth()"
                             style="width:100%;padding:12px;border-radius:8px;border:0.5px solid var(--accent);background:linear-gradient(135deg,rgba(108,142,255,0.15),rgba(155,127,255,0.1));color:var(--accent);font-size:13px;cursor:pointer;font-family:&#39;Noto Serif TC&#39;,serif;letter-spacing:2px;transition:all .25s;margin-bottom:8px;">解鎖完整內容</button>
