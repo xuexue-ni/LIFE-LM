@@ -286,44 +286,52 @@ function downloadCard() {
         return;
     }
 
-    // 🎯 核心防禦 1：確保截圖區塊內的圖片已經完全被瀏覽器載入，防止 html2canvas 畫出空白或卡死
+    // 🎯 核心防禦 1：確保圖片已完全載入
     const imgEl = target.querySelector("img");
     if (imgEl && (!imgEl.complete || imgEl.naturalWidth === 0)) {
-        // 如果圖片還在載入，等待 150 毫秒後重新觸發
         setTimeout(downloadCard, 150);
         return;
     }
 
-    // 提示使用者正在建構核心記憶晶片
+    // 顯示建構提示
     const toast = document.getElementById("toast");
     if (toast) {
-        toast.innerText = "⚡ 正在生成大腦記憶卡片，請稍候...";
+        toast.innerText = "⚡ 正在優化字體比例並生成高清卡片...";
         toast.className = "alert-toast show";
         toast.style.display = "block";
     }
 
-    // 🎯 核心防禦 2：設定 html2canvas 參數，徹底解決跨網域、縮放比例與背景色衝突
+    // 🎯 核心美術調校：暫時死鎖寬度，強行逼迫字體與圖片比例放大
+    const originalWidth = target.style.width;
+    const originalMaxWidth = target.style.maxWidth;
+    
+    // 將截圖目標鎖定在 400px（社群分享最完美的精緻晶片尺寸）
+    target.style.setProperty('width', '400px', 'important');
+    target.style.setProperty('max-width', '400px', 'important');
+
     setTimeout(() => {
         html2canvas(target, {
-            backgroundColor: "#000000", // 強制設定卡片背景為黑夜色
-            scale: 2,                  // 2倍清晰度（適合平面美術印刷或社群高清視網膜螢幕）
-            useCORS: true,             // 允許跨網域圖片加載
-            allowTaint: true,          // 允許污染畫布（本機測試 file:// 協定防禦）
-            logging: false             // 關閉後台多餘的 log
+            backgroundColor: "#0a0a0a", // 保持神秘黑底色
+            scale: 2,                  // 維持2倍高清，這時輸出的 1200px 圖片比例就會非常完美
+            useCORS: true,
+            allowTaint: true,
+            logging: false
         }).then(canvas => {
+            // 🎯 截圖完成後，瞬間還原網頁原本的 RWD 自適應寬度
+            target.style.width = originalWidth;
+            target.style.maxWidth = originalMaxWidth;
+
             try {
                 const link = document.createElement('a');
-                // 命名加入時間戳與使用者名稱，更有儀式感
                 const userName = document.getElementById("user-name") ? document.getElementById("user-name").value.trim() : "LIFE";
                 link.download = `LIFE_Report_${userName}.png`;
                 link.href = canvas.toDataURL('image/png');
-                document.body.appendChild(link); // 物理插入節點，確保 Firefox / Safari 相容
+                document.body.appendChild(link);
                 link.click();
-                document.body.removeChild(link); // 下載完隨即銷毀
+                document.body.removeChild(link);
 
-                // 更新提示詞為成功
                 if (toast) {
-                    toast.innerText = "💾 大腦記憶卡片已成功下載！";
+                    toast.innerText = "💾 大腦記憶卡片已高清下載！";
                     setTimeout(() => { 
                         toast.className = "alert-toast"; 
                         toast.style.display = "";
@@ -334,5 +342,5 @@ function downloadCard() {
                 if (toast) toast.innerText = "❌ 檔案建構失敗，請重試一次";
             }
         });
-    }, 100); // 給予瀏覽器 100 毫秒的緩衝時間來定錨樣式
+    }, 150); // 給瀏覽器 150ms 重新編排 600px 版面佈局的時間
 }
