@@ -690,14 +690,18 @@ background-color: #02292e17;}
 @media (max-width: 768px) {
     #result-container{ padding:30px;}
     .container{
-        padding-top: 300px;
+        padding-top: 380px;
          margin-bottom: 30px;
     }
+    .brand-subtitle {
+    margin-bottom: 10px;
+}
     .quiz-card {
         width: 100%;
-        margin: 30px auto 0;
+        margin: 0px auto;
         border: 0;
         background-color: transparent;
+        padding:20px ;
     }
   .report-card {
     width: 100%;
