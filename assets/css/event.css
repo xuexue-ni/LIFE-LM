@@ -506,12 +506,18 @@ input[type="text"]:focus, select:focus {
     transition: max-height 0.5s ease-in-out, opacity 0.4s ease-in-out; /* 流暢的過渡動畫 */
 }
 
-/* 當被激活展開時的樣式 */
-.matrix-collapse-zone.active {
-    max-height: 2000px;      /* 給予一個足夠容納內容的最大高度 */
-    opacity: 1;              /* 恢復不透明 */
-    margin-top: 20px;        /* 可根據畫面視覺自行調整間距 */
+.matrix-close-bar{
+    position: sticky; top: 0; z-index: 50;
+    display: flex; justify-content: space-between; align-items: center;
+    background: #000; border-bottom: 1px solid #333;
+    padding: 14px 16px; margin: -30px -0px 20px;
 }
+.matrix-close-bar span{ font-size: 0.75rem; letter-spacing: 0.15em; color: #999; }
+.matrix-close-bar button{
+    background: transparent; border: 1px solid #555; color: #fff;
+    border-radius: 20px; padding: 6px 14px; cursor: pointer; font-size: 0.8rem;
+}
+.matrix-close-bar button:hover{ border-color: #00e5ff; color: #00e5ff; }
 
 /* 1. 矩陣網格主容器：因為卡片變寬，桌機版適合調整為 1欄 或 2欄 的並排 */
 .matrix-grid {
@@ -718,9 +724,6 @@ background-color: #02292e17;}
   .report-card {
     width: 100%;
     border: 0; padding:50px 0px 20px;
-  }
-  .matrix-collapse-zone{
-    padding-top: 820px;
   }
 }
 
