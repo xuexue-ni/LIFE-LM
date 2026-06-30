@@ -67,18 +67,43 @@ const zhiEl = { "寅":"W","卯":"W","辰":"E","巳":"F","午":"F","未":"E","申
 
 const titles = {
     "W": { F: "社交救火仙姑", M: "燃燒系正能量俠客", code: "WOOD_CORE" },
-    "F": { F: "瞬間斷片灶神", M: "靈魂格式化祝融", code: "FIRE_CORE" },
+    "F": { F: "瞬間斷片火娘", M: "靈魂格式化祝融", code: "FIRE_CORE" },
     "E": { F: "孤獨硬撐土地婆", M: "鐵壁自律土地公", code: "EARTH_CORE" },
-    "M": { F: "完美主義判官娘", M: "龜毛高精度包青天", code: "METAL_CORE" },
+    "M": { F: "完美主義判官娘", M: "高精度完美判官", code: "METAL_CORE" },
     "A": { F: "邊界模糊龍王女", M: "焦慮超載吸塵水怪", code: "WATER_CORE" }
 };
 
 const textDb = {
-    "W": { status: "白天把正能量都燒給別人，回到家卻是一具連外賣都懶得拆的廢棄人偶。海馬迴被「過度責任感」超載磨損，面臨集體斷電風險。", recovery: "你的大腦需要「物理隔離」。請立刻停止接收他人的精神垃圾，每天留出 1 小時完全不與人溝通的「空白時間微修復」。", enemy: "高精度完美判官", friend: "自律磐石土地公/婆" },
-    "F": { status: "辦事全憑第一直覺。最近嚴重懷疑自己得了健忘症，上一秒拿鑰匙、下一秒找鑰匙，短期記憶區正因為環境高壓面臨經常性格式化。", recovery: "你最需要的是「大腦排毒與燃料補充」。多與高能量、正向思維的人群相處，建立自律的生活作息，讓海馬迴稍微恢復機能。", enemy: "冷眼觀測吸塵水怪", friend: "安全防禦包青天" },
-    "E": { status: "習慣沒有人陪伴，所以把所有能量都聚焦在工作和自律上。大腦防禦牆長期過載，海馬迴因為習慣「一個人硬撐」而陷入憂鬱與慢性疲勞。", recovery: "你需要建立「外在的安全感與連結」。目前的你財務無虞，請停止無止盡的自我鞭策，建立規律的睡眠障礙調適作息。", enemy: "情緒龍捲風灶神", friend: "高精度完美判官" },
-    "M": { status: "害怕做錯事，所以進場或決策前反覆考慮，時常錯過最佳時機。對完美主義的執著，讓大腦的運算核心天天超載內耗，睡眠障礙隨之而來。", recovery: "你需要「容許殘缺與臣服當下」。不完美的進場，勝過完美的等待；不完美的記錄，勝過完美的遺忘。試著放手讓核心休息。", enemy: "無腦瞬燃祝融/灶神", friend: "優雅冷冽防毒軟體" },
-    "A": { status: "天生自帶高同理心，一走進房間就能吸收所有人散發的焦慮。邊界太模糊，大腦海馬迴嚴重超載，記憶與自我定位被悄悄磨滅。", recovery: "你需要強效的「心理除濕與邊界建立」。明確拒絕不屬於自身目的之工作與情緒垃圾，拿回生活作息的絕對掌控權，清除大腦內耗物。", enemy: "孤獨硬撐土地公/婆", friend: "溫柔共生正能量仙姑" }
+    "W": { 
+        status: "白天把正能量都燒給別人，回到家卻是一具連外賣都懶得拆的廢棄人偶。海馬迴被「過度責任感」超載磨損，面臨集體斷電風險。", 
+        recovery: "你的大腦需要「物理隔離」。請立刻停止接收他人的精神垃圾，每天留出 1 小時完全不與人溝通的「空白時間微修復」。", 
+        enemy: "高精度完美判官", // 對齊金系 M
+        friend: "鐵壁自律土地公" // 對齊土系 M
+    },
+    "F": { 
+        status: "辦事全憑第一直覺。最近嚴重懷疑自己得了健忘症，上一秒拿鑰匙、下一秒找鑰匙，短期記憶區正因為環境高壓面臨經常性格式化。", 
+        recovery: "你最需要的是「大腦排毒與燃料補充」。多與高能量、正向思維的人群相處，建立自律的生活作息，讓海馬迴稍微恢復機能。", 
+        enemy: "焦慮超載吸塵水怪", // 對齊水系 M
+        friend: "高精度完美判官"   // 對齊金系 M
+    },
+    "E": { 
+        status: "習慣沒有人陪伴，所以把所有能量都聚焦在工作和自律上。大腦防禦牆長期過載，海馬迴因為習慣「一個人硬撐」而陷入憂鬱與慢性疲勞。", 
+        recovery: "你需要建立「外在的安全感與連結」。目前的你財務無虞，請停止無止盡的自我鞭策，建立規律的睡眠障礙調適作息。", 
+        enemy: "靈魂格式化祝融", // 對齊火系 M
+        friend: "高精度完美判官" // 對齊金系 M
+    },
+    "M": { 
+        status: "害怕做錯事，所以進場或決策前反覆考慮，時常錯過最佳時機。對完美主義的執著，讓大腦的運算核心天天超載內耗，睡眠障礙隨之而來。", 
+        recovery: "你需要「容許殘缺與臣服當下」。不完美的進場，勝過完美的等待；不完美的記錄，勝過完美的遺忘。試著放手讓核心休息。", 
+        enemy: "靈魂格式化祝融", // 對齊火系 M
+        friend: "孤獨硬撐土地婆" // 對齊土系 F
+    },
+    "A": { 
+        status: "天生自帶高同理心，一走進房間就能吸收所有人散發的焦慮。邊界太模糊，大腦海馬迴嚴重超載，記憶與自我定位被悄悄磨滅。", 
+        recovery: "你需要強效的「心理除濕與邊界建立」。明確拒絕不屬於自身目的之工作與情緒垃圾，拿回生活作息的絕對掌控權，清除大腦內耗物。", 
+        enemy: "鐵壁自律土地公", // 對齊土系 M
+        friend: "社交救火仙姑"   // 對齊木系 F（
+    }
 };
 
 let currentReport = null;
@@ -242,16 +267,14 @@ function copyShareText() {
     const reportFriend = (currentReport && currentReport.friend) ? currentReport.friend : "--";
 
     // 🔮 精煉神祕版文案
-    const text = `👁‍🗨 【LIFE+ 大腦修復體 · 基因解碼】
+    const text = `👁‍🗨 你是哪種LIFE+ 大腦修復體 ?
 --------------------------------------------
-冥冥之中，古老神祕的干支矩陣正流淌在我們的基因裡。
-
+宇宙中的定律，古老神祕的干支矩陣正流淌在我們的基因裡。
 經系統定錨，我是：【${reportTitle}】
-
 ⚡ 精神天敵 (相剋)：${reportEnemy}
 🤝 靈魂共生 (合盤)：${reportFriend}
 
-🔮 快來跟我測測看，我們到底是命中注定的好麻吉，還是相愛相殺的剋星？
+🔮 快測測看，我們是命中注定的好麻吉，還是相愛相殺的剋星？
 👉 ${window.location.href}
 
 #LIFE系統 #LegacyMatrix #大腦修復體`;
@@ -286,7 +309,7 @@ function downloadCard() {
         return;
     }
 
-    // 🎯 核心防禦 1：確保圖片已完全載入
+    // 🎯 核心防禦：確保圖片完全載入
     const imgEl = target.querySelector("img");
     if (imgEl && (!imgEl.complete || imgEl.naturalWidth === 0)) {
         setTimeout(downloadCard, 150);
@@ -296,30 +319,70 @@ function downloadCard() {
     // 顯示建構提示
     const toast = document.getElementById("toast");
     if (toast) {
-        toast.innerText = "⚡ 正在優化字體比例並生成高清卡片...";
+        toast.innerText = "⚡ 正在重組黃金字體比例並生成高清卡片...";
         toast.className = "alert-toast show";
         toast.style.display = "block";
     }
 
-    // 🎯 核心美術調校：暫時死鎖寬度，強行逼迫字體與圖片比例放大
+    // 🎯 記憶原本網頁版的 RWD 樣式狀態
     const originalWidth = target.style.width;
     const originalMaxWidth = target.style.maxWidth;
+    const originalPadding = target.style.padding;
     
-    // 將截圖目標鎖定在 400px（社群分享最完美的精緻晶片尺寸）
-    target.style.setProperty('width', '400px', 'important');
-    target.style.setProperty('max-width', '400px', 'important');
+    // 找出內部影響排版的雙艙容器（請確保與你的 HTML 類別對齊，若你的大艙叫做 .report-body 亦同）
+    const splitContainer = target.querySelector(".result-split-container") || target.querySelector(".report-body");
+    const originalFlex = splitContainer ? splitContainer.style.flexDirection : "";
+    const originalGap = splitContainer ? splitContainer.style.gap : "";
+
+    // 找出左右兩側的獨立艙體
+    const leftPanel = target.querySelector(".result-left-image-panel") || target.querySelector(".image-placeholder-zone");
+    const rightPanel = target.querySelector(".result-right-text-panel") || (leftPanel ? leftPanel.nextElementSibling : null);
+    
+    const originalLeftWidth = leftPanel ? leftPanel.style.width : "";
+    const originalRightWidth = rightPanel ? rightPanel.style.width : "";
+
+    // 🎯 核心美術調校：在截圖瞬間，強制將雙艙拆解為「上下垂直瀑布流」
+    target.style.setProperty('width', '520px', 'important');      // 卡片實體物理總寬度鎖定在精緻的 520px
+    target.style.setProperty('max-width', '520px', 'important');
+    target.style.setProperty('padding', '20px', 'important');      // 收緊四週留白，增加文字安全感
+
+    if (splitContainer) {
+        splitContainer.style.setProperty('flex-direction', 'column', 'important'); // 橫向改縱向排列
+        splitContainer.style.setProperty('gap', '16px', 'important');              // 縮短圖與文的空隙
+    }
+    if (leftPanel) leftPanel.style.setProperty('width', '100%', 'important');      // 圖片區強行撐滿
+    if (rightPanel) rightPanel.style.setProperty('width', '100%', 'important');    // 文字區強行撐滿，解除寬度壓縮
+
+    // 擴大文字區的實際字級（利用隱形權重在截圖時將字體放大 1.25 倍）
+    const textBlocks = target.querySelectorAll(".status-desc, #res-recovery, .section-content");
+    const originalFontSizes = [];
+    textBlocks.forEach((block, idx) => {
+        originalFontSizes[idx] = block.style.fontSize;
+        block.style.setProperty('font-size', '16px', 'important'); // 強制將內文提升至高清 16px
+    });
 
     setTimeout(() => {
         html2canvas(target, {
-            backgroundColor: "#0a0a0a", // 保持神秘黑底色
-            scale: 2,                  // 維持2倍高清，這時輸出的 1200px 圖片比例就會非常完美
+            backgroundColor: "#0a0a0a", // 保持神祕宇宙黑底色
+            scale: 2,                  // 雙倍高清視網膜輸出（實體圖片像素寬度為 1040px）
             useCORS: true,
             allowTaint: true,
             logging: false
         }).then(canvas => {
-            // 🎯 截圖完成後，瞬間還原網頁原本的 RWD 自適應寬度
+            // 🎯 截圖快門按下後，一萬分之一秒內「完美還原」網頁原本的精美 RWD 設計
             target.style.width = originalWidth;
             target.style.maxWidth = originalMaxWidth;
+            target.style.padding = originalPadding;
+            
+            if (splitContainer) {
+                splitContainer.style.flexDirection = originalFlex;
+                splitContainer.style.gap = originalGap;
+            }
+            if (leftPanel) leftPanel.style.width = originalLeftWidth;
+            if (rightPanel) rightPanel.style.width = originalRightWidth;
+            textBlocks.forEach((block, idx) => {
+                block.style.fontSize = originalFontSizes[idx];
+            });
 
             try {
                 const link = document.createElement('a');
@@ -342,5 +405,5 @@ function downloadCard() {
                 if (toast) toast.innerText = "❌ 檔案建構失敗，請重試一次";
             }
         });
-    }, 150); // 給瀏覽器 150ms 重新編排 600px 版面佈局的時間
+    }, 200); // 給予瀏覽器 200ms 的充裕時間重新渲染解構版面
 }
