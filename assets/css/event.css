@@ -17,8 +17,17 @@
 }
 
 body {
-    background-color: var(--bg-color);
-    color: var(--text-main);
+    background-color: #050508; /* 極致深邃核心底色 */
+    /* 運用雙層線性漸層交織出極細的科技 30px 微光網格矩陣 */
+    background-image: 
+        linear-gradient(rgba(255, 255, 255, 0.015) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.015) 1px, transparent 1px),
+        /* 中央海馬迴核心修復體發散的暗夜微光（補足氛圍） */
+        radial-gradient(circle at 50% 45%, rgba(20, 25, 40, 0.6) 0%, rgba(5, 5, 8, 1) 70%);
+        
+    background-size: 30px 30px, 30px 30px, 100% 100%;
+    background-attachment: fixed; /* 鎖定背景，滾動時文字如浮空流動 */
+    
     font-family: 'Space Grotesk', 'Noto Serif TC', serif;
     min-height: 100vh;
     display: flex;
@@ -42,7 +51,7 @@ body::before {
 .container {
     width: 100%;
     max-width: 640px;
-    text-align: center;
+    
     margin-top: 200px;
     margin-bottom: 60px;
     position: relative;
@@ -55,6 +64,7 @@ body::before {
     margin-bottom: 5px;
     font-weight: 800;
     color: #3f93ff;
+    text-align: center;
 }
 
 .brand-subtitle {
@@ -62,6 +72,7 @@ body::before {
     color:var(--text--muted);
     letter-spacing: 0.15em;
     margin-bottom: 30px;
+    text-align: center;
 }
 
 /* --- 輸入艙卡片樣式 --- */
@@ -174,9 +185,10 @@ input[type="text"]:focus, select:focus {
 .report-header {
     border-bottom: 1px solid #222;
     padding-bottom: 10px;
-    display: flex;
+    
     justify-content: space-between;
     align-items: flex-start;
+    text-align: center;
 }
 
 .report-tag {
