@@ -738,3 +738,82 @@ background-color: #02292e17;}
   }
 }
 
+
+/* ===================================================
+   LIFE+ 總表彈窗手機版高度遮擋防禦調校
+   =================================================== */
+
+/* 確保彈窗本體滿版且不溢出螢幕 */
+#matrixModal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(5, 5, 8, 0.95);
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    z-index: 2000; /* 確保絕對高於全站導航列 */
+}
+
+/* 🎯 核心防禦：改造彈窗大艙體，限制最大物理高度 */
+#matrixModal .modal-content {
+    position: relative;
+    display: flex;
+    flex-direction: column; /* 讓內容改為縱向垂直鏈條結構 */
+    width: 90%;
+    max-width: 1000px;
+    height: 85vh;          /* 鎖定死高度為螢幕的 85%，防止把關閉鈕擠走 */
+    max-height: 800px;
+    margin: 5vh auto;      /* 上下留出 5% 的天地呼吸感 */
+    background: #0a0a0d;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-sizing: border-box;
+    overflow: hidden;      /* 🎯 關鍵：外艙禁止滾動，防止關閉按鈕被洗掉 */
+}
+
+/* 🎯 核心防禦：強行讓「關閉列 / 頂部標題列」死鎖固定在最上方 */
+#matrixModal .modal-header {
+    flex: 0 0 auto;        /* 凍結尺寸，絕不被擠壓 */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px 24px;
+    background: #0d0d12;   /* 稍微加深色塊，做出線條層次感 */
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    width: 100%;
+    box-sizing: border-box;
+    position: sticky;      /* 物理粘滯頂端 */
+    top: 0;
+    z-index: 10;
+}
+
+/* 🎯 核心防禦：只允許下方的「五行能量內容區」在艙體內自適應滾動 */
+#matrixModal .modal-body, 
+#matrixModal .matrix-detailed-grid {
+    flex: 1 1 auto;        /* 自動分配剩餘的全部空間 */
+    overflow-y: auto;      /* 允許垂直方向流暢滾動（觸控滑動） */
+    padding: 24px;
+    box-sizing: border-box;
+    -webkit-overflow-scrolling: touch; /* 讓 iOS Safari 滑動具備原生絲滑滾動感 */
+}
+
+/* 📱 手機版 RWD 斷點特別優化 (螢幕小於 768px) */
+@media (max-width: 768px) {
+    #matrixModal .modal-content {
+        width: 95%;        /* 橫向拓寬，釋放手機版左右邊界 */
+        height: 90vh;      /* 手機版高度擴大到 90%，爭取更多閱讀空間 */
+        margin: 5vh auto;
+    }
+    
+    #matrixModal .modal-header {
+        padding: 14px 16px; /* 壓縮頂部關閉列的垂直高度，把空間還給內容 */
+    }
+
+    /* 關閉按鈕放大防禦，方便粗手指（Touch Target）精準觸控 */
+    #matrixModal .close-btn {
+        padding: 8px 12px;
+        font-size: 1.1rem;
+        cursor: pointer;
+    }
+}
