@@ -235,7 +235,12 @@ function toggleMatrixLayout() {
     const isHidden = zone.style.display === "" || zone.style.display === "none";
     zone.style.setProperty('display', isHidden ? 'block' : 'none', 'important');
     if (btn) btn.innerText = isHidden ? "[ 點擊收起 // CLOSE MATRIX VIEW ↑ ]" : "[ 點擊展開 // 觀看所有大腦修復體 ↓ ]";
-    if (isHidden) zone.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    if (isHidden) {
+        const navEl = document.querySelector('nav');
+        const navH = navEl ? navEl.offsetHeight : 70;
+        const targetY = zone.getBoundingClientRect().top + window.scrollY - navH - 10;
+        window.scrollTo({ top: targetY, behavior: 'smooth' });
+    }
 }
 
 function copyShareText() {
