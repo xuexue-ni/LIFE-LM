@@ -232,32 +232,10 @@ function toggleMatrixLayout() {
     const btn = document.getElementById("toggle-matrix-btn");
     if (!zone) return;
 
-    // 🎯 
-    if (zone.style.display === "") {
-        zone.style.setProperty('display', 'none', 'important');
-        if (btn) btn.innerText = "[ 點擊展開 // 觀看所有大腦修復體 ↓ ]";
-        return;
-    }
-
-    // 核心狀態直接物理切換
-    if (zone.style.display === "none") {
-        zone.style.setProperty('display', 'block', 'important');
-        if (btn) btn.innerText = "[ 點擊收起 // CLOSE MATRIX VIEW ↑ ]";
-    } else {
-        zone.style.setProperty('display', 'none', 'important');
-        if (btn) btn.innerText = "[ 點擊展開 // 觀看所有大腦修復體 ↓ ]";
-    }
-}
-
-function openMatrixModal(explicitType = null) {
-    const modal = document.getElementById('matrixModal');
-    if (!modal) return;
-    modal.style.display = 'block';
-    document.body.style.overflow = 'hidden';
-}
-function closeMatrixModal() {
-    if(document.getElementById('matrixModal')) document.getElementById('matrixModal').style.display = 'none';
-    document.body.style.overflow = 'auto';
+    const isHidden = zone.style.display === "" || zone.style.display === "none";
+    zone.style.setProperty('display', isHidden ? 'block' : 'none', 'important');
+    if (btn) btn.innerText = isHidden ? "[ 點擊收起 // CLOSE MATRIX VIEW ↑ ]" : "[ 點擊展開 // 觀看所有大腦修復體 ↓ ]";
+    if (isHidden) zone.scrollIntoView({ behavior: 'smooth', block: 'start' });
 }
 
 function copyShareText() {
