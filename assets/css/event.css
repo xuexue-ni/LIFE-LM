@@ -157,13 +157,14 @@ input[type="text"]:focus, select:focus {
 }
 
 /* --- 結果報告字卡主體 --- */
-#result-container
-{width: 100%;
+#result-container {
+    width: 100%;
     height: auto;
     padding: 50px;
     margin-top: 320px;
     position: relative;
     display: flex;
+    flex-direction: column;
     border-radius: 12px;
 }
 .report-card {
@@ -737,88 +738,3 @@ background-color: #02292e17;}
 }
 
 
-/* ===================================================
-   LIFE+ 總表彈窗手機版遮擋與定位防禦（精準對齊版）
-   =================================================== */
-
-/* 1. 確保彈窗黑色背景遮罩鎖定滿版 */
-.matrix-modal-overlay {
-    position: fixed !important;
-    top: 0 !important;
-    left: 0 !important;
-    width: 100vw !important;
-    height: 100vh !important;
-    background: rgba(5, 5, 8, 0.95) !important;
-    backdrop-filter: blur(15px) !important;
-    -webkit-backdrop-filter: blur(15px) !important;
-    z-index: 9999 !important; /* 確保絕對凌駕於網頁全站任何元素之上 */
-}
-
-/* 2. 改造您的 matrix-modal-window，強行限制物理高度，化身固定尺寸外艙 */
-.matrix-modal-window {
-    position: relative !important;
-    display: flex !important;
-    flex-direction: column !important; /* 強制改為縱向垂直貨櫃結構 */
-    width: 90% !important;
-    max-width: 1000px !important;
-    height: 80vh !important;           /* 死鎖高度為螢幕高度的 80%，留出呼吸空間 */
-    max-height: 750px !important;
-    margin: 10vh auto !important;       /* 垂直置中防禦 */
-    background: #0a0a0d !important;
-    border: 1px solid rgba(255, 255, 255, 0.1) !important;
-    padding: 0 !important;              /* 清空外艙內襯，由內部元件各自處理 */
-    overflow: hidden !important;        /* 🎯 關鍵防禦：外艙絕對禁止滾動，防止關閉按鈕移位 */
-    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5) !important;
-}
-
-/* 3. 抓取您的「頂部標題列」（利用 CSS 結構選擇器鎖定緊接在 window 下的第一個 div） */
-.matrix-modal-window > div:first-child {
-    flex: 0 0 auto !important;          /* 凍結高寬尺寸，絕不允許被下方內容擠壓 */
-    background: #0e0e12 !important;     /* 獨立微光深灰色塊，營造美術層次感 */
-    padding: 18px 24px !important;      /* 重新給予乾淨的外襯間距 */
-    margin-bottom: 0 !important;        /* 消除原本 HTML 的 margin 防止排版破裂 */
-    border-bottom: 1px solid rgba(255, 255, 255, 0.08) !important;
-    width: 100% !important;
-    box-sizing: border-box !important;
-}
-
-/* 4. 鎖定您下方的五行內容格區塊，只有這裡允許獨立滾動 */
-.matrix-modal-window .matrix-detailed-grid {
-    flex: 1 1 auto !important;          /* 自動吸收、撐滿外艙剩餘的所有空間 */
-    overflow-y: auto !important;        /* 彈出獨立垂直滾動條 */
-    padding: 24px !important;
-    box-sizing: border-box !important;
-    -webkit-overflow-scrolling: touch;   /* 優化 iOS Safari 手機滑動流暢度 */
-}
-
-/* 📱 手機版 RWD 斷點特別極致優化 (螢幕小於 768px) */
-@media (max-width: 768px) {
-    .matrix-modal-window {
-        width: 95% !important;          /* 拓寬橫向空間 */
-        height: 88vh !important;        /* 將高度放到最大 88%，爭取手機閱讀視野 */
-        margin: 6vh auto !important;
-    }
-    
-    /* 縮減手機版標題列的高度，避免字體過大換行 */
-    .matrix-modal-window > div:first-child {
-        padding: 12px 16px !important;
-        flex-direction: row !important;
-        align-items: center !important;
-    }
-
-    /* 手機版標題字級微調小，防止擠壓 */
-    .matrix-modal-window > div:first-child h3 {
-        font-size: 0.85rem !important;
-        line-height: 1.3;
-        max-width: 70%;
-    }
-
-    /* 🎯 關閉按鈕放大防禦：讓粗手指在手機畫面上極易精準點擊 */
-    .matrix-modal-window .close-btn {
-        font-size: 0.9rem !important;
-        padding: 8px 12px !important;
-        background: rgba(255, 255, 255, 0.05);
-        border: 1px solid rgba(255, 255, 255, 0.1);
-        white-space: nowrap;
-    }
-}
