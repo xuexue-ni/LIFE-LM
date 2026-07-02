@@ -495,22 +495,17 @@ input[type="text"]:focus, select:focus {
 
 /* 修正總表區塊的基礎樣式 */
 .matrix-collapse-zone {
-    display: none; 
-    margin-top: 40px; 
-    border-top: 1px solid #222; 
-    padding-top: 30px; 
+    display: none;
+    margin-top: 40px;
+    border-top: 1px solid #222;
     text-align: left;
-    max-height: 0;           /* 預設高度為 0 (隱藏) */
-    overflow: hidden;        /* 超出部分隱藏 */
-    opacity: 0;              /* 預設透明度為 0 */
-    transition: max-height 0.5s ease-in-out, opacity 0.4s ease-in-out; /* 流暢的過渡動畫 */
 }
 
 .matrix-close-bar{
     position: sticky; top: 70px; z-index: 200;
     display: flex; justify-content: space-between; align-items: center;
     background: #000; border-bottom: 1px solid #333;
-    padding: 14px 16px; margin: -30px -0px 20px;
+    padding: 14px 16px; margin-bottom: 24px;
 }
 .matrix-close-bar span{ font-size: 0.75rem; letter-spacing: 0.15em; color: #999; }
 .matrix-close-bar button{
