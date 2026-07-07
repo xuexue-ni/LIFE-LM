@@ -17,23 +17,19 @@
 }
 
 body {
-    background-color: #050508; /* 極致深邃核心底色 */
-    /* 運用雙層線性漸層交織出極細的科技 30px 微光網格矩陣 */
+    background-color: #050508;
     background-image: 
         linear-gradient(rgba(255, 255, 255, 0.015) 1px, transparent 1px),
         linear-gradient(90deg, rgba(255, 255, 255, 0.015) 1px, transparent 1px),
-        /* 中央海馬迴核心修復體發散的暗夜微光（補足氛圍） */
         radial-gradient(circle at 50% 45%, rgba(20, 25, 40, 0.6) 0%, rgba(5, 5, 8, 1) 70%);
-        
     background-size: 30px 30px, 30px 30px, 100% 100%;
-    background-attachment: fixed; /* 鎖定背景，滾動時文字如浮空流動 */
+    background-attachment: fixed;
     
     font-family: 'Space Grotesk', 'Noto Serif TC', serif;
     min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
+    
+    /* ⚡ 修正：取消 flex 垂直置中，改為標準流式排版，防止展開時頂部內容溢出被遮蔽 */
+    display: block; 
     padding: 20px;
 }
 
@@ -51,9 +47,7 @@ body::before {
 .container {
     width: 100%;
     max-width: 640px;
-    
-    margin-top: 200px;
-    margin-bottom: 60px;
+    margin: 120px auto 60px auto; /* ⚡ 改為水平置中，上方留適當導覽列高度即可 */
     position: relative;
     display: block;
 }
@@ -160,8 +154,8 @@ input[type="text"]:focus, select:focus {
 #result-container {
     width: 100%;
     height: auto;
-    padding: 50px;
-    margin-top: 320px;
+    padding: 30px; /* 桌機與手機都維持舒適的 padding */
+    margin-top: 40px; /* ⚡ 縮減不必要的 320px 巨大間距，讓排版緊湊 */
     position: relative;
     display: flex;
     flex-direction: column;
@@ -170,7 +164,7 @@ input[type="text"]:focus, select:focus {
 .report-card {
     width: 100%;
     padding: 30px 40px;
-    margin-top: 200px;
+    
     background-color: #000000;
     border: 1px solid #ffffff;
     border-radius: 4px;
@@ -701,39 +695,50 @@ background-color: #02292e17;}
 
 
 @media (max-width: 768px) {
-    #result-container{ padding:30px;}
-    .container{
-        padding-top: 400px;
-         margin-bottom: 30px;
+   #result-container { 
+        padding: 15px !important; 
+        margin-top: 40px !important;
+    }
+    .container {
+        padding-top: 0px !important;
+        margin-top: 100px !important; /* 留給導覽列（Nav）的呼吸空間 */
+        margin-bottom: 30px;
     }
     .brand-subtitle {
     margin-bottom: 10px;
 }
     .quiz-card {
-        width: 100%;
+        width: 100% !important;
         margin: 0px auto;
         border: 0;
         background-color: transparent;
-        padding:20px ;
+        padding: 20px;
     }
-  .report-card {
-    width: 100%;
-    border: 0; padding:50px 0px 20px;
-  }
+ /* ⚡ 核心修正 4：徹底清除原本會把收起按鈕擠到外太空的 50px / 100px / 120px 巨大頂部 padding */
+    .report-card {
+        width: 100% !important;
+        border: 0 !important; 
+        padding: 20px 0px !important; /* 還原為舒適對稱的標準內距 */
+    }
+
+    /* ⚡ 核心修正 5：讓「✕ 收起按鈕列」在手機版展開時，黏在最上方，絕對不會被蓋住 */
+    .matrix-close-bar {
+        position: sticky;
+        top: 60px; /* 如果導覽列有高度，這會緊貼在導覽列下方，如無導覽列可改 0 */
+        z-index: 999;
+        background: #0a0a0a; /* 確保有實色背景，滾動時不會與後方文字疊在一起 */
+        border-bottom: 1px solid #333;
+        padding: 12px 16px;
+        margin-bottom: 15px;
+    }
 }
 
+/* ⚡ 核心修正 6：徹底移除下方會阻礙按鈕現身的重複推距設定 */
 @media (max-width: 414px){
-   .report-card {
-    width: 100%;
-    border: 0; padding:100px 0px 30px;
-  }
+   .report-card { padding: 20px 0px !important; }
 }
 
 @media (max-width: 390px){
-   .report-card {
-    width: 100%;
-    border: 0; padding:120px 0px 30px;
-  }
+   .report-card { padding: 20px 0px !important; }
 }
-
 
