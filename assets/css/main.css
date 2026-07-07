@@ -191,7 +191,7 @@ nav {
   .mobile-menu-social-footer .social-btn {
     width: 42px;
     height: 42px;
-    margin-top: 20px;
+    margin-top: 16px;
     border: 0.5px solid rgba(232, 234, 240, 0.16);
     border-radius: 50%;
     background: #111420;
@@ -220,8 +220,7 @@ nav {
 .share-icon-quiz {
   position: relative;
   display: flex;
-  width: 34px;
-  height: 120px;
+  
   border: 0.5px solid rgba(232, 234, 240, 0.1);
   background: #111420;
   align-items: center;
@@ -229,10 +228,10 @@ nav {
   text-decoration: none;
   border-radius: 20px;
   background: #111420;
-  color: #d4c4ae;
+  color: #fff4db;
   cursor: pointer;
   transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1);
-  padding:0 2px 0 0;
+  padding:6px 2px 8px 0;
   writing-mode: vertical-rl; /* 直排 */
   font-size:1rem;
 }
@@ -242,7 +241,7 @@ nav {
   font-family: 'Space Grotesk', sans-serif;
   font-size: .75rem;
   font-weight:500;
-  color: #a3a3a3;
+  color: #f0fbff;
   /* 平時低調 */
   letter-spacing: 0.3em;
 }
@@ -303,10 +302,28 @@ header {
 }
 
 header h1 {
-  font-size: clamp(1.8rem, 5vw, 3rem);
-  letter-spacing: 4px;
+  font-size: clamp(1.8rem, 5vw, 3.25rem);
+  letter-spacing: 12px;
   color: #cdefff;
-  font-weight: 800;
+  font-weight: 700;
+  line-height: 0.4;
+}
+header h3{ 
+  font: 1rem sans-serif;
+  letter-spacing: 4px;
+  color: #5bb9b5;
+  line-height: 1;
+} 
+
+.price-title {
+  position: relative;
+  width: 50%;
+  text-align: center;
+  margin: 40px auto 0;
+  font-size: clamp(1.8rem, 5vw, 2rem);
+  letter-spacing: 5px;
+  color: #79ced43d;
+  font-weight: 700;
   line-height: 1.2;
 }
 
@@ -336,20 +353,21 @@ header h1 {
   display: flex;
   justify-content: center;
   align-items: center;
+  margin-top: 2rem;
 }
 
 .dynamic-subtitle {
   position: absolute;
   font-family: 'Noto Serif TC', serif;
-  font-size: 1rem;
+  font-size: 1.125rem;
   font-weight: 300;
   letter-spacing: 3px;
-  color: #a7a7c0;
+  color: #b7b7c2;
   opacity: 0;
   white-space: normal;
   text-align: center;
   width: 100%;
-  line-height: 1.6;
+  line-height: 1.8;
   transition: opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1), transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
   transform: translateY(5px);
   margin: 0;
@@ -361,11 +379,13 @@ header h1 {
   z-index: 2;
 }
 
+.dynamic-subtitle h5{ color: #00bacc;}
+
 /* ── Section card ── */
 .section-card {
   width: 100%;
-  max-width: 750px;
-  padding: clamp(24px, 5vw, 60px) clamp(16px, 4vw, 40px);
+  max-width: 800px;
+  padding: clamp(24px, 5vw, 50px) clamp(16px, 4vw, 50px);
   margin-bottom: clamp(24px, 4vw, 40px);
   background: rgba(10, 10, 15, 0.75);
   border: 0.5px solid rgba(255, 255, 255, 0.12);
@@ -427,8 +447,9 @@ p.desc {
 
 .faq-geometric-session {
   max-width: 700px;
-  margin: 3rem auto 0 auto;
+  margin: 2.5rem auto 4rem auto;
   text-align: left;
+  padding: 20px;
 }
 
 .faq-item {
@@ -698,7 +719,7 @@ li {
 .products-grid-section {
   width: 100%;
   max-width: 1200px;
-  margin: 60px auto 0;
+  margin: 0px auto;
   padding: 0 px;
   box-sizing: border-box;
 }
@@ -996,6 +1017,235 @@ textarea.form-input-box {
 
 .line-qr-mock a {
   margin-top: 10px;
+}
+
+
+/* ==========================================================================
+   🔮 AI 訂閱制卡片式排版 (防爆、防擠壓安全版)
+   ========================================================================== */
+/* ==========================================================================
+   🔮 商品項目橫式列表樣式 (Product Row Layout)
+   ========================================================================== */
+.pricing-rows-section {
+  width: 100%;
+  padding: 40px 0 20px;
+  background: transparent;
+  color: #ffffff;
+}
+
+.pricing-row-header {
+  text-align: center;
+  margin-bottom: 30px;
+  padding: 0 10px;
+}
+.pricing-row-header h2 {
+  font-size: 1.875rem;
+  font-weight: 800;
+  letter-spacing: 1px;
+  margin-bottom: 16px;
+  color:#3f93ff;;
+}
+.pricing-row-header p {
+  color: #d7e3e9;
+  font-size: 1rem;
+  max-width: 700px;
+  margin: 0 auto;
+  line-height: 1.8;
+}
+
+/* 限制內容最大寬度與留白 */
+.pricing-wrapper {
+  max-width: 850px;
+  margin: 0 auto;
+  padding: 0 24px;
+  box-sizing: border-box;
+}
+
+.rows-container {
+  display: flex;
+  flex-direction: column;
+  gap: 24px; /* 每條商品之間的宇宙留白 */
+}
+
+/* 單條商品橫幅主體 */
+.product-row {
+  background: #111420; /* 與你原導覽列、按鈕相符的宇宙深藍黑 */
+  border: 1px solid rgba(232, 234, 240, 0.06);
+  border-radius: 12px;
+  padding: 30px 40px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* 橫向三區塊尺寸鎖定 */
+.row-meta {
+  width: 25%;
+  flex-shrink: 0;
+}
+.row-content {
+  width: 60%;
+  text-align: left;
+}
+.row-pricing-action {
+  width: 20%;
+  flex-shrink: 0;
+  text-align: right;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 16px;
+}
+
+/* 區塊 1：項目名稱 */
+.row-meta h3 {
+  font-size: 1.25rem;
+  font-weight: 500;
+  color: #ffffff;
+  margin: 8px 0 0 0;
+  letter-spacing: 1px;
+}
+.row-badge {
+  font-size: 0.75rem;
+  font-family: monospace;
+  color: #707585;
+  letter-spacing: 1.5px;
+}
+
+/* 區塊 2：商品內容敘述（橫向展開，完美飽滿） */
+.row-content p {
+  font-size: 0.875rem;
+  line-height: 1.8;
+  color: #b0b5c5;
+  margin: 0;
+  letter-spacing: 0.8px;
+  text-align: left;
+}
+.row-content .itemname{
+  color: #92f4ff;
+  font-weight: 600;
+}
+
+/* 區塊 3：費用與按鈕 */
+.row-price {
+  display: flex;
+  align-items: baseline;
+}
+.row-price .currency {
+  font-size: 0.95rem;
+  color: #d4c4ae; /* 你內斂的金色 */
+  margin-right: 4px;
+}
+.row-price .amount {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #d4c4ae;
+  letter-spacing: 0.5px;
+}
+.row-price .unit {
+  font-size: 0.8rem;
+  color: #64748b;
+  margin-left: 6px;
+}
+
+/* 橫式按鈕 */
+.row-action-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  max-width: 150px;
+  height: 44px;
+  border-radius: 22px;
+  border: 1px solid rgba(232, 234, 240, 0.2);
+  background: transparent;
+  color: #e8eaf0;
+  font-size: 0.9rem;
+  text-decoration: none;
+  letter-spacing: 1px;
+  transition: all 0.3s ease;
+}
+.row-action-btn:hover {
+  border-color: #ffffff;
+  background: rgba(255, 255, 255, 0.05);
+}
+
+/* ==========================================
+   ✨ Hover 特效與主力方案（進階核心）視覺高亮
+   ========================================== */
+.product-row:hover {
+  transform: translateY(-2px);
+  border-color: rgba(232, 234, 240, 0.15);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.4);
+}
+
+/* 針對 Popular 方案的高階光暈與配色細節 */
+.featured-row {
+  border-color: rgba(0, 229, 255, 0.25);
+  background: #141828; /* 微亮科技藍黑 */
+}
+.featured-row:hover {
+  border-color: #00e5ff;
+  box-shadow: 0 0 25px rgba(0, 229, 255, 0.15);
+}
+.featured-badge {
+  color: #00e5ff;
+}
+.featured-row .row-price .amount,
+.featured-row .row-price .currency {
+  color: #00e5ff; /* 主力方案改為科技藍色價格 */
+}
+.row-action-btn.solid {
+  background: #00e5ff;
+  color: #000000;
+  border: none;
+  font-weight: 600;
+}
+.row-action-btn.solid:hover {
+  background: #00bacc;
+  box-shadow: 0 0 15px rgba(0, 229, 255, 0.4);
+}
+
+/* ==========================================
+   📱 響應式斷點防禦（手機端自動將橫條轉回挺拔的垂直卡片）
+   ========================================== */
+@media (max-width: 992px) {
+  .product-row {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 24px;
+    padding: 32px 28px;
+  }
+  .row-meta, .row-content, .row-pricing-action {
+    width: 100%;
+    text-align: left;
+    align-items: flex-start;
+  }
+  .row-pricing-action {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1px solid rgba(232, 234, 240, 0.06);
+    padding-top: 20px;
+    margin-top: 8px;
+  }
+  .row-action-btn {
+    max-width: 160px;
+    margin: 0;
+  }
+}
+
+@media (max-width: 500px) {
+  .row-pricing-action {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+  }
+  .row-action-btn {
+    max-width: 100%;
+  }
 }
 
 /* ── Alert ── */
@@ -1476,6 +1726,16 @@ footer {
 }
 
 @media (max-width: 768px) {
+
+header h1 {
+  font-size: 2.5rem;
+  line-height: .5;
+  letter-spacing: 8px;
+}
+header h3{
+  letter-spacing: 1px;
+}
+
   .section-card {
     width: 100%;
     padding: clamp(24px, 5vw, 60px) clamp(16px, 4vw, 40px);
