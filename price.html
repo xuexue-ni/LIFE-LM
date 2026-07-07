@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- 官方標準 SEO 核心設定 -->
+    <title>LIFE+ Legacy Matrix | 數位/實體記憶藝術資產</title>
+    <meta name="description"
+        content="歡迎進入LIFE+系統研發網。我們融合傳統美學與現代時空座標演算，專注於人生故事與寵物記憶痕跡的identify（識別），將珍貴照片、生活點滴精密轉化為可永久留傳的加密數位資產與客製化實體回憶錄。">
+    <meta name="keywords"
+        content="長輩回憶錄,幫爸媽做回憶錄,舊照片數位化,生命故事,情感療癒,正向思維能量,焦慮放鬆方法,傳家寶,永久保存,人生紀錄,訂製禮物,數位記錄,客製化紀念品,長輩懷舊治療,延緩記憶流失,長者情感陪伴,大腦記憶活化,懷舊療癒,找回生活節奏,寵物毛髮紀念品,寵物過世留念,狗毛貓毛留念,寵物骨灰藝術品,心靈平靜,自我探索,毛孩精神陪伴,寵物紀念,個人藝術品,專屬圖騰設計,台北平面設計,薛薛妮">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://xuexue-ni.github.io/LIFE-LM">
+    <!-- 社群分享（OG）最佳化 -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://xuexue-ni.github.io/LIFE-LM">
+    <meta property="og:title" content="LIFE+ Legacy Matrix | 數位/實體記憶藝術資產">
+    <meta property="og:description" content="融合傳統美學與現代時空座標演算，將您珍貴的長輩老照片、生活故事與毛孩記憶痕跡，精密轉化為可永久留傳的數位與實體情感藝術資產。">
+    <meta property="og:image" content="https://xuexue-ni.github.io/LIFE-LM/assets/images/og-share-cover.jpg">
+    <!-- 樣式連結 -->
+    <link rel="stylesheet" href="assets/css/main.css">
+    <link rel="stylesheet" href="assets/css/life-code.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com/">
+    <link rel="stylesheet" href="assets/css/css2">
+    <link rel="icon" href="assets/images/favicon.svg" type="image/svg+xml">
+    <link rel="icon" href="assets/images/favicon-32x32.png" type="image/png" sizes="32x32">
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+    <link rel="apple-touch-icon" href="assets/images/apple-touch-icon.png" sizes="180x180">
+</head>
+
+<body>
+    <canvas id="life-space-canvas"></canvas>
+    <!-- 社群分享 -->
+    <div class="desktop-social-sidebar">
+        <a href="price.html" target="_blank" class="share-icon-quiz" data-tooltip="看看適合方案"> <span
+                class="icon-txt">✨了解典藏服務 </span></a>
+        <a href="https://social-plugins.line.me/lineit/share?url=https://xuexue-ni.github.io/LIFE-LM/" target="_blank"
+            class="social-btn" title="分享至 LINE">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round">
+                <path
+                    d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z">
+                </path>
+            </svg>
+        </a>
+        <a href="https://www.facebook.com/sharer/sharer.php?u=https://xuexue-ni.github.io/LIFE-LM/" target="_blank"
+            class="social-btn" title="分享至 Facebook">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round">
+                <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path>
+            </svg>
+        </a>
+        <button class="social-btn" onclick="copyCurrentUrl()" title="複製網頁連結">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round">
+                <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path>
+                <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path>
+            </svg>
+        </button>
+        <!-- 社群測驗分享 -->
+        <a href="event_brain-color.html" class="share-icon-quiz" data-tooltip="馬上分析">
+            <span class="icon-txt">🧠腦體檢中心</span>
+        </a>
+    </div>
+    <div id="back-to-top-btn" onclick="scrollToTop()">
+        <span class="arrow-icon">↑</span>
+        <span>TOP</span>
+    </div>
+    <nav>
+        <a href="index.html" class="logo-link-top" title="回到頂部">
+            <div class="logo">
+                <img src="assets/images/logo.png" alt="LIFE+ Legacy Matrix" class="logo-img">
+            </div>
+        </a>
+        <div class="menu-toggle" id="mobile-menu-btn" onclick="toggleMobileMenu()">
+            <span></span>
+            <span></span>
+        </div>
+        <div class="nav-links" id="nav-links-container">
+            <a href="index.html#experience" onclick="closeMobileMenu()">免費體驗</a>
+            <a href="index.html#philosophy" onclick="closeMobileMenu()">核心原理</a>
+            <a href="index.html#solutions" onclick="closeMobileMenu()">留住記憶</a>
+            <a href="price.html" target="_blank" onclick="closeMobileMenu()">服務方案</a>
+            <a href="index.html#booking" onclick="closeMobileMenu()">專屬預約</a>
+            <div class="mobile-menu-social-footer" aria-label="社群分享">
+                <a href="price.html" target="_blank" class="share-icon-quiz" title="看看適合方案" onclick="closeMobileMenu()">
+                    <span class="icon-txt">✨了解典藏服務 </span></a>
+                <a href="https://social-plugins.line.me/lineit/share?url=https://xuexue-ni.github.io/LIFE-LM/"
+                    target="_blank" class="social-btn" title="分享至 LINE" onclick="closeMobileMenu()">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <path
+                            d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z">
+                        </path>
+                    </svg>
+                </a>
+                <a href="https://www.facebook.com/sharer/sharer.php?u=https://xuexue-ni.github.io/LIFE-LM/"
+                    target="_blank" class="social-btn" title="分享至 Facebook" onclick="closeMobileMenu()">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path>
+                    </svg>
+                </a>
+                <button class="social-btn" onclick="copyCurrentUrl(); closeMobileMenu();" title="複製網頁連結">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path>
+                        <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path>
+                    </svg>
+                </button>
+                <a href="event_brain-color.html" target="_blank" class="social-btn" title="腦檢中心"
+                    onclick="closeMobileMenu()">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round">
+                    </svg>
+                    🧠
+                </a>
+            </div>
+        </div>
+    </nav>
+    <div class="content-container"> 
+        <!--🔮 服務方案內容區塊 (Pricing Section) -->
+        <section class="pricing-rows-section">
+            <div class="pricing-wrapper">
+                <div class="pricing-row-header">
+                    <h2>LIFE+ Legacy Matrix 服務方案</h2>
+                    <p>可選擇適合您的方案與加值服務或 <strong>私人顧問級訂製</strong>，來為您定錨生命中最珍貴的記憶軌跡。</p>
+                </div>
+                <!-- 方案區塊 -->
+                <div class="rows-container">
+                    <div class="product-row">
+                        <div class="row-meta">
+                            <span class="row-badge">01 / BASIC</span>
+                            <h3>免費體驗</h3>
+                        </div>
+                        <div class="row-content">
+                            <p>生命矩陣座標解碼:依據個人生命座標，進行特質評估與設計分析。提供部分內容可免費自行下載。</p>
+                            <p>👉 適合：想先了解自己／初次體驗</p>
+                        </div>
+                        <div class="row-pricing-action">
+                            <div class="row-price">
+                                <span class="currency">NT$</span><span class="amount">0</span><span class="unit">/
+                                    單次</span>
+                            </div>
+                            <a href="#booking" class="row-action-btn">啟動資產委託</a>
+                        </div>
+                    </div>
+                    <div class="product-row">
+                        <div class="row-meta">
+                            <span class="row-badge">01 / BASIC</span>
+                            <h3>基礎數位憶留</h3>
+                        </div>
+                        <div class="row-content">
+                            <p>根據個人座標與透過系統建構identify（識別）基礎人生故事軌跡與引導，提供系統演算專屬之設計計畫，專注於生命記憶素材的結構化建檔。完成輕量化數位Memoirs檔案導出，並包含
+                                1次線上資料校正服務。</p>
+                            <p>✔ 回憶素材整理<br>
+                                ✔ 故事結構重整<br>
+                                ✔ 初步視覺化建議<br>
+                                ✔ 記憶主題規劃</p>
+                            <p>語音錄音、生活影片、老照片、手寫信、手稿畫作...等，都適合成為編寫回憶的素材。</p>
+                            <p>👉 適合：想替父母／自己整理人生故事的人</p>
+                        </div>
+                        <div class="row-pricing-action">
+                            <div class="row-price">
+                                <span class="currency">NT$</span><span class="amount">3,600</span><span class="unit">/
+                                    起</span>
+                            </div>
+                            <a href="#booking" class="row-action-btn">啟動資產委託</a>
+                        </div>
+                    </div>
+                    <div class="product-row featured-row">
+                        <div class="row-meta">
+                            <span class="row-badge featured-badge">02 / POPULAR</span>
+                            <h3>LIFE+核心典藏</h3>
+                        </div>
+                        <div class="row-content">
+                            <p>最完整的雙軌留存方案。包含深度生命紀實與時空矩陣架構配置，經由 AI 進階美學轉譯，完整儲存於加密型 Meta-Aesthetics 資料模組。本方案**附贈 1 組客製化實體
+                                Physical Memoirs 記憶資產載體**，讓情感永恆傳承。</p>
+                            <p>✔ 深度回憶整理<br>
+                                ✔ 主題設計規劃<br>
+                                ✔ 視覺化作品設計<br>
+                                ✔ 初版典藏成果</p>
+                            <p>👉 適合：「紀念禮物／自留保存」的人生禮物</p>
+                        </div>
+                        <div class="row-pricing-action">
+                            <div class="row-price">
+                                <span class="currency">NT$</span><span class="amount">8,800</span><span class="unit">/
+                                    起</span>
+                            </div>
+                            <a href="#booking" class="row-action-btn solid">優先客製預約</a>
+                        </div>
+                    </div>
+                    <div class="product-row">
+                        <div class="row-meta">
+                            <span class="row-badge">03 / PREMIUM</span>
+                            <h3>永恆資產典藏設計</h3>
+                        </div>
+                        <div class="row-content">
+                            <p>頂級全景式生命篇章深度整合。結合 6
+                                大維度記憶軌跡演算法，提供最高規格之純手工平面美術與數位雙軌量身訂製。享有獨立算力通道與專屬雲端數位資產永久維護，適合家族傳家寶或專屬圖騰之極致客製需求。</p>
+                            <p>✔ 全客製流程<br>
+                                ✔ 深度訪談整理<br>
+                                ✔ 高階藝術設計<br>
+                                ✔ 實體作品製作</p>
+                            <p>👉 適合：重要人生紀念／高情感需求療癒</p>
+                        </div>
+                        <div class="row-pricing-action">
+                            <div class="row-price">
+                                <span class="currency">NT$</span><span class="amount">16,800</span><span class="unit">/
+                                    起</span>
+                            </div>
+                            <a href="#booking" class="row-action-btn">尊榮專案洽詢</a>
+                        </div>
+                    </div>
+                     <div class="product-row">
+                        <div class="row-meta">
+                            <span class="row-badge">04 / EXTENSIONS</span>
+                            <h3>多元美學加值配置</h3>
+                        </div>
+                        <div class="row-content">
+                            <p>提供全方位記憶資產的延伸解碼與實體高階工藝配置，可以個人需求喜好選配</p>
+                            <p> 📖 <span class="itemname">時光冊</span> :<br>
+                               〈數位〉個人專屬數位網頁設計<br>
+                               〈實體〉精裝書 <br>
+                                🖼 <span class="itemname">光軌</span> :融入現代居家空間的質感陪伴<br>
+                                〈數位〉專屬數位網頁設計或影像處理<br>
+                                〈實體〉e.g.掛畫、公仔展示、擺件、常用周邊<br> 
+                                🎁 <span class="itemname">我在</span>:<br>
+                                〈數位〉專屬數位網頁設計或影像處理<br> 
+                                〈實體〉藝術展示品:e.g.掛畫、公仔展示、擺件、常用周邊<br>
+                                💾 <span class="itemname">生命樹</span>:<br>
+                                〈數位〉專屬數位網頁設計或影像處理<br>
+                                〈實體〉藝術展示品:e.g.掛畫、塑像、各式材質擺件<br>
+                            </p>
+                           
+                        </div>
+                        <div class="row-pricing-action">
+                            <div class="row-price">
+                                <span class="currency">另行報價</span><br>
+                                <span class="unit">材質數量皆為製作成本調整因素</span>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+            <!--與我聯繫 -->
+        <div id="booking" class="section-card">
+                <h1>✦ 專屬預約</h1>
+                <p class="desc">請留下您的聯繫方式，為您進行深度生命記憶策展、定製實體記憶紀念。
+                    <br>我們將有專人盡快與您取得聯繫。
+                </p>
+                <form class="booking-form" action="mailto:winnietoto@gmail.com" method="POST" enctype="text/plain"
+                    onsubmit="triggerFormSubmit(event)">
+                    <div class="form-row">
+                        <div class="form-col">
+                            <label>聯絡姓名 *</label>
+                            <input type="text" name="Name" class="form-input-box" required placeholder="如何稱呼您">
+                        </div>
+                        <div class="form-col">
+                            <label>聯絡電話 *</label>
+                            <input type="tel" name="Phone" class="form-input-box" required placeholder="0912345678">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>電子郵件 Mail *</label>
+                        <input type="email" name="Email" class="form-input-box" required placeholder="example@mail.com">
+                    </div>
+                    <div class="form-row">
+                        <div class="form-col">
+                            <label>委託對象類別</label>
+                            <select name="TargetCategory" class="form-input-box">
+                                <option>長輩傳承（長輩時空冊）</option>
+                                <option>寵物生命紀念（伴侶生命誌）</option>
+                                <option>個人生活重整（個人數位封存）</option>
+                                <option>其他（數位資產策展）</option>
+                            </select>
+                        </div>
+                        <div class="form-col">
+                            <label>理想封存方式</label>
+                            <select name="ArchiveType" class="form-input-box">
+                                <option>純數位雲端封存報告</option>
+                                <option>客製化實體幾何雷雕紀念物</option>
+                                <option>私人策展顧問一對一訪談服務</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>簡單聊聊您想留下的故事或期望（選填）</label>
+                        <textarea name="UserMessage" class="form-input-box"
+                            placeholder="例如：想幫心愛的貓咪留念or想替現在的自己留下紀錄!.."></textarea>
+                    </div>
+                    <div style="text-align: center; margin-top: 30px;">
+                        <button type="submit" class="message-btn">提交委託意向</button>
+                        <div class="lock-text" style="font-size:0.875rem; color:#798bee; margin-top:16px;">🔒
+                            您的生命資訊受最高規格加密保護。</div>
+                    </div>
+                </form>
+
+                <div class="line-shortcut">
+                    <label>── 直接加入官方專屬對話 ──</label>
+                    <div class="line-qr-mock"><img src="assets/images/line-qr-code.jpg" alt="LINE QR Code"></div>
+                    <a href="https://lin.ee/sP2q1SG" onclick="alert('模擬對接：已開啟加入官方帳號連結')">👆點我直接與專屬生命策展人聊聊 →</a>
+                </div>
+                <label>也歡迎透過左下角社群連結與我們聯繫!</label>
+        </div>
+    </div>
+    <!--收信彈窗 -->
+    <div id="custom-alert">
+        <h3 style="color:#00e5ff; font-weight:300; letter-spacing:2px; margin-bottom:15px;">系統已收到委託</h3>
+        <p style="font-size:0.88rem; line-height:1.8; color:#ccc; font-weight:300; margin-bottom:25px;">
+            感謝您定錨生命座標。<br>您的委託意向已成功傳達至後端系統，請靜候專人與您聯絡，啟動一對一生命策展對話。
+        </p>
+        <button class="action-btn" style="padding:10px 30px;" onclick="closeAlert()">確認</button>
+    </div>
+    <!--收信彈窗 / END-->
+    </div>
+    <footer>
+        <div class="footer-content">
+            <div class="footer-brand">
+                <img src="assets/images/logo.png" alt="LIFE+ Legacy Matrix" class="footer-logo">
+                <p>記憶傳承 · 本我印記 · 時間流轉 · 座標元素</p>
+                <div class="social-icons">
+                    <a href="https://www.facebook.com/LifeMatrixLab" target="_blank" class="icon-mock" title="Facebook">
+                        <svg viewBox="0 0 24 24" class="social-svg">
+                            <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path>
+                        </svg>
+                    </a>
+                    <a href="https://www.instagram.com/xuexueni.space/" target="_blank" class="icon-mock"
+                        title="Instagram">
+                        <svg viewBox="0 0 24 24" class="social-svg">
+                            <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+                            <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+                            <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+                        </svg>
+                    </a>
+                    <!-- 💡 Threads -->
+                    <a href="#" target="_blank" class="icon-mock" title="Threads">
+                        <svg viewBox="0 0 20 22" class="social-svg threads-svg">
+                            <path
+                                d="M12 11c0-1.1-.9-2-2-2s-2 .9-2 2 .9 2 2 2 2-.9 2-2zm0 0v1.5c0 .83.67 1.5 1.5 1.5s1.5-.67 1.5-1.5V11c0-2.76-2.24-5-5-5s-5 2.24-5 5 2.24 5 5 5c1.22 0 2.33-.44 3.2-1.17">
+                            </path>
+                        </svg>
+                    </a>
+                    <!-- 💡 TikTok / 抖音 -->
+                    <a href="https://www.tiktok.com/@userhnmc4iqtxj?_r=1&_t=ZS-91MzYYArgNZ" target="_blank"
+                        class="icon-mock" title="TikTok">
+                        <svg viewBox="0 0 24 24" class="social-svg">
+                            <!-- 完美的幾何圓點、直桿與拋物線尾翼構成的純線條八分音符 -->
+                            <circle cx="9" cy="17" r="3"></circle>
+                            <polyline points="12 17 12 4 20 4"></polyline>
+                            <path d="M16 8c2.21 0 4-1.79 4-4"></path>
+                        </svg>
+                    </a>
+                    <!-- 💡 小紅書 -->
+                    <a href="https://xhslink.com/m/5sAcQVx2Drc" target="_blank" class="icon-mock" title="小紅書">
+                        <svg viewBox="0 0 24 24" class="social-svg">
+                            <path d="M4 5.2l3.6 2.4-3.6 3.6 4.8 1.2"></path>
+                            <path d="M5.2 16h2.4"></path>
+                            <path d="M13 5v14"></path>
+                            <path d="M11 7h8"></path>
+                            <path d="M11 17h8"></path>
+                        </svg>
+                    </a>
+                    <!--<a href="您的LinkedIn網址" target="_blank" class="icon-mock" title="LinkedIn">
+                        <svg viewBox="0 0 24 24" class="social-svg">
+                            <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z">
+                            </path>
+                            <rect x="2" y="9" width="4" height="12"></rect>
+                            <circle cx="4" cy="4" r="2"></circle>
+                        </svg>
+                    </a-->
+                </div>
+            </div>
+            <div class="footer-links">
+                <h5>商業合作與聯繫</h5>
+                <p>XUEXUEni 數位生命美學工作室</p>
+                <p><a href="mailto:winnietoto@gmail.com"> winnietoto@gmail.com</a></p>
+            </div>
+            <div class="footer-links">
+                <h5>架構導覽</h5>
+                <p><a href="#experience">體驗生命解碼</a></p>
+                <p><a href="#philosophy">大師核心架構</a></p>
+                <p><a href="#solutions">留存場景方案</a></p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <div>&copy; 2026 LIFE+ Legacy Matrix System & XUEXUEni Studio. All Rights Reserved.</div>
+            <div class="footer-bottom-right">
+                <button class="lang-toggle-btn" onclick="switchLang()">EN</button>
+                <button class="btn-footer-science" onclick="downloadScienceReport()">
+                    <svg viewBox="0 0 24 24" class="science-btn-svg">
+                        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                        <polyline points="7 10 12 15 17 10"></polyline>
+                        <line x1="12" y1="15" x2="12" y2="3"></line>
+                    </svg>
+                    LIFE+ 記憶與療癒系統計畫科學實證
+                </button>
+            </div>
+        </div>
+    </footer>
+    <!-- JS-->
+    <script src="assets/js/js.js"></script>
+    <script src="assets/js/code-data.js"></script>
+    <script src="assets/js/lang.js"></script>
+</body>
+
+</html>
