@@ -360,7 +360,7 @@ font-weight: 600;  }
    RWD — 手機版最小字級 1rem
    ========================================================================== */
 @media (max-width: 768px) {
-  .content-container { width: 96%; margin: 0 2%; }
+  .content-container { width: 98%; margin: 0 1%; }
   .section-card { padding: 3rem 1.25rem; }
   .calculator   { width: 100%; margin: 0 auto; padding: 0 0 40px; margin-top: 80px; }
 }
