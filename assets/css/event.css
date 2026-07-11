@@ -47,7 +47,8 @@ body::before {
 .container {
     width: 100%;
     max-width: 640px;
-    margin: 120px auto 60px auto; /* ⚡ 改為水平置中，上方留適當導覽列高度即可 */
+    margin: 80px auto 60px auto; /* ⚡ 改為水平置中，上方留適當導覽列高度即可 */
+   padding-top:30px;
     position: relative;
     display: block;
 }
