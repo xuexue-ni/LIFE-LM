@@ -312,14 +312,81 @@ function toggleFaq(element) {
 
 // ── 4. 終極優化：點擊後另開精緻預覽網頁，內嵌科學實證與下載功能 ──
 function downloadScienceReport() {
+    const EN = typeof currentLang !== 'undefined' && currentLang === 'en';
+    const T = EN ? {
+        htmlLang: 'en', pageTitle: 'LIFE+ Memory & Healing System: Scientific Evidence Summary',
+        title: 'LIFE+ Memory & Healing System: Scientific Evidence',
+        subtitle: 'An Evidence-Based Summary of Design, Neuroscience & Brain Health',
+        s1Title: '✦ Let\'s Walk Toward a Balanced Life, Together',
+        s1Body: `✍️ Hi, I'm Winnie.<br>
+            Before founding this project in early 2026, I spent years like many others pushing forward in a fast-paced career, climbing step by step from an entry role to management.
+            That relentless pressure and life's turns left me off-balance, depleted, even anxious and exhausted.<br>
+            Through the ups and downs, in a rare moment of breathing room, I decided to stop and take a hard look at my own life.
+            I asked myself: could I turn my talent for "translating beauty" and the rational thinking I'd sharpened over the years into a design practice that helps others while reigniting my own passion for life?<br>
+            After much reflection, I began reorganizing the deep logic of Ziwei astrology and the Five Elements through a modern algorithm, turning it into clean, pure geometric coordinate design.
+            This isn't traditional fortune-telling superstition — it's closer to a <strong>psychological support</strong> lens,
+            using <strong>scientific logic</strong> to help you untangle a messy life story and <strong>rebuild inner order through a "memory repair project."</strong>
+            This is how I healed myself, and I hope this cross-disciplinary expertise, built over half a lifetime, can heal a small part of you too.
+            <strong>When you face life's sudden storms, LIFE+ MATRIX aims to be a silent psychological companion — steadily guarding your inner world and offering calm support to move forward.</strong>`,
+        s2Title: '✦ Clinical & Neuroscience Basis',
+        s2Intro: 'International neuroscience and clinical psychology research shows that regular visual-line stimulation, life-story reminiscence, and anchoring to personal symbols can build deep psychological safety and brain protection:',
+        s2Item1Title: 'Brain Activation & Non-Pharmacological Intervention',
+        s2Item1Body: 'Clinical evidence shows that structured life-story and visual-symbol Reminiscence Therapy can effectively slow cognitive decline.',
+        s2Item1Link: '🔗 See the Alzheimer\'s Association on non-pharmacological therapy progress →',
+        s2Item2Title: 'Slowing Dementia & Building Cognitive Reserve',
+        s2Item2Body: 'Early structured archiving and mental anchoring of personal life events can effectively build "Cognitive Reserve," significantly delaying dementia progression later in life.',
+        s2Item2Link: '🔗 See the NIA (National Institute on Aging) on cognitive reserve & brain protection →',
+        s2Item3Title: 'Neuroaesthetics & Emotional Stability',
+        s2Item3Body: 'Deep aesthetic translation and the artistic creation process can significantly suppress cortisol (stress hormone) release, activate neural microcirculation, and balance the autonomic nervous system.',
+        s2Item3Link: '🔗 See NCBI on art therapy & neural mechanism research →',
+        s3Title: '✦ Digital Assets & Physical Memorial Carriers',
+        s3Body: 'The LIFE+ System encodes fleeting life moments into warm, eternal geometric rings within the cosmos. This visual coordinate works beautifully as a digital wallpaper and memory archive, and later becomes the key index for premium physical laser-engraved memorial pieces or custom digital books — a trustworthy anchor point amid life\'s chaos.',
+        btnPrint: 'Save or Print Report',
+        btnBooking: 'Go to Booking',
+        footerNote: 'This evidence is based on frameworks from neuroaesthetics and cognitive psychology.',
+        alertBlocked: 'Your browser blocked the pop-up. Please allow pop-ups to view the scientific evidence.'
+    } : {
+        htmlLang: 'zh-TW', pageTitle: 'LIFE+ 記憶與療癒系統計畫：科學實證與醫學文獻摘要',
+        title: 'LIFE+ 記憶與療癒系統計畫科學實證',
+        subtitle: '設計學、神經科學與大腦健康之實證學術摘要',
+        s1Title: '✦ 一起同行找回平衡生活吧!',
+        s1Body: `✍️ 您好，我是 Winnie。<br>
+            在 2026 年初創立這個計畫之前，我和許多人一樣，在節奏緊湊的職場裡努力了多年，一步步從基層做到管理職級。
+            這些高度緊繃的壓力環境與生活變故，讓我們失衡、內耗，甚至充滿焦慮與疲憊。<br>
+            經歷了不平順人生的起伏，在喘息的空間裡，我決定停下腳步審視自己的人生。
+            我問自己，能不能把天賦中「美學轉譯」與時間練就的「理性思維」，
+            轉化為一項能兼顧助人與提升生命熱情的設計事業？<br>
+            苦思沉澱許久，我試著將深奧的紫微八字與陰陽五行規律，用現代演算法重新梳理，轉化為乾淨、純粹的幾何座標設計。
+            這不是傳統算命迷信，更像是融合了<strong>心理支持</strong>的視角，
+            用<strong>科學邏輯</strong>幫你把雜亂的人生故事理出頭緒、<strong>重建內心秩序的「記憶修復工程」。</strong>
+            這是我療癒自己的方式，也希望用自己半生累積的跨界專業，能夠也治癒您的一小部分。
+            <strong>在您面對生命突如其來的風雨時，LIFE+ MATRIX將是一個無聲的心理陪伴者，安穩地守護著您的內心，給予您一份從容前行的支撐與力量。</strong>`,
+        s2Title: '✦ 臨床醫學與神經科學依據',
+        s2Intro: '根據國際神經科學與臨床心理學研究指出，透過規律的視覺線條刺激、生命故事回溯以及個人專屬符號的錨定，能建立深度的心理安全感與大腦防護：',
+        s2Item1Title: '活化大腦與非藥物介入療法',
+        s2Item1Body: '臨床證實，透過結構化的生命故事、視覺符號回溯療法（Reminiscence Therapy），能有效減緩認知功能退化。',
+        s2Item1Link: '🔗 查閱阿茲海默症協會 (Alzheimer\'s Association) 非藥物介入研究進展 →',
+        s2Item2Title: '減緩失智與提升認知儲備',
+        s2Item2Body: '提早建立個人生命事件的結構化封存與精神錨定，能有效累積大腦的「認知儲備」（Cognitive Reserve），在年長時顯著延緩失智病程。',
+        s2Item2Link: '🔗 查閱美國國家老化研究所 (NIA) 關於認知儲備與大腦保護機制 →',
+        s2Item3Title: '神經美學（Neuroaesthetics）與情緒安定',
+        s2Item3Body: '深度的美學轉譯與藝術創造過程，能顯著抑制體內皮質醇（壓力荷爾蒙）分泌，活化大腦神經元微循環，平衡自主神經系統。',
+        s2Item3Link: '🔗 查閱美國國家生物技術資訊中心 (NCBI) 藝術治療與神經機制研究文獻 →',
+        s3Title: '✦ 數位資產與實體紀念載體',
+        s3Body: 'LIFE+ 系統將稍縱即逝的生命瞬間，編碼為宇宙中溫暖而永恆的幾何年輪。此視覺座標不僅適合作為數位桌布與記憶封存，更是日後轉化為高質感實體雷雕記憶載體、客製化數位書籍的關鍵索引，在慌亂的時空中提供最值得信賴的錨定點。',
+        btnPrint: '儲存或列印報告',
+        btnBooking: '前往專屬預約',
+        footerNote: '本實證基於神經美學與認知心理學框架推演。',
+        alertBlocked: '您的瀏覽器封鎖了彈出視窗，請允許彈出以查閱科學實證。'
+    };
     // 💡 核心技術：建立包含完整美學排版與下載按鈕的獨立網頁字串
     const scienceHtmlContent = `
 <!DOCTYPE html> 
-<html lang="zh-TW">
+<html lang="${T.htmlLang}">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LIFE+ 記憶與療癒系統計畫：科學實證與醫學文獻摘要</title>
+    <title>${T.pageTitle}</title>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@300;400&display=swap" rel="stylesheet">
     <style>
         body {
@@ -480,62 +547,52 @@ function downloadScienceReport() {
 <body>
     <div class="report-card">
         <div class="header-logo">LIFE+ Legacy Matrix</div>
-        <div class="title">LIFE+ 記憶與療癒系統計畫科學實證</div>
-        <div class="subtitle">設計學、神經科學與大腦健康之實證學術摘要</div>
+        <div class="title">${T.title}</div>
+        <div class="subtitle">${T.subtitle}</div>
         
-        <div class="section-title">✦ 一起同行找回平衡生活吧!</div>
+        <div class="section-title">${T.s1Title}</div>
         <div class="content-box">
-            ✍️ 您好，我是 Winnie。<br>
-            在 2026 年初創立這個計畫之前，我和許多人一樣，在節奏緊湊的職場裡努力了多年，一步步從基層做到管理職級。
-            這些高度緊繃的壓力環境與生活變故，讓我們失衡、內耗，甚至充滿焦慮與疲憊。<br>
-            經歷了不平順人生的起伏，在喘息的空間裡，我決定停下腳步審視自己的人生。
-            我問自己，能不能把天賦中「美學轉譯」與時間練就的「理性思維」，
-            轉化為一項能兼顧助人與提升生命熱情的設計事業？<br>
-            苦思沉澱許久，我試著將深奧的紫微八字與陰陽五行規律，用現代演算法重新梳理，轉化為乾淨、純粹的幾何座標設計。
-            這不是傳統算命迷信，更像是融合了<strong>心理支持</strong>的視角，
-            用<strong>科學邏輯</strong>幫你把雜亂的人生故事理出頭緒、<strong>重建內心秩序的「記憶修復工程」。</strong>
-            這是我療癒自己的方式，也希望用自己半生累積的跨界專業，能夠也治癒您的一小部分。
-            <strong>在您面對生命突如其來的風雨時，LIFE+ MATRIX將是一個無聲的心理陪伴者，安穩地守護著您的內心，給予您一份從容前行的支撐與力量。</strong>
+            ${T.s1Body}
         </div>
         
-        <div class="section-title">✦ 臨床醫學與神經科學依據</div>
+        <div class="section-title">${T.s2Title}</div>
         <div class="content-box">
-            根據國際神經科學與臨床心理學研究指出，透過規律的視覺線條刺激、生命故事回溯以及個人專屬符號的錨定，能建立深度的心理安全感與大腦防護：<br><br>
+            ${T.s2Intro}<br><br>
             
-            1. <span class="highlight">活化大腦與非藥物介入療法</span>：<br>
-            臨床證實，透過結構化的生命故事、視覺符號回溯療法（Reminiscence Therapy），能有效減緩認知功能退化。<br>
-            <a href="https://www.alz.org/alzheimers-dementia/research_progress/non-pharmacological-therapies" class="ref-link" target="_blank">🔗 查閱阿茲海默症協會 (Alzheimer's Association) 非藥物介入研究進展 →</a><br><br>
+            1. <span class="highlight">${T.s2Item1Title}</span>：<br>
+            ${T.s2Item1Body}<br>
+            <a href="https://www.alz.org/alzheimers-dementia/research_progress/non-pharmacological-therapies" class="ref-link" target="_blank">${T.s2Item1Link}</a><br><br>
             
-            2. <span class="highlight">減緩失智與提升認知儲備</span>：<br>
-            提早建立個人生命事件的結構化封存與精神錨定，能有效累積大腦的「認知儲備」（Cognitive Reserve），在年長時顯著延緩失智病程。<br>
-            <a href="https://www.nia.nih.gov/news/cognitive-reserve-what-it-and-how-does-it-protect-brain" class="ref-link" target="_blank">🔗 查閱美國國家老化研究所 (NIA) 關於認知儲備與大腦保護機制 →</a><br><br>
+            2. <span class="highlight">${T.s2Item2Title}</span>：<br>
+            ${T.s2Item2Body}<br>
+            <a href="https://www.nia.nih.gov/news/cognitive-reserve-what-it-and-how-does-it-protect-brain" class="ref-link" target="_blank">${T.s2Item2Link}</a><br><br>
             
-            3. <span class="highlight">神經美學（Neuroaesthetics）與情緒安定</span>：<br>
-            深度的美學轉譯與藝術創造過程，能顯著抑制體內皮質醇（壓力荷爾蒙）分泌，活化大腦神經元微循環，平衡自主神經系統。<br>
-            <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC8472506/" class="ref-link" target="_blank">🔗 查閱美國國家生物技術資訊中心 (NCBI) 藝術治療與神經機制研究文獻 →</a>
+            3. <span class="highlight">${T.s2Item3Title}</span>：<br>
+            ${T.s2Item3Body}<br>
+            <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC8472506/" class="ref-link" target="_blank">${T.s2Item3Link}</a>
         </div>
         
-        <div class="section-title">✦ 數位資產與實體紀念載體</div>
+        <div class="section-title">${T.s3Title}</div>
         <div class="content-box">
-            LIFE+ 系統將稍縱即逝的生命瞬間，編碼為宇宙中溫暖而永恆的幾何年輪。此視覺座標不僅適合作為數位桌布與記憶封存，更是日後轉化為高質感實體雷雕記憶載體、客製化數位書籍的關鍵索引，在慌亂的時空中提供最值得信賴的錨定點。
+            ${T.s3Body}
         </div>
         
         <div class="action-zone">
             <div class="btn-group-footer">
                 <button class="btn-download-now" onclick="window.print()">
                     <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
-                    儲存或列印報告
+                    ${T.btnPrint}
                 </button>
                 
                 <a href="https://xuexue-ni.github.io/LIFE-LM/#booking" target="_top" class="btn-back-to-booking">
-                    前往專屬預約
+                    ${T.btnBooking}
                     <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
                 </a>
             </div>
             
             <div class="footer-note">
                 © 2026 LIFE+ Legacy Matrix System & XUEXUEni Studio. All Rights Reserved.<br>
-                本實證基於神經美學與認知心理學框架推演。
+                ${T.footerNote}
             </div>
         </div>
     </div>
@@ -550,6 +607,6 @@ function downloadScienceReport() {
         newWindow.document.write(scienceHtmlContent);
         newWindow.document.close();
     } else {
-        alert('您的瀏覽器封鎖了彈出視窗，請允許彈出以查閱科學實證。');
+        alert(T.alertBlocked);
     }
 }

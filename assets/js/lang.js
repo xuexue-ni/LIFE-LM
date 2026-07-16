@@ -1,9 +1,14 @@
 // ── 語言系統 ──
 const LANG = {
   zh: {
-    nav: ['免費體驗','核心原理','留住記憶','專屬預約'],
-    heroTitle: '瞬間即是永恆',
-    heroSubs: ['你記憶中的自己是什麼樣子?','傳承記憶，將生命錨定於宇宙座標','探尋基因中流動的陰陽五行美學','在時間的漣漪裡，你是獨一無二的純粹'],
+    nav: ['留住記憶','服務介紹','免費體驗','專屬預約','關於LIFE+'],
+    navSub: ['免費體驗','核心原理','留住記憶','服務方案','專屬預約'],
+    symQ: 'Q.選擇一個您最有感的符號意義,以極細線條若隱若現地融入畫面背景',
+    texQ: 'Q.你最容易被哪種觸覺感或物件感吸引？',
+    heroTagline: '把人生故事與美好紀念，化為可珍藏的客製化典藏作品',
+    heroSlogan: '瞬間即是永恆',
+    heroTitle: '人生故事典藏',
+    heroSubs: ['你記憶中的自己是什麼樣子?','退休後，是否發現那些年輕時的故事，從來沒有被好好記錄下來？','決定自己的生命故事將如何傳承','傳承記憶，將生命錨定於宇宙座標','探尋愛將如何再次流動的美學','在時間的漣漪裡，你是獨一無二的純粹'],
     decodeIntro: '輸入生辰數據<br>錨定生命在宇宙間的三維度視覺座標',
     decodeBtn: '立即解碼生命矩陣',
     stepLabels: ['生辰輸入','命盤解碼','情感連結','視覺元素','座標輸出'],
@@ -152,9 +157,14 @@ const LANG = {
     tableHeaders: ['維度 (Pillars)','玄學基礎 (Philosophy)','美學應用 (Application)','演算邏輯 (Data Logic)'],
   },
   en: {
-    nav: ['Free Trial','Core Philosophy','Preserve Memory','Book Now'],
-    heroTitle: 'Every Moment is Eternal',
-    heroSubs: ['Who are you in your own memory?','Preserve heritage, anchor life to cosmic coordinates','Explore the Five Elements flowing in your genes','In the ripples of time, you are uniquely pure'],
+    nav: ['Preserve Memory','Services','Free Trial','Book Now','About LIFE+'],
+    navSub: ['Free Trial','Core Philosophy','Preserve Memory','Service Plans','Book Now'],
+    symQ: 'Q. Choose the symbol that resonates most — woven as ultra-fine, barely-visible lines in the background',
+    texQ: 'Q. Which tactile or material feeling draws you in most?',
+    heroTagline: 'Turn your life story and cherished memories into a custom, treasured archive',
+    heroSlogan: 'Every Moment is Eternal',
+    heroTitle: 'Life Story Archive',
+    heroSubs: ['Who are you in your own memory?','After retirement, have you noticed those younger stories were never properly recorded?','Decide how your life story will be passed on','Preserve memory, anchor your life to cosmic coordinates','Explore the aesthetics of how love flows again','In the ripples of time, you are uniquely pure'],
     decodeIntro: 'Enter your birth data<br>Anchor your life\'s 3D visual coordinate in the universe',
     decodeBtn: 'Decode My Life Matrix',
     stepLabels: ['Birth Data','Chart Decode','Emotional Link','Visual Elements','Coordinate Output'],
@@ -279,7 +289,7 @@ const LANG = {
     footerCol2Title: 'Navigation',
     footerCol2Links: [['#experience','Experience Decode'],['#philosophy','Core Philosophy'],['#solutions','Memory Solutions']],
     footerCopy: '© 2026 LIFE+ Legacy Matrix & XUEXUEni Studio. All Rights Reserved.',
-    scienceBtn: 'LIFE+ Memory & Healing System Scientific Evidence',
+    scienceBtn: 'LIFE+ Science & Healing',
     langBtn: '中文',
     unlockedMode: 'Master Mode · Full Content Unlocked',
     unlockedBtn: 'Unlocked',
@@ -309,6 +319,10 @@ let currentLang = 'zh';
 function switchLang() {
   currentLang = currentLang === 'zh' ? 'en' : 'zh';
   applyLang();
+  applyLangPrice();
+  applyLangEvent();
+  applyLangIndexExtra();
+  localStorage.setItem('lifeLang', currentLang);
 }
 
 function t(key) {
@@ -322,11 +336,20 @@ function applyLang() {
   // lang toggle buttons
   document.querySelectorAll('.lang-toggle-btn').forEach(b => b.textContent = L.langBtn);
 
-  // nav
-  const navLinks = document.querySelectorAll('.nav-links a');
-  L.nav.forEach((txt, i) => { if (navLinks[i]) navLinks[i].textContent = txt; });
+  // 側邊欄／手機選單分享按鈕（tooltip、title、icon-txt）
+  applySidebarLang();
+
+  // nav（依頁面偵測：index.html / price.html+event頁 導覽列項目與順序不同）
+  const navLinks = document.querySelectorAll('.nav-links > a');
+  const isPriceOrEvent = !!document.getElementById('priceHeader') || !!document.getElementById('ev-brandTitle');
+  const navArr = isPriceOrEvent ? L.navSub : L.nav;
+  navArr.forEach((txt, i) => { if (navLinks[i]) navLinks[i].textContent = txt; });
 
   // hero
+  const heroTagline = document.querySelector('header h3');
+  if (heroTagline) heroTagline.textContent = L.heroTagline;
+  const heroSlogan = document.querySelector('header .slogan');
+  if (heroSlogan) heroSlogan.textContent = L.heroSlogan;
   const heroTitle = document.querySelector('header h1');
   if (heroTitle) heroTitle.textContent = L.heroTitle;
   const heroDynamics = document.querySelectorAll('.dynamic-subtitle');
@@ -361,22 +384,11 @@ function applyLang() {
   const computeBtnEl = document.querySelector('#s0 .btn-p');
   if (computeBtnEl) computeBtnEl.textContent = L.computeBtn;
 
-  // s1 titles
-  const s1Titles = document.querySelectorAll('#s1 .card-title');
-  if (s1Titles[0]) s1Titles[0].textContent = L.card1Title;
-  if (s1Titles[1]) s1Titles[1].textContent = L.card2Title;
-  if (s1Titles[2]) s1Titles[2].textContent = L.card3Title;
-  const s1SubEl = document.querySelector('#s1 .card:nth-child(2) p');
-  if (s1SubEl) s1SubEl.textContent = L.card2Sub;
-  const s1Btns = document.querySelectorAll('#s1 button');
-  if (s1Btns[0]) s1Btns[0].textContent = L.nextBtn;
-  if (s1Btns[1]) s1Btns[1].textContent = L.backBtn;
-
-  // s2
-  const s2TitleEl = document.querySelector('#s2 .card-title');
-  if (s2TitleEl) s2TitleEl.textContent = L.s2Title;
-  const qTitles = document.querySelectorAll('#s2 .q-title');
-  const qSubs = document.querySelectorAll('#s2 .q-sub');
+  // s1（情感記憶問卷步驟；原本誤植 #s2 選擇器，實際HTML沒有 #s2）
+  const s1TitleEl = document.querySelector('#s1 .card-title');
+  if (s1TitleEl) s1TitleEl.textContent = L.s2Title;
+  const qTitles = document.querySelectorAll('#s1 .q-title');
+  const qSubs = document.querySelectorAll('#s1 .q-sub');
   if (qTitles[0]) qTitles[0].textContent = L.q1Title;
   if (qSubs[0]) qSubs[0].textContent = L.q1Sub;
   if (qTitles[1]) qTitles[1].textContent = L.q2Title;
@@ -405,19 +417,17 @@ function applyLang() {
     visCards[i].querySelector('.c-sub').textContent = c.sub;
     if (visCards[i].querySelector('.c-hint') && c.hint) visCards[i].querySelector('.c-hint').textContent = c.hint;
   });
-  const s2Btns = document.querySelectorAll('#s2 button');
-  if (s2Btns[0]) s2Btns[0].textContent = L.s2Next;
-  if (s2Btns[1]) s2Btns[1].textContent = L.s2Back;
+  const s1Btns = document.querySelectorAll('#s1 button');
+  if (s1Btns[0]) s1Btns[0].textContent = L.s2Next;
+  if (s1Btns[1]) s1Btns[1].textContent = L.s2Back;
 
-  // s3
+  // s3（符號/質地步驟：實際只有2張卡，非原本假設的3張）
   const s3Titles = document.querySelectorAll('#s3 .card-title');
-  if (s3Titles[0]) s3Titles[0].textContent = L.s3Card1Title;
-  if (s3Titles[1]) s3Titles[1].textContent = L.s3Card2Title;
-  if (s3Titles[2]) s3Titles[2].textContent = L.s3Card3Title;
-  const s3Subs = document.querySelectorAll('#s3 .card p');
-  if (s3Subs[0]) s3Subs[0].textContent = L.s3Card1Sub;
-  if (s3Subs[1]) s3Subs[1].textContent = L.s3Card2Sub;
-  if (s3Subs[2]) s3Subs[2].textContent = L.s3Card3Sub;
+  if (s3Titles[0]) s3Titles[0].textContent = L.s3Card2Title;
+  if (s3Titles[1]) s3Titles[1].textContent = L.s3Card3Title;
+  const s3Qs = document.querySelectorAll('#s3 .card p.q-title');
+  if (s3Qs[0]) s3Qs[0].textContent = L.symQ;
+  if (s3Qs[1]) s3Qs[1].textContent = L.texQ;
   const s3Btns = document.querySelectorAll('#s3 button');
   if (s3Btns[0]) s3Btns[0].textContent = L.s3Next;
   if (s3Btns[1]) s3Btns[1].textContent = L.s3Back;
@@ -560,4 +570,304 @@ function applyLang() {
     scienceBtnEl.textContent = L.scienceBtn;
     if (svgEl) scienceBtnEl.insertBefore(svgEl, scienceBtnEl.firstChild);
   }
+}
+
+// ==========================================================================
+// price.html 服務方案頁翻譯
+// ==========================================================================
+const PRICE_LANG = {
+  zh: {
+    h2: 'LIFE+ Legacy Matrix 服務方案',
+    p: '可選擇適合您的方案與加值服務或 <strong>私人顧問級訂製</strong>，來為您定錨生命中最珍貴的記憶軌跡。',
+    rows: {
+      '00': { title:'免費體驗', content:'<p>生命矩陣座標解碼:依據個人生命座標，進行特質評估與設計分析。提供部分內容可免費自行下載。</p><p>👉 適合：想先了解自己／初次體驗</p>', unit:'/ 單次', btn:'啟動資產委託' },
+      '01': { title:'基礎數位憶留', content:'<p>根據個人座標與透過系統建構identify（識別）基礎人生故事軌跡與引導，提供系統演算專屬之設計計畫，專注於生命記憶素材的結構化建檔。完成輕量化數位Memoirs檔案導出，並包含 1次線上資料校正服務。</p><p>✔ 回憶素材整理<br>✔ 故事結構重整<br>✔ 初步視覺化建議<br>✔ 記憶主題規劃</p><p>語音錄音、生活影片、老照片、手寫信、手稿畫作...等，都適合成為編寫回憶的素材。</p><p>👉 適合：想替父母／自己整理人生故事的人</p>', unit:'/ 起', btn:'啟動資產委託' },
+      '02': { title:'印記・時光圖譜', content:'<p>將出生時令的陰陽五行與時空卦象，轉譯為專屬視覺 DNA。透過平衡與補足，將您的人生座標編織成獨一無二的幾何線譜，為您量身打造專屬的「視覺調候（Visual Tuning）」。輕量化數位圖像導出，可完美對接實體藝術品製作</p><p> ✔ 專屬時空參數之視覺化建議<br>✔ 個人美學元素與風格主題規劃<br>✔ 將獨一無二的生命座標轉譯為當代藝術品<br></p><p>👉 一座屬於時間的紀念碑，為您深刻封存與守護。</p>', unit:'/ 起', btn:'啟動資產委託' },
+      '03': { title:'LIFE+核心典藏', content:'<p>最完整的雙軌留存方案。包含深度生命紀實與時空矩陣架構配置，經由 AI 進階美學轉譯，完整儲存於加密型 Meta-Aesthetics 資料模組。本方案附贈 1 組客製化實體 Physical Memoirs 記憶資產載體，讓情感永恆傳承。</p><p>✔ 深度回憶整理<br>✔ 主題設計規劃<br>✔ 視覺化作品設計<br>✔ 初版典藏成果</p><p>👉 適合：「紀念禮物／自留保存」的人生禮物</p>', unit:'/ 起', btn:'優先客製預約' },
+      '04': { title:'永恆資產典藏設計', content:'<p>頂級全景式生命篇章深度整合。結合 6 大維度記憶軌跡演算法，提供最高規格之純手工平面美術與數位雙軌量身訂製。享有獨立算力通道與專屬雲端數位資產永久維護，適合家族傳家寶或專屬圖騰之極致客製需求。</p><p>✔ 全客製流程<br>✔ 深度訪談整理<br>✔ 高階藝術設計<br>✔ 實體作品製作</p><p>👉 適合：重要人生紀念／高情感需求療癒</p>', unit:'/ 起', btn:'尊榮專案洽詢' },
+      '05': { title:'多元美學加值配置', content:'<p>提供全方位記憶資產的延伸解碼與實體高階工藝配置，可以個人需求喜好選配</p><p> 📖 <span class="itemname">時光冊</span> :<br>〈數位〉個人專屬數位網頁設計<br>〈實體〉精裝書 <br>🖼 <span class="itemname">光軌</span> :融入現代居家空間的質感陪伴<br>〈數位〉專屬數位網頁設計或影像處理<br>〈實體〉e.g.掛畫、公仔展示、擺件、常用周邊<br>🎁 <span class="itemname">我在</span>:<br>〈數位〉專屬數位網頁設計或影像處理<br>〈實體〉藝術展示品:e.g.掛畫、公仔展示、擺件、常用周邊<br>💾 <span class="itemname">生命樹</span>:<br>〈數位〉專屬數位網頁設計或影像處理<br>〈實體〉藝術展示品:e.g.掛畫、塑像、各式材質擺件<br></p>', price:'另行報價', unit2:'材質數量皆為製作成本調整因素' }
+    }
+  },
+  en: {
+    h2: 'LIFE+ Legacy Matrix Service Plans',
+    p: 'Choose a plan and add-ons that suit you, or opt for <strong>private-consultant-level customization</strong> to anchor your life\'s most precious memory trace.',
+    rows: {
+      '00': { title:'Free Trial', content:'<p>Life Matrix Coordinate Decode: trait assessment and design analysis based on your personal life coordinate. Some content is available as a free download.</p><p>👉 Best for: first-time exploration or self-discovery</p>', unit:'/ one-time', btn:'Start My Commission' },
+      '01': { title:'Basic Digital Memoir', content:'<p>Builds a foundational life-story timeline and guided prompts from your personal coordinate, delivering an algorithm-generated design plan focused on structuring your memory materials. Includes a lightweight digital Memoirs export plus 1 online data review session.</p><p>✔ Memory material organization<br>✔ Story structure editing<br>✔ Preliminary visual suggestions<br>✔ Memory theme planning</p><p>Voice recordings, home videos, old photos, handwritten letters, sketches — all make great source material.</p><p>👉 Best for: organizing your own or your parents\' life story</p>', unit:'/ from', btn:'Start My Commission' },
+      '02': { title:'Imprint · Time Atlas', content:'<p>Translates the Yin-Yang Five Elements and hexagram of your birth moment into exclusive visual DNA. Through balance and supplementation, your life coordinate is woven into a one-of-a-kind geometric score — a bespoke "Visual Tuning." Lightweight digital image export, ready for physical artwork production.</p><p> ✔ Visual suggestions from your space-time parameters<br>✔ Personal aesthetic elements & style planning<br>✔ Translating your unique life coordinate into contemporary art<br></p><p>👉 A monument of time — deeply archived and safeguarded for you.</p>', unit:'/ from', btn:'Start My Commission' },
+      '03': { title:'LIFE+ Core Archive', content:'<p>Our most complete dual-track preservation plan. In-depth life documentation and space-time matrix configuration, translated through advanced AI aesthetics and stored in an encrypted Meta-Aesthetics data module. Includes 1 custom Physical Memoirs artifact, carrying emotion forward forever.</p><p>✔ In-depth memory curation<br>✔ Thematic design planning<br>✔ Visual artwork design<br>✔ First archival edition</p><p>👉 Best for: memorial gifts or a keepsake for yourself</p>', unit:'/ from', btn:'Priority Custom Booking' },
+      '04': { title:'Eternal Legacy Design', content:'<p>The ultimate panoramic integration of your life chapters. Combines a 6-dimension memory-trace algorithm with top-tier hand-crafted fine art and bespoke digital dual-track production. Includes a dedicated compute channel and permanent cloud asset maintenance — ideal for family heirlooms or fully custom totems.</p><p>✔ Fully custom process<br>✔ In-depth interview curation<br>✔ Premium art design<br>✔ Physical artwork production</p><p>👉 Best for: major life milestones / deep emotional healing needs</p>', unit:'/ from', btn:'Inquire: Premium Project' },
+      '05': { title:'Aesthetic Add-On Options', content:'<p>Full-spectrum extended decoding and premium physical craftsmanship add-ons, selectable to your preference</p><p> 📖 <span class="itemname">Chronicle</span> :<br>〈Digital〉Personal web page design<br>〈Physical〉Hardcover book <br>🖼 <span class="itemname">Light Trail</span> : tasteful companionship for modern living spaces<br>〈Digital〉Custom web design or image processing<br>〈Physical〉e.g. wall art, figure display, ornaments, everyday items<br>🎁 <span class="itemname">I Was Here</span>:<br>〈Digital〉Custom web design or image processing<br>〈Physical〉Art display: e.g. wall art, figure display, ornaments, everyday items<br>💾 <span class="itemname">Life Tree</span>:<br>〈Digital〉Custom web design or image processing<br>〈Physical〉Art display: e.g. wall art, sculpture, various material ornaments<br></p>', price:'Custom Quote', unit2:'Material & quantity affect final cost' }
+    }
+  }
+};
+
+function applyLangPrice() {
+  const header = document.getElementById('priceHeader');
+  if (!header) return;
+  const L = PRICE_LANG[currentLang];
+  header.querySelector('h2').textContent = L.h2;
+  header.querySelector('p').innerHTML = L.p;
+  Object.keys(L.rows).forEach(id => {
+    const row = document.getElementById('row-' + id);
+    if (!row) return;
+    const r = L.rows[id];
+    row.querySelector('.row-meta h3').textContent = r.title;
+    row.querySelector('.row-content').innerHTML = r.content;
+    if (r.price) {
+      row.querySelector('.row-price').innerHTML = `<span class="currency">${r.price}</span><br><span class="unit">${r.unit2}</span>`;
+    } else {
+      row.querySelector('.row-price .unit').textContent = r.unit;
+    }
+    const btnEl = row.querySelector('.row-action-btn');
+    if (btnEl) btnEl.textContent = r.btn;
+  });
+}
+
+// ==========================================================================
+// event_brain-color.html 大腦檢測頁翻譯
+// ==========================================================================
+const EVENT_LANG = {
+  zh: {
+    brandTitle:'大腦記憶內修復體檢測', brandSub:'LIFE+ Legacy Matrix System',
+    descH3:'請輸入您的代號與出生時間。',
+    descBody:'LIFE 系統將以此解碼您基因中的陰陽五行干支矩陣，<br>並診斷高壓環境下您的大腦記憶內修復體狀態。',
+    lblId:'基本識別 // IDENTIFIER', namePh:'輸入您的暱稱',
+    optF:'女性', optM:'男性',
+    lblDate:'出生日期 (陽曆) // BIRTH DATE', lblHour:'出生時辰 // BIRTH TIME',
+    submitBtn:'進行大腦修復體解碼',
+    th:['時柱','日柱','月柱','年柱'],
+    stEnergy:'生辰五行氣場 // ENERGY MATRIX', stStatus:'大腦危機診斷 // STATUS', stRecovery:'內在療癒處方 // RECOVERY',
+    mlEnemy:'⚡ 精神天敵 (剋星)', mlFriend:'🤝 靈魂共生 (好友)',
+    btnShare:'複製報告去揪朋友實測（相愛相殺合盤）', btnDownload:'儲存/下載大腦記憶卡片',
+    toggleOpen:'[ 點擊展開 // 觀看所有大腦修復體 ↓ ]', toggleClose:'[ 點擊收起 // CLOSE MATRIX VIEW ↑ ]',
+    closebarTitle:'總表展開中 // DECODING LOG', closebarBtn:'✕ 收起',
+    log1:'DECODING LOG // 記憶脈絡解析', log2:'大腦記憶內修復體 // 五行能量脈絡總表', log3:'此總表供對照其他基因時間座標。高亮區塊為您本次的定錨屬性。',
+    ctaP:'想了解更多將生命記憶轉化為數位或實體藝術資產方案，請前往 LIFE 主艙體。', ctaBtn:'啟動 LIFE 核心定錨體驗艙 ↗',
+    hourOptions:['子時 00:00–01:00','子時 01:00–01:59','丑時 02:00–02:59','丑時 03:00–03:59','寅時 04:00–04:59','寅時 05:00–05:59','卯時 06:00–06:59','卯時 07:00–07:59','辰時 08:00–08:59','辰時 09:00–09:59','巳時 10:00–10:59','巳時 11:00–11:59','午時 12:00–12:59','午時 13:00–13:59','未時 14:00–14:59','未時 15:00–15:59','申時 16:00–16:59','申時 17:00–17:59','酉時 18:00–18:59','酉時 19:00–19:59','戌時 20:00–20:59','戌時 21:00–21:59','亥時 22:00–22:59','亥時 23:00–23:59'],
+    cells: {
+      WOOD:  { name:'社交救火仙姑 // 俠客', label:'木核偏向 (Wood)', t1:'高壓大腦危機', c1:'白天把正能量都燒給別人，回到家卻是一具連外賣都懶得拆的廢棄人偶。海馬迴被「過度責任感」超載磨損，面臨集體斷電風險。', t2:'內在療癒處方', c2:'大腦需要「物理隔離」。立刻停止接收他人的精神垃圾，每天留出 1 小時完全不與人溝通的「空白時間」來修復神經脈絡。' },
+      FIRE:  { name:'瞬間斷片灶神 // 祝融', label:'火核偏向 (Fire)', t1:'高壓大腦危機', c1:'辦事全憑第一直覺。最近嚴重懷疑自己得了健忘症，上一秒拿鑰匙、下一秒找鑰匙，短期記憶區正因為環境高壓面臨經常性格式化。', t2:'內在療癒處方', c2:'最需要的是「大腦排毒與燃料補充」。刻意遠離高工時壓榨環境，多與高能量、正向思維的人群相處，讓海馬迴稍微恢復機能。' },
+      EARTH: { name:'孤獨硬撐土地婆 // 公', label:'土核偏向 (Earth)', t1:'高壓大腦危機', c1:'習慣沒有人陪伴，所以把所有能量都聚焦在工作和自律上。大腦防禦牆長期過載，海馬迴因為習慣「一個人硬撐」而陷入憂鬱與慢性疲勞。', t2:'內在療癒處方', c2:'需要建立「外在的安全感與連結」。目前的你財務無虞，請停止無止盡的自我鞭策，容許生活出現預料之外的留白與社交。' },
+      METAL: { name:'完美主義判官娘 // 包公', label:'金核偏向 (Metal)', t1:'高壓大腦危機', c1:'害怕做錯事，所以進場或決策前反覆考慮，時常錯過最佳時機。對完美主義的執著，讓大腦的運算核心天天超載內耗，睡眠障礙隨之而來。', t2:'內在療癒處方', c2:'需要「容許殘缺與臣服當下」。不完美的進場，勝過完美的等待；不完美的記錄，勝過完美的遺忘。試著放手讓核心休息。' },
+      WATER: { name:'邊界模糊龍王女 // 水怪', label:'水核偏向 (Water)', t1:'高壓大腦危機', c1:'天生自帶高同理心，一走進房間就能吸收所有人散發的焦慮。邊界太模糊，大腦海馬迴嚴重超載，記憶與自我定位被悄悄磨滅。', t2:'內在療癒處方', c2:'需要強效的「心理除濕與邊界建立」。明確拒絕不屬於自身目的之工作與情緒垃圾，拿回生活作息的絕對掌控權，清除大腦內耗物。' }
+    }
+  },
+  en: {
+    brandTitle:'Brain Memory Recovery Diagnostic', brandSub:'LIFE+ Legacy Matrix System',
+    descH3:'Enter your codename and birth time.',
+    descBody:'The LIFE System decodes the Yin-Yang Five Elements matrix in your genes,<br>and diagnoses your brain\'s memory-recovery state under high stress.',
+    lblId:'BASIC ID // IDENTIFIER', namePh:'Enter your nickname',
+    optF:'Female', optM:'Male',
+    lblDate:'BIRTH DATE (Solar) // BIRTH DATE', lblHour:'BIRTH HOUR // BIRTH TIME',
+    submitBtn:'Run Brain Recovery Decode',
+    th:['Hour','Day','Month','Year'],
+    stEnergy:'Five-Element Energy // ENERGY MATRIX', stStatus:'Brain Crisis Diagnosis // STATUS', stRecovery:'Inner Healing Prescription // RECOVERY',
+    mlEnemy:'⚡ Nemesis (Conflicting Type)', mlFriend:'🤝 Soul Ally (Compatible Type)',
+    btnShare:'Copy Report & Challenge a Friend (Compatibility Test)', btnDownload:'Save / Download Memory Card',
+    toggleOpen:'[ Click to Expand // View All Brain Types ↓ ]', toggleClose:'[ Click to Collapse // CLOSE MATRIX VIEW ↑ ]',
+    closebarTitle:'Full Matrix Expanded // DECODING LOG', closebarBtn:'✕ Close',
+    log1:'DECODING LOG // MEMORY TRACE ANALYSIS', log2:'Brain Memory Recovery Types // Five-Element Energy Matrix', log3:'For comparison against other genetic time coordinates. The highlighted block is your current anchor attribute.',
+    ctaP:'Want to turn life memories into digital or physical art assets? Visit the LIFE main capsule.', ctaBtn:'Enter LIFE Core Anchor Experience ↗',
+    hourOptions:['Zi 00:00–01:00','Zi 01:00–01:59','Chou 02:00–02:59','Chou 03:00–03:59','Yin 04:00–04:59','Yin 05:00–05:59','Mao 06:00–06:59','Mao 07:00–07:59','Chen 08:00–08:59','Chen 09:00–09:59','Si 10:00–10:59','Si 11:00–11:59','Wu 12:00–12:59','Wu 13:00–13:59','Wei 14:00–14:59','Wei 15:00–15:59','Shen 16:00–16:59','Shen 17:00–17:59','You 18:00–18:59','You 19:00–19:59','Xu 20:00–20:59','Xu 21:00–21:59','Hai 22:00–22:59','Hai 23:00–23:59'],
+    cells: {
+      WOOD:  { name:'Social Firefighter // The Ranger', label:'Wood-Core Leaning (Wood)', t1:'High-Stress Brain Crisis', c1:'You burn all your positive energy on others by day, then come home an empty shell too tired to open a delivery bag. The hippocampus is worn thin by "over-responsibility," at risk of total shutdown.', t2:'Inner Healing Prescription', c2:'Your brain needs "physical isolation." Stop absorbing other people\'s emotional waste immediately — set aside 1 hour of totally silent, no-contact time daily to repair your neural pathways.' },
+      FIRE:  { name:'Instant Blackout Hearth Spirit // The Fire God', label:'Fire-Core Leaning (Fire)', t1:'High-Stress Brain Crisis', c1:'You run entirely on first instinct. Lately you suspect you have memory loss — grabbing your keys one second, hunting for them the next. Short-term memory is being repeatedly wiped by environmental pressure.', t2:'Inner Healing Prescription', c2:'You most need a "brain detox and fuel refill." Deliberately step away from overworked, high-pressure settings and spend more time with high-energy, positive people to help the hippocampus recover.' },
+      EARTH: { name:'Lonely Load-Bearing Earth Goddess // The Guardian', label:'Earth-Core Leaning (Earth)', t1:'High-Stress Brain Crisis', c1:'Used to being alone, you pour all your energy into work and self-discipline. Your brain\'s defense wall is chronically overloaded — the hippocampus, habituated to "carrying it alone," slides into depression and chronic fatigue.', t2:'Inner Healing Prescription', c2:'You need to build "external safety and connection." You are financially secure — stop the endless self-whipping and allow room for unplanned rest and social time.' },
+      METAL: { name:'Perfectionist Judge // The Magistrate', label:'Metal-Core Leaning (Metal)', t1:'High-Stress Brain Crisis', c1:'Afraid of making mistakes, you deliberate endlessly before entering or deciding, often missing the best timing. Your grip on perfectionism keeps the brain\'s processing core overloaded daily, bringing sleep trouble along with it.', t2:'Inner Healing Prescription', c2:'You need to "allow imperfection and surrender to the present." An imperfect entry beats a perfect wait; an imperfect record beats a perfect forgetting. Try letting go so the core can rest.' },
+      WATER: { name:'Boundary-Blurred Dragon Princess // The Water Spirit', label:'Water-Core Leaning (Water)', t1:'High-Stress Brain Crisis', c1:'Naturally high in empathy, you absorb everyone\'s anxiety the moment you enter a room. With boundaries too blurred, your hippocampus is severely overloaded, quietly eroding memory and sense of self.', t2:'Inner Healing Prescription', c2:'You need strong "psychological dehumidifying and boundary-building." Clearly decline work and emotional baggage that isn\'t yours, reclaim full control of your daily rhythm, and clear out the brain\'s internal clutter.' }
+    }
+  }
+};
+
+function applyLangEvent() {
+  const brandTitleEl = document.getElementById('ev-brandTitle');
+  if (!brandTitleEl) return;
+  const L = EVENT_LANG[currentLang];
+
+  brandTitleEl.textContent = L.brandTitle;
+  const set = (id, val, html) => { const el = document.getElementById(id); if (el) { if (html) el.innerHTML = val; else el.textContent = val; } };
+  set('ev-brandSub', L.brandSub);
+  const descEl = document.getElementById('ev-desc');
+  if (descEl) descEl.innerHTML = `<h3>${L.descH3}</h3>${L.descBody}`;
+  set('ev-lbl-id', L.lblId);
+  const nameInput = document.getElementById('user-name');
+  if (nameInput) nameInput.placeholder = L.namePh;
+  set('ev-opt-f', L.optF); set('ev-opt-m', L.optM);
+  set('ev-lbl-date', L.lblDate); set('ev-lbl-hour', L.lblHour);
+  set('ev-submitBtn', L.submitBtn);
+  ['h','d','m','y'].forEach((k,i) => set('ev-th-' + k, L.th[i]));
+  set('ev-st-energy', L.stEnergy); set('ev-st-status', L.stStatus); set('ev-st-recovery', L.stRecovery);
+  set('ev-ml-enemy', L.mlEnemy); set('ev-ml-friend', L.mlFriend);
+  set('ev-btn-share', L.btnShare); set('ev-btn-download', L.btnDownload);
+  set('ev-closebar-title', L.closebarTitle); set('ev-closebar-btn', L.closebarBtn);
+  set('ev-log-1', L.log1); set('ev-log-2', L.log2); set('ev-log-3', L.log3);
+  set('ev-cta-p', L.ctaP); set('ev-cta-btn', L.ctaBtn + ' ↗');
+
+  const toggleBtn = document.getElementById('toggle-matrix-btn');
+  const zone = document.getElementById('matrixCollapseZone');
+  if (toggleBtn && zone) toggleBtn.innerText = (zone.style.display === 'block') ? L.toggleClose : L.toggleOpen;
+
+  const hourSelect = document.getElementById('birth-hour');
+  if (hourSelect) {
+    Array.from(hourSelect.options).forEach((opt, i) => { if (L.hourOptions[i]) opt.textContent = L.hourOptions[i]; });
+  }
+
+  const cellMap = { WOOD_CORE:'WOOD', FIRE_CORE:'FIRE', EARTH_CORE:'EARTH', METAL_CORE:'METAL', WATER_CORE:'WATER' };
+  Object.keys(cellMap).forEach(domId => {
+    const cell = document.getElementById('cell-' + domId);
+    if (!cell) return;
+    const d = L.cells[cellMap[domId]];
+    cell.querySelector('.cell-main-name').textContent = d.name;
+    cell.querySelector('.cell-element-label').textContent = d.label;
+    const sections = cell.querySelectorAll('.cell-section');
+    if (sections[0]) { sections[0].querySelector('.cell-section-title').textContent = d.t1; sections[0].querySelector('.cell-section-content').textContent = d.c1; }
+    if (sections[1]) { sections[1].querySelector('.cell-section-title').textContent = d.t2; sections[1].querySelector('.cell-section-content').textContent = d.c2; }
+  });
+
+  if (typeof currentReport !== 'undefined' && currentReport && document.getElementById('result-container') && document.getElementById('result-container').style.display !== 'none') {
+    if (typeof calculateMatrix === 'function') calculateMatrix();
+  }
+}
+
+// ==========================================================================
+// index.html 專屬區塊翻譯（什麼是LIFE+ / 產品卡 / #solutions服務方案 / 腦檢引導列）
+// ==========================================================================
+const INDEX_EXTRA = {
+  zh: {
+    wwdH1: '什麼是 LIFE+？',
+    wwdP: '是將人生回憶轉化為情感資產典藏的設計系統。<br>從生命探索、回憶整理到藝術創作，協助將珍貴故事保存成數位與實體作品。<br><span style="color:#00fcda;">專人諮詢 → 矩陣系統 → 故事整合 → 專屬設計 → 數位/實體典藏</span><br><strong>『 全 程 採 一 對 一 客 製 規 劃 』</strong>',
+    solH4: '我們提供多種數位封存與實體定製服務',
+    solP: '手機裡的照片越來越多，保存下來的回憶卻越來越少，某天才發現那些珍貴瞬間，總是消失的措手不及。',
+    pm: [
+      { h:'📖《時光冊》數位(晶片)/實體', p:'數位永存，化為可傳承的生命故事。' },
+      { h:'🎁《光軌》數位(晶片)/實體', p:'將專屬生命代碼，轉譯為頂級幾何藝術品。' },
+      { h:'🐶《我在》數位(晶片)/實體', p:'將愛的陪伴凝練為實體美學展品。「我一直都在」' },
+      { h:'💾《生命樹》數位(晶片)/實體', p:'適合家族共享的線上數位空間。' }
+    ],
+    solPriceH2: '✦ LIFE+ Legacy Matrix 服務方案',
+    solPriceP: '可選合適方案與加值服務或啟用 <strong>『私人顧問級訂製』</strong>。',
+    solRows: {
+      '00': { title:'生命矩陣', content:'<p>生命矩陣探索:依據個人生命座標解碼，進行初步特質評估與設計分析。</p>', unit:'/ 單次', btn:'馬上體驗' },
+      '01': { title:'基礎數位憶留', content:'<p>✔ 想替父母保存人生故事<br>✔ 想整理老照片<br>✔ 想留下家族回憶</p>', unit:'/ 起', btn:'了解更多' },
+      '02': { title:'印記・時光圖譜', content:'<p> ✔ 專屬時空參數之視覺化建議<br>✔ 個人美學元素與風格主題規劃<br>✔ 將專屬生命座標轉譯為當代藝術品</p>', unit:'/起', btn:'啟動資產委託' },
+      '03': { title:'LIFE+核心典藏', content:'✔ 數位典藏<br>✔ 專屬生命矩陣分析<br>✔ 客製化視覺設計<br>✔ 實體藝術載體', unit:'/ 起', btn:'優先客製預約' },
+      '04': { title:'永恆資產典藏設計', content:'<p>頂級深度整合，適合家族傳家寶或專屬圖騰之極致客製需求。依實際服務需求另行報價。</p>', unit:'/起', btn:'尊榮專案洽詢' },
+      '05': { title:'多元美學加值配置', content:'<p>提供全方位記憶資產的延伸解碼與實體高階工藝配置，可以個人需求喜好選擇加值服務，依實際服務需求另行報價。</p>', price:'依所選配置報價', btn:'更多加值服務' }
+    },
+    btfTxt: '👉 從大腦記憶修復體檢測開始吧?',
+    btfLink: '🧠腦體檢中心'
+  },
+  en: {
+    wwdH1: 'What is LIFE+?',
+    wwdP: 'A design system that transforms life memories into archived emotional assets.<br>From life exploration and memory curation to artistic creation, helping preserve precious stories as digital and physical works.<br><span style="color:#00fcda;">Consultation → Matrix System → Story Integration → Custom Design → Digital/Physical Archive</span><br><strong>『 Every Step, Fully One-on-One Custom Planned 』</strong>',
+    solH4: 'We offer a range of digital archiving and physical customization services',
+    solP: 'More photos pile up on your phone every day, yet fewer memories are truly preserved — until one day you realize those precious moments have quietly slipped away.',
+    pm: [
+      { h:'📖 Chronicle · Digital (Chip) / Physical', p:'Digitally preserved forever, becoming a life story that can be passed down.' },
+      { h:'🎁 Light Trail · Digital (Chip) / Physical', p:'Your exclusive life code, translated into a premium geometric artwork.' },
+      { h:'🐶 I Was Here · Digital (Chip) / Physical', p:'Loving companionship condensed into a physical aesthetic exhibit — "I am always here."' },
+      { h:'💾 Life Tree · Digital (Chip) / Physical', p:'An online digital space for the whole family to share.' }
+    ],
+    solPriceH2: '✦ LIFE+ Legacy Matrix Service Plans',
+    solPriceP: 'Choose a plan and add-ons that suit you, or opt for <strong>private-consultant-level customization</strong>.',
+    solRows: {
+      '00': { title:'Life Matrix', content:'<p>Life Matrix Exploration: preliminary trait assessment and design analysis based on your personal life coordinate.</p>', unit:'/ one-time', btn:'Try It Now' },
+      '01': { title:'Basic Digital Memoir', content:'<p>✔ Preserve your parents\' or your own life story<br>✔ Organize old photos<br>✔ Keep family memories</p>', unit:'/ from', btn:'Learn More' },
+      '02': { title:'Imprint · Time Atlas', content:'<p> ✔ Visual suggestions from your space-time parameters<br>✔ Personal aesthetic elements & style planning<br>✔ Translating your unique life coordinate into contemporary art</p>', unit:'/ from', btn:'Start My Commission' },
+      '03': { title:'LIFE+ Core Archive', content:'✔ Digital archive<br>✔ Personal life matrix analysis<br>✔ Custom visual design<br>✔ Physical art piece', unit:'/ from', btn:'Priority Custom Booking' },
+      '04': { title:'Eternal Legacy Design', content:'<p>Top-tier deep integration, ideal for family heirlooms or fully custom totems. Quoted based on actual service needs.</p>', unit:'/ from', btn:'Inquire: Premium Project' },
+      '05': { title:'Aesthetic Add-On Options', content:'<p>Full-spectrum extended decoding and premium physical craftsmanship add-ons, selectable to your preference. Quoted based on actual service needs.</p>', price:'Custom Quote', btn:'More Add-Ons' }
+    },
+    btfTxt: '👉 Start with the Brain Memory Recovery Test?',
+    btfLink: '🧠 Brain Check Center'
+  }
+};
+
+function applyLangIndexExtra() {
+  const wwdH1 = document.getElementById('wwd-h1');
+  if (!wwdH1) return; // 非index.html則不執行
+  const L = INDEX_EXTRA[currentLang];
+  wwdH1.textContent = L.wwdH1;
+  const wwdP = document.getElementById('wwd-p'); if (wwdP) wwdP.innerHTML = L.wwdP;
+  const solH4 = document.getElementById('sol-h4'); if (solH4) solH4.textContent = L.solH4;
+  const solP = document.getElementById('sol-p'); if (solP) solP.textContent = L.solP;
+  L.pm.forEach((item, i) => {
+    const h = document.getElementById('pm-' + (i + 1) + '-h');
+    const p = document.getElementById('pm-' + (i + 1) + '-p');
+    if (h) h.textContent = item.h;
+    if (p) p.textContent = item.p;
+  });
+  const solPriceHeader = document.getElementById('solPriceHeader');
+  if (solPriceHeader) {
+    solPriceHeader.querySelector('h2').textContent = L.solPriceH2;
+    solPriceHeader.querySelector('p').innerHTML = L.solPriceP;
+  }
+  Object.keys(L.solRows).forEach(id => {
+    const row = document.getElementById('sol-row-' + id);
+    if (!row) return;
+    const r = L.solRows[id];
+    row.querySelector('.row-meta h3').textContent = r.title;
+    row.querySelector('.row-content').innerHTML = r.content;
+    if (r.price) {
+      row.querySelector('.row-price').innerHTML = `<span class="currency">${r.price}</span>`;
+    } else {
+      row.querySelector('.row-price .unit').textContent = r.unit;
+    }
+    const btnEl = row.querySelector('.row-action-btn');
+    if (btnEl) btnEl.textContent = r.btn;
+  });
+  const btfTxt = document.getElementById('btf-txt'); if (btfTxt) btfTxt.textContent = L.btfTxt;
+  const btfLink = document.getElementById('btf-link'); if (btfLink) btfLink.textContent = L.btfLink;
+}
+
+// ==========================================================================
+// 語言持久化（localStorage）：切換後跨頁瀏覽自動維持同一語言
+// ==========================================================================
+(function () {
+  const saved = localStorage.getItem('lifeLang');
+  if (saved === 'en' || saved === 'zh') currentLang = saved;
+})();
+
+document.addEventListener('DOMContentLoaded', () => {
+  if (currentLang === 'en') {
+    applyLang();
+    applyLangPrice();
+    applyLangEvent();
+    applyLangIndexExtra();
+  }
+});
+
+// ==========================================================================
+// 側邊欄／手機選單分享按鈕翻譯（data-tooltip / title / .icon-txt）
+// ==========================================================================
+const SIDEBAR_MAP = {
+  "看看適合方案": "View Plans",
+  "馬上分析": "Instant Analysis",
+  "分享至 LINE": "Share via LINE",
+  "分享至 Facebook": "Share via Facebook",
+  "複製網頁連結": "Copy Link",
+  "腦檢中心": "Brain Check Center",
+  "✨了解典藏服務": "✨ View Our Services",
+  "🧠腦體檢中心": "🧠 Brain Check Center"
+};
+
+function applySidebarLang() {
+  const en = currentLang === 'en';
+  document.querySelectorAll('[data-tooltip]').forEach(el => {
+    if (!el.dataset.zhTooltip) el.dataset.zhTooltip = el.getAttribute('data-tooltip').trim();
+    const zh = el.dataset.zhTooltip;
+    el.setAttribute('data-tooltip', en && SIDEBAR_MAP[zh] ? SIDEBAR_MAP[zh] : zh);
+  });
+  document.querySelectorAll('[title]').forEach(el => {
+    const cur = (el.dataset.zhTitle || el.getAttribute('title') || '').trim();
+    if (!SIDEBAR_MAP[cur]) return;
+    if (!el.dataset.zhTitle) el.dataset.zhTitle = cur;
+    el.setAttribute('title', en ? SIDEBAR_MAP[cur] : cur);
+  });
+  document.querySelectorAll('.icon-txt').forEach(el => {
+    if (!el.dataset.zhTxt) el.dataset.zhTxt = el.textContent.trim();
+    const zh = el.dataset.zhTxt;
+    el.textContent = en && SIDEBAR_MAP[zh] ? SIDEBAR_MAP[zh] : zh;
+  });
 }
