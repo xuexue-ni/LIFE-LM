@@ -310,6 +310,36 @@ function toggleFaq(element) {
     }
 }
 
+document.addEventListener("DOMContentLoaded", function () {
+    // 尋找頁面上的 footer 預留孔
+    const footerPlaceholder = document.getElementById("footer-placeholder");
+    
+    if (footerPlaceholder) {
+        // 使用 fetch 讀取獨立的 footer.html
+        fetch("footer.html")
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error("無法讀取 footer 檔案");
+                }
+                return response.text();
+            })
+            .then(htmlData => {
+                // 將讀取到的 HTML 塞入預留孔中
+                footerPlaceholder.innerHTML = htmlData;
+                
+                // 【關鍵！】載入完成後，如果 Footer 裡面也有需要翻譯的字，
+                // 請在這裡呼叫您的語系切換函式，確保 Footer 的文字也能被順利翻譯。
+                if (typeof applyLang === "function") {
+                    // 假設目前使用的是全域變數 currentLang
+                    applyLang(currentLang); 
+                }
+            })
+            .catch(error => {
+                console.error("載入 Footer 失敗:", error);
+            });
+    }
+});
+
 // ── 4. 終極優化：點擊後另開精緻預覽網頁，內嵌科學實證與下載功能 ──
 function downloadScienceReport() {
     const EN = typeof currentLang !== 'undefined' && currentLang === 'en';
