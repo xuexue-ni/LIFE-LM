@@ -25,7 +25,6 @@
 </head>
 
 <body>
-   
     <div class="desktop-social-sidebar">
         <a href="https://social-plugins.line.me/lineit/share?url=https://xuexue-ni.github.io/LIFE-LM/" target="_blank"
             class="social-btn" title="分享至 LINE">
@@ -70,11 +69,13 @@
         </div>
 
         <div class="nav-links" id="nav-links-container">
-            <a href="#experience" onclick="closeMobileMenu()">免費體驗</a>
-            <a href="#philosophy" onclick="closeMobileMenu()">核心原理</a>
-            <a href="#solutions" onclick="closeMobileMenu()">留住記憶</a>
-            <a href="#booking" onclick="closeMobileMenu()">專屬預約</a>
+            <a href="index.html#solutions" onclick="closeMobileMenu()">留住記憶</a>
+            <a href="price.html" target="_blank" onclick="closeMobileMenu()">服務介紹</a>
+            <a href="index.html#experience" onclick="closeMobileMenu()">免費體驗</a>
+            <a href="index.html#booking" onclick="closeMobileMenu()">專屬預約</a>
+            <a href="index.html#about" onclick="closeMobileMenu()">關於LIFE+</a>
             <div class="mobile-menu-social-footer" aria-label="社群分享">
+                <button class="lang-toggle-btn" onclick="switchLang()" style="margin:0 0 8px;">EN</button>
                 <a href="https://social-plugins.line.me/lineit/share?url=https://xuexue-ni.github.io/LIFE-LM/"
                     target="_blank" class="social-btn" title="分享至 LINE" onclick="closeMobileMenu()">
                     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
@@ -104,26 +105,26 @@
     </nav>
     <!---主內容---->
     <div class="container">
-        <h1 class="brand-title">大腦記憶內修復體檢測</h1>
-        <p class="brand-subtitle">LIFE+ Legacy Matrix System</p>
+        <h1 class="brand-title" id="ev-brandTitle">大腦記憶內修復體檢測</h1>
+        <p class="brand-subtitle" id="ev-brandSub">LIFE+ Legacy Matrix System</p>
 
         <div class="quiz-card" id="input-box">
-            <div class="section-desc">
+            <div class="section-desc" id="ev-desc">
                 <h3>請輸入您的代號與出生時間。</h3>
                 LIFE 系統將以此解碼您基因中的陰陽五行干支矩陣，<br>並診斷高壓環境下您的大腦記憶內修復體狀態。
             </div>
             <div class="form-group">
-                <label>基本識別 // IDENTIFIER</label>
+                <label id="ev-lbl-id">基本識別 // IDENTIFIER</label>
                 <div class="input-row">
-                    <input type="text" id="user-name" placeholder="輸入您的暱稱" value="您的名字">
+                    <input type="text" id="user-name" placeholder="輸入您的暱稱" value="您的名字" data-ph-zh="輸入您的暱稱" data-ph-en="Enter your nickname">
                     <select id="user-gender" style="flex: 0 0 100px;">
-                        <option value="F">女性</option>
-                        <option value="M">男性</option>
+                        <option value="F" id="ev-opt-f">女性</option>
+                        <option value="M" id="ev-opt-m">男性</option>
                     </select>
                 </div>
             </div>
             <div class="form-group">
-                <label>出生日期 (陽曆) // BIRTH DATE</label>
+                <label id="ev-lbl-date">出生日期 (陽曆) // BIRTH DATE</label>
                 <div class="input-row">
                     <select id="birth-year"></select>
                     <select id="birth-month"></select>
@@ -131,7 +132,7 @@
                 </div>
             </div>
             <div class="form-group">
-                <label>出生時辰 // BIRTH TIME</label>
+                <label id="ev-lbl-hour">出生時辰 // BIRTH TIME</label>
                 <div class="input-row">
                     <select id="birth-hour">
                         <option value="子">子時 (23-01)</option>
@@ -150,7 +151,7 @@
                 </div>
             </div>
 
-            <button class="submit-btn" onclick="calculateMatrix()">進行大腦修復體解碼</button>
+            <button class="submit-btn" onclick="calculateMatrix()" id="ev-submitBtn">進行大腦修復體解碼</button>
         </div>
 
         <div id="result-container" style="display: none;">
@@ -172,14 +173,14 @@
                     </div>
 
                     <div>
-                        <div class="section-title">生辰五行氣場 // ENERGY MATRIX</div>
+                        <div class="section-title" id="ev-st-energy">生辰五行氣場 // ENERGY MATRIX</div>
                         <table class="matrix-table">
                             <thead>
                                 <tr>
-                                    <th>時柱</th>
-                                    <th>日柱</th>
-                                    <th>月柱</th>
-                                    <th>年柱</th>
+                                    <th id="ev-th-h">時柱</th>
+                                    <th id="ev-th-d">日柱</th>
+                                    <th id="ev-th-m">月柱</th>
+                                    <th id="ev-th-y">年柱</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -203,14 +204,14 @@
                     </div>
 
                     <div>
-                        <div class="section-title">大腦危機診斷 // STATUS</div>
+                        <div class="section-title" id="ev-st-status">大腦危機診斷 // STATUS</div>
                         <div class="section-content" id="res-status">
                             載入中...
                         </div>
                     </div>
 
                     <div>
-                        <div class="section-title">內在療癒處方 // RECOVERY</div>
+                        <div class="section-title" id="ev-st-recovery">內在療癒處方 // RECOVERY</div>
                         <div class="section-content" id="res-recovery">
                             載入中...
                         </div>
@@ -218,11 +219,11 @@
 
                     <div class="match-box">
                         <div class="match-item">
-                            <div class="match-label">⚡ 精神天敵 (剋星)</div>
+                            <div class="match-label" id="ev-ml-enemy">⚡ 精神天敵 (剋星)</div>
                             <div style="font-size:1rem; font-weight:700;color: #cefffd;" id="res-enemy">--</div>
                         </div>
                         <div class="match-item">
-                            <div class="match-label">🤝 靈魂共生 (好友)</div>
+                            <div class="match-label" id="ev-ml-friend">🤝 靈魂共生 (好友)</div>
                             <div style="font-size:1rem; font-weight:700;color: #cefffd;" id="res-friend">--</div>
                         </div>
                     </div>
@@ -237,7 +238,7 @@
                         <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"></path>
                         <rect x="8" y="2" width="8" height="4" rx="1" ry="1"></rect>
                     </svg>
-                    複製報告去揪朋友實測（相愛相殺合盤）
+                    <span id="ev-btn-share">複製報告去揪朋友實測（相愛相殺合盤）</span>
                 </button>
                 <button class="action-btn action-download" onclick="downloadCard()">
                     <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
@@ -246,23 +247,25 @@
                         <polyline points=\"7 10 12 15 17 10\"></polyline>
                         <line x1="12" y1="15" x2="12" y2="3"></line>
                     </svg>
-                    儲存/下載大腦記憶卡片</button>
+                    <span id="ev-btn-download">儲存/下載大腦記憶卡片</span></button>
                 <button class="action-btn action-book" id="toggle-matrix-btn" onclick="toggleMatrixLayout()">
-                    [ 點擊展開 // 觀看所有大腦修復體 ↓ ]
+                    <span id="ev-btn-toggle">[ 點擊展開 // 觀看所有大腦修復體 ↓ ]</span>
                 </button>
             </div>
 
             <div class="matrix-collapse-zone" id="matrixCollapseZone" style="display: none;">
                 <div class="matrix-close-bar">
-                    <span>總表展開中 // DECODING LOG</span>
-                    <button onclick="toggleMatrixLayout()">✕ 收起</button>
+                    <span id="ev-closebar-title">總表展開中 // DECODING LOG</span>
+                    <button onclick="toggleMatrixLayout()" id="ev-closebar-btn">✕ 收起</button>
                 </div>
                 <div style="margin-bottom: 30px; margin-top:10px; text-align:center;">
-                    <div style="font-size: 0.75rem; letter-spacing: 0.2em; color: #999999; text-transform: uppercase; margin-bottom: 6px;">
+                    <div id="ev-log-1"
+                        style="font-size: 0.75rem; letter-spacing: 0.2em; color: #999999; text-transform: uppercase; margin-bottom: 6px;">
                         DECODING LOG // 記憶脈絡解析</div>
-                    <div style="font-size: 1.3rem; font-weight: 700; letter-spacing: 0.1em; margin-bottom: 4px; text-align: center;">
+                    <div id="ev-log-2"
+                        style="font-size: 1.3rem; font-weight: 700; letter-spacing: 0.1em; margin-bottom: 4px; text-align: center;">
                         大腦記憶內修復體 // 五行能量脈絡總表</div>
-                    <div style="font-size: 0.875rem; color: #b2d4d3; line-height: 1.4;text-align: center;">
+                    <div id="ev-log-3" style="font-size: 0.875rem; color: #b2d4d3; line-height: 1.4;text-align: center;">
                         此總表供對照其他基因時間座標。高亮區塊為您本次的定錨屬性。</div>
                 </div>
 
@@ -408,11 +411,11 @@
                 </div>
 
                 <div style="border-top: 1px dashed #222; margin-top: 40px; padding-top: 30px; text-align: center;">
-                    <p style="font-size: 0.8rem; color: #3bb1ff; margin-bottom: 18px; line-height: 1.5;">
+                    <p id="ev-cta-p" style="font-size: 0.8rem; color: #3bb1ff; margin-bottom: 18px; line-height: 1.5;">
                         想了解更多將生命記憶轉化為數位或實體藝術資產方案，請前往 LIFE 主艙體。
                     </p>
                     <a href="https://xuexue-ni.github.io/LIFE-LM/#experience" target="_blank"
-                        class="event-backhome-btn">
+                        class="event-backhome-btn" id="ev-cta-btn">
                         啟動 LIFE 核心定錨體驗艙 ↗
                     </a>
                 </div>
@@ -422,86 +425,12 @@
     </div>
 
     <div class="alert-toast" id="toast"></div>
-    <footer>
-        <div class="footer-content">
-            <div class="footer-brand">
-                <img src="assets/images/logo.png" alt="LIFE+ Legacy Matrix" class="footer-logo">
-                <p>記憶傳承 · 本我印記 · 時間流轉 · 座標元素</p>
-                <div class="social-icons">
-                    <a href="https://www.facebook.com/LifeMatrixLab" target="_blank" class="icon-mock" title="Facebook">
-                        <svg viewBox="0 0 24 24" class="social-svg">
-                            <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path>
-                        </svg>
-                    </a>
-                    <a href="https://www.instagram.com/xuexueni.space/" target="_blank" class="icon-mock"
-                        title="Instagram">
-                        <svg viewBox="0 0 24 24" class="social-svg">
-                            <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
-                            <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
-                            <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
-                        </svg>
-                    </a>
-                    <!-- 💡 Threads -->
-                    <a href="#" target="_blank" class="icon-mock" title="Threads">
-                        <svg viewBox="0 0 20 22" class="social-svg threads-svg">
-                            <path
-                                d="M12 11c0-1.1-.9-2-2-2s-2 .9-2 2 .9 2 2 2 2-.9 2-2zm0 0v1.5c0 .83.67 1.5 1.5 1.5s1.5-.67 1.5-1.5V11c0-2.76-2.24-5-5-5s-5 2.24-5 5 2.24 5 5 5c1.22 0 2.33-.44 3.2-1.17">
-                            </path>
-                        </svg>
-                    </a>
-                    <!-- 💡 TikTok / 抖音 -->
-                    <a href="https://www.tiktok.com/@userhnmc4iqtxj?_r=1&_t=ZS-91MzYYArgNZ" target="_blank"
-                        class="icon-mock" title="TikTok">
-                        <svg viewBox="0 0 24 24" class="social-svg">
-                            <!-- 完美的幾何圓點、直桿與拋物線尾翼構成的純線條八分音符 -->
-                            <circle cx="9" cy="17" r="3"></circle>
-                            <polyline points="12 17 12 4 20 4"></polyline>
-                            <path d="M16 8c2.21 0 4-1.79 4-4"></path>
-                        </svg>
-                    </a>
-                    <!-- 💡 小紅書 -->
-                    <a href="https://xhslink.com/m/5sAcQVx2Drc" target="_blank" class="icon-mock" title="小紅書">
-                        <svg viewBox="0 0 24 24" class="social-svg">
-                            <path d="M4 5.2l3.6 2.4-3.6 3.6 4.8 1.2"></path>
-                            <path d="M5.2 16h2.4"></path>
-                            <path d="M13 5v14"></path>
-                            <path d="M11 7h8"></path>
-                            <path d="M11 17h8"></path>
-                        </svg>
-                    </a>
-                </div>
-            </div>
-            <div class="footer-links">
-                <h5>商業合作與聯繫</h5>
-                <p>XUEXUEni 數位美學工作室</p>
-                <p><a href="mailto:winnietoto@gmail.com"> winnietoto@gmail.com</a></p>
-            </div>
-            <div class="footer-links">
-                <h5>架構導覽</h5>
-                <p><a href="#experience">體驗生命解碼</a></p>
-                <p><a href="#philosophy">大師核心架構</a></p>
-                <p><a href="#solutions">留存場景方案</a></p>
-            </div>
-        </div>
-        <div class="footer-bottom">
-            <div>&copy; 2026 LIFE+ Legacy Matrix System & XUEXUEni Studio. All Rights Reserved.</div>
-            <div class="footer-bottom-right">
-                <button class="lang-toggle-btn" onclick="switchLang()">EN</button>
-                <button class="btn-footer-science" onclick="downloadScienceReport()">
-                    <svg viewBox="0 0 24 24" class="science-btn-svg">
-                        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
-                        <polyline points="7 10 12 15 17 10"></polyline>
-                        <line x1="12" y1="15" x2="12" y2="3"></line>
-                    </svg>
-                    LIFE+ 記憶與療癒系統計畫科學實證
-                </button>
-            </div>
-        </div>
-    </footer>
-
+    <!-- FOOTER-->
+    <div id="footer-placeholder"></div>
     <!-- JS-->
     <script src="assets/js/event.js"></script>
     <script src="assets/js/js.js"></script>
+    <script src="assets/js/lang.js"></script>
 </body>
 
 </html>
