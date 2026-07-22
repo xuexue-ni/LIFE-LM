@@ -264,6 +264,7 @@ toggleBtn.addEventListener('click', function () {
     }
 });
 
+
 // ── 手機版響應式漢堡選單控制 ──
 function toggleMobileMenu() {
     const menuBtn = document.getElementById('mobile-menu-btn');
@@ -339,6 +340,32 @@ document.addEventListener("DOMContentLoaded", function () {
             });
     }
 });
+
+
+// 💡 1. 確保 toggleBtn 和 collapseContent 都存在才綁定事件
+if (toggleBtn && collapseContent) {
+    toggleBtn.addEventListener('click', function () {
+        // 切換按鈕自身的 active 狀態（改變箭頭方向）
+        this.classList.toggle('active');
+
+        // 切換內容容器的 active 狀態
+        collapseContent.classList.toggle('active');
+
+        // 判斷是否展開，並動態設定高度（達到平滑動畫效果）
+        if (collapseContent.classList.contains('active')) {
+            collapseContent.style.maxHeight = collapseContent.scrollHeight + "px";
+            
+            // 💡 2. 對內部子元素選取器也加上安全保護
+            const textSpan = toggleBtn.querySelector('span:first-child');
+            if (textSpan) textSpan.innerText = "關：LIFE+ 四大美學維度演算法";
+        } else {
+            collapseContent.style.maxHeight = "0";
+            
+            const textSpan = toggleBtn.querySelector('span:first-child');
+            if (textSpan) textSpan.innerText = "開：LIFE+ 四大美學維度演算法";
+        }
+    });
+}
 
 // ── 4. 終極優化：點擊後另開精緻預覽網頁，內嵌科學實證與下載功能 ──
 function downloadScienceReport() {
