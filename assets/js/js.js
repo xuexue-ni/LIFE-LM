@@ -1,38 +1,38 @@
-
 function downloadMatrix() {
-    document.querySelector('#booking').scrollIntoView({ behavior: 'smooth' });
+    const booking = document.querySelector('#booking');
+    if (booking) booking.scrollIntoView({ behavior: 'smooth' });
 }
 
-// 1. 宇宙背景動態 Canvas 引擎（重構版：幾何年輪與生命漣漪）
+// 1. 宇宙背景動態 Canvas 引擎（新增安全防護網）
 const canvas = document.getElementById('life-space-canvas');
-const ctx = canvas.getContext('2d');
-const NEON_COLORS = ['#00e5ff', '#00aaff', '#7000ff', '#33ffaa'];// 藍綠、青藍、幻彩紫、螢光綠
+// 💡 安全修改：只有在 canvas 存在時才獲取 2d Context
+const ctx = canvas ? canvas.getContext('2d') : null; 
+const NEON_COLORS = ['#00e5ff', '#00aaff', '#7000ff', '#33ffaa'];
 let rippleCircles = [], sparks = [], mouse = { x: null, y: null, targetX: null, targetY: null }, scrollY = 0, targetScrollY = 0;
 
 function resizeCanvas() {
+    if (!canvas || !ctx) return; // 💡 安全判斷
     const scale = window.devicePixelRatio || 1;
     canvas.width = window.innerWidth * scale; canvas.height = window.innerHeight * scale;
     ctx.scale(scale, scale); initSystem();
 }
 
 function initSystem() {
+    if (!canvas) return; // 💡 安全判斷
     rippleCircles = []; sparks = [];
 
-    // ── 🎛️ 年輪/漣漪 參數設定區 ──
-    const totalRipples = 48; // 畫面同時存在的年輪圈數
+    const totalRipples = 48;
     for (let i = 0; i < totalRipples; i++) {
         rippleCircles.push({
-            // 讓圓圈的初始半徑錯開，形成層層疊加的等高線感
             radius: (Math.max(window.innerWidth, window.innerHeight) / totalRipples) * i,
-            speed: 0.2 + Math.random() * 0.5,          // 👈 擴散速度（數字越大向外衝越快）
-            weight: Math.random() > 0.6 ? 0.6 : 0.1,    // 👈 線條粗細 (px)
-            opacityFactor: 0.1 + Math.random() * 0.3, // 👈 基礎透明度上限
-            seed: Math.random() * 150,                 // 隨機數學種子，用來製造波浪細節
+            speed: 0.2 + Math.random() * 0.5,
+            weight: Math.random() > 0.6 ? 0.6 : 0.1,
+            opacityFactor: 0.1 + Math.random() * 0.3,
+            seed: Math.random() * 150,
             color: NEON_COLORS[Math.floor(Math.random() * NEON_COLORS.length)]
         });
     }
 
-    // 背景微粒 (Sparks) 改為受到中心引力與滾動影響
     for (let i = 0; i < 40; i++) {
         sparks.push({
             x: Math.random() * window.innerWidth, y: Math.random() * window.innerHeight,
@@ -49,13 +49,17 @@ window.addEventListener('mouseleave', () => { mouse.targetX = null; mouse.target
 window.addEventListener('scroll', () => {
     targetScrollY = window.scrollY;
     const toTopBtn = document.getElementById('back-to-top-btn');
-    if (window.scrollY > 300) { toTopBtn.classList.add('show'); } else { toTopBtn.classList.remove('show'); }
+    // 💡 安全修改：加上 toTopBtn 存在檢查
+    if (toTopBtn) {
+        if (window.scrollY > 300) { toTopBtn.classList.add('show'); } else { toTopBtn.classList.remove('show'); }
+    }
 });
 
 function animate() {
+    if (!ctx) return; // 💡 安全判斷：沒有 Canvas 的頁面不跑動畫迴圈
+
     ctx.clearRect(0, 0, window.innerWidth, window.innerHeight);
 
-    // 取得畫面物理中心點（作為年輪與漣漪的發散源）
     const centerX = window.innerWidth / 2;
     const centerY = window.innerHeight / 2;
 
@@ -67,26 +71,19 @@ function animate() {
     scrollY += (targetScrollY - scrollY) * 0.05;
     let scrollSpeed = (targetScrollY - scrollY);
 
-    // ── 🔄 繪製幾何年輪/漣漪 ──
     rippleCircles.forEach((circle) => {
-        // 1. 讓圓半徑持續擴散
         circle.radius += circle.speed;
-
-        // 2. 當滾動網頁時，漣漪會因為「時空位移」短暫加速向外擴散
         circle.radius += Math.abs(scrollSpeed) * 0.15;
 
-        // 3. 超出螢幕最大邊界後，重置回中心（變成一個生生不息的循環）
         const maxRadius = Math.max(window.innerWidth, window.innerHeight) * 0.8;
         if (circle.radius > maxRadius) {
             circle.radius = 0;
             circle.speed = 0.2 + Math.random() * 0.3;
         }
 
-        // 4. 計算邊緣淡入淡出（圓心處與最外圍會靈魂般隱形，中間最清晰）
         let lifeRatio = circle.radius / maxRadius;
         let currentOpacity = Math.sin(lifeRatio * Math.PI) * circle.opacityFactor;
 
-        // 5. 開始用高階數學畫出帶有東方玄學波紋的「不規則年輪圓」
         ctx.beginPath();
         ctx.lineWidth = circle.weight;
         ctx.strokeStyle = circle.color;
@@ -94,19 +91,16 @@ function animate() {
         ctx.shadowColor = circle.color;
         ctx.globalAlpha = currentOpacity < 0 ? 0 : currentOpacity;
 
-        const totalPoints = 120; // 組成一個圓的線段數量
+        const totalPoints = 120;
         for (let j = 0; j <= totalPoints; j++) {
             let angle = (j / totalPoints) * Math.PI * 2;
-
-            // 使用正弦與餘弦公式，並注入時空參數，讓圓的邊緣產生像水波紋（漣漪）的細微起伏
             let timeParam = Date.now() * 0.0005;
-            let noise = Math.sin(angle * 6 + circle.seed + timeParam) * 16; // 代表水波的起伏震盪程度.0，年輪成正圓；20，抖動和不規則感變強烈
+            let noise = Math.sin(angle * 6 + circle.seed + timeParam) * 16;
 
             let r = circle.radius + noise;
             let x = centerX + Math.cos(angle) * r;
             let y = centerY + Math.sin(angle) * r;
 
-            // 互動性：滑鼠靠近時，漣漪會產生磁場擠壓錯位
             if (mouse.x !== null) {
                 let distX = mouse.x - x; let distY = mouse.y - y;
                 let distance = Math.sqrt(distX * distX + distY * distY);
@@ -123,12 +117,10 @@ function animate() {
         ctx.stroke();
     });
 
-    // ── ✨ 繪製微粒（微粒會依附年輪磁場做緩慢的呼吸與漂移） ──
     sparks.forEach((spark) => {
         spark.pulseAngle += spark.pulseSpeed;
         let currentOpacity = spark.opacity + Math.sin(spark.pulseAngle) * 0.15;
 
-        // 網頁滾動時，微粒會有些許上升或下降的錯覺
         spark.y -= scrollSpeed * 0.02;
         if (spark.y < 0) spark.y = window.innerHeight;
         if (spark.y > window.innerHeight) spark.y = 0;
@@ -145,7 +137,13 @@ function animate() {
     ctx.globalAlpha = 1.0; ctx.shadowBlur = 0;
     requestAnimationFrame(animate);
 }
-window.addEventListener('resize', resizeCanvas); resizeCanvas(); animate();
+
+// 只有在畫面上存在 Canvas 時才啟動引擎
+if (canvas) {
+    window.addEventListener('resize', resizeCanvas); 
+    resizeCanvas(); 
+    animate();
+}
 
 // 2. 輪播控制邏輯
 let currentSlideIndex = 0;
@@ -165,7 +163,7 @@ function moveSlide(direction) {
 
 function updateCarouselPosition() {
     const track = document.getElementById('carouselTrack');
-    track.style.transform = `translateX(-${currentSlideIndex * 33.333}%)`;
+    if (track) track.style.transform = `translateX(-${currentSlideIndex * 33.333}%)`;
     const buttons = document.querySelectorAll('.tab-btn');
     buttons.forEach((btn, i) => {
         if (i === currentSlideIndex) btn.classList.add('active');
@@ -173,7 +171,7 @@ function updateCarouselPosition() {
     });
 }
 
-// 🆕 3. 回到最上層平滑滾動函數
+// 3. 回到最上層平滑滾動函數
 function scrollToTop() {
     window.scrollTo({
         top: 0,
@@ -184,15 +182,23 @@ function scrollToTop() {
 // 4. 預約表單提交與彈出式通知
 function triggerFormSubmit(event) {
     event.preventDefault();
-    document.getElementById('custom-alert').style.display = 'block';
+    const alertBox = document.getElementById('custom-alert');
+    if (alertBox) alertBox.style.display = 'block';
     setTimeout(() => { event.target.submit(); }, 1500);
 }
-function closeAlert() { document.getElementById('custom-alert').style.display = 'none'; }
+function closeAlert() { 
+    const alertBox = document.getElementById('custom-alert');
+    if (alertBox) alertBox.style.display = 'none'; 
+}
 
 // 5. 免費體驗解碼器
 function runExperience() {
-    const name = document.getElementById('user-name').value;
-    const birth = document.getElementById('user-birth').value;
+    const nameEl = document.getElementById('user-name');
+    const birthEl = document.getElementById('user-birth');
+    if (!nameEl || !birthEl) return;
+
+    const name = nameEl.value;
+    const birth = birthEl.value;
     if (!name || !birth) { alert("請輸入您的稱呼與生辰。"); return; }
     const date = new Date(birth); const seed = date.getDate() + date.getMonth() + date.getHours();
     const elements = ["潤木 (Wood)", "烈火 (Fire)", "厚土 (Earth)", "剛金 (Metal)", "清水 (Water)"];
@@ -201,18 +207,21 @@ function runExperience() {
         { id: 14, name: "Chitra (角宿)", desc: "代表宇宙極致的工藝與結構美。這類頻率者天生具備對秩序、美感與邏輯的敏閱洞察力。", svg: `<svg viewBox="0 0 100 100"><circle cx="50" cy="50" r="45" fill="none" stroke="rgba(0, 229, 255, 0.3)" stroke-width="0.5"/><polygon points="50,15 80,32 80,68 50,85 20,68 20,32" fill="none" stroke="#00e5ff" stroke-width="1.2"/><line x1="50" y1="15" x2="50" y2="85" stroke="rgba(51, 255, 170, 0.5)" stroke-width="0.5"/></svg>` }
     ];
     const result = samples[seed % 2];
-    document.getElementById('experience-result').style.display = 'block';
-    document.getElementById('totem-output').innerHTML = result.svg;
-    document.getElementById('result-text').innerHTML = `暨定主體 ── <strong>${name.toUpperCase()}</strong>，座標已定錨：<br><br>■ 五行屬性：${elements[seed % 5]}<br>■ 吠陀星宿：第 ${result.id} 星宿 ── ${result.name}<br>■ 幾何頻率：${result.desc}`;
+    const expResult = document.getElementById('experience-result');
+    const totemOut = document.getElementById('totem-output');
+    const resText = document.getElementById('result-text');
+
+    if (expResult) expResult.style.display = 'block';
+    if (totemOut) totemOut.innerHTML = result.svg;
+    if (resText) resText.innerHTML = `暨定主體 ── <strong>${name.toUpperCase()}</strong>，座標已定錨：<br><br>■ 五行屬性：${elements[seed % 5]}<br>■ 吠陀星宿：第 ${result.id} 星宿 ── ${result.name}<br>■ 幾何頻率：${result.desc}`;
 }
 
-// 🔗 一鍵複製當前網頁網址功能
+// 一鍵複製當前網頁網址功能
 function copyCurrentUrl() {
     const currentUrl = window.location.href;
     navigator.clipboard.writeText(currentUrl).then(function() {
         alert('網址已成功複製至剪貼簿');
     }).catch(function(err) {
-        // 舊版瀏覽器相容備案
         const textArea = document.createElement("textarea");
         textArea.value = currentUrl;
         document.body.appendChild(textArea);
@@ -223,49 +232,22 @@ function copyCurrentUrl() {
     });
 }
 
-
-// ── 頂部動態文字副標題輪播排程 ──
+// 頂部動態文字副標題輪播排程
 document.addEventListener("DOMContentLoaded", () => {
     const subtitles = document.querySelectorAll('.dynamic-subtitle');
     if (subtitles.length === 0) return;
 
     let currentIndex = 0;
-    const switchInterval = 4000; // 👈 這裡可以設定切換時間：4000 毫秒 = 4 秒
+    const switchInterval = 4000;
 
     setInterval(() => {
-        // 1. 讓當前顯示的句子淡出
         subtitles[currentIndex].classList.remove('active');
-
-        // 2. 計算下一句的索引值
         currentIndex = (currentIndex + 1) % subtitles.length;
-
-        // 3. 讓下一句優雅淡入
         subtitles[currentIndex].classList.add('active');
     }, switchInterval);
 });
 
-const toggleBtn = document.getElementById('toggleBtn');
-const collapseContent = document.getElementById('collapseContent');
-
-toggleBtn.addEventListener('click', function () {
-    // 切換按鈕自身的 active 狀態（改變箭頭方向）
-    this.classList.toggle('active');
-
-    // 切換內容容器的 active 狀態
-    collapseContent.classList.toggle('active');
-
-    // 判斷是否展開，並動態設定高度（達到平滑動畫效果）
-    if (collapseContent.classList.contains('active')) {
-        collapseContent.style.maxHeight = collapseContent.scrollHeight + "px";
-        toggleBtn.querySelector('span:first-child').innerText = "關：LIFE+ 四大美學維度演算法";
-    } else {
-        collapseContent.style.maxHeight = "0";
-        toggleBtn.querySelector('span:first-child').innerText = "開：LIFE+ 四大美學維度演算法";
-    }
-});
-
-
-// ── 手機版響應式漢堡選單控制 ──
+// 手機版響應式漢堡選單控制
 function toggleMobileMenu() {
     const menuBtn = document.getElementById('mobile-menu-btn');
     const navLinks = document.getElementById('nav-links-container');
@@ -274,7 +256,6 @@ function toggleMobileMenu() {
         menuBtn.classList.toggle('active');
         navLinks.classList.toggle('open');
 
-        // 防止手機版選單打開時，後方網頁還能滾動
         if (navLinks.classList.contains('open')) {
             document.body.style.overflow = 'hidden';
         } else {
@@ -283,7 +264,6 @@ function toggleMobileMenu() {
     }
 }
 
-// 點擊導覽連結後，自動關閉滿版選單
 function closeMobileMenu() {
     const menuBtn = document.getElementById('mobile-menu-btn');
     const navLinks = document.getElementById('nav-links-container');
@@ -295,13 +275,10 @@ function closeMobileMenu() {
     }
 }
 
-
-// ── 核心原理區塊：QA 折疊控制 ──
+// QA 折疊控制
 function toggleFaq(element) {
-    // 如果點擊已打開的，就關閉它；如果點擊其他的，就打開它
     const isActive = element.classList.contains('active');
 
-    // 可選：先關閉其他所有已打開的 QA（手風琴效果，保持畫面簡潔）
     document.querySelectorAll('.faq-item').forEach(item => {
         item.classList.remove('active');
     });
@@ -311,12 +288,11 @@ function toggleFaq(element) {
     }
 }
 
+// 動態載入 Footer
 document.addEventListener("DOMContentLoaded", function () {
-    // 尋找頁面上的 footer 預留孔
     const footerPlaceholder = document.getElementById("footer-placeholder");
     
     if (footerPlaceholder) {
-        // 使用 fetch 讀取獨立的 footer.html
         fetch("footer.html")
             .then(response => {
                 if (!response.ok) {
@@ -325,13 +301,8 @@ document.addEventListener("DOMContentLoaded", function () {
                 return response.text();
             })
             .then(htmlData => {
-                // 將讀取到的 HTML 塞入預留孔中
                 footerPlaceholder.innerHTML = htmlData;
-                
-                // 【關鍵！】載入完成後，如果 Footer 裡面也有需要翻譯的字，
-                // 請在這裡呼叫您的語系切換函式，確保 Footer 的文字也能被順利翻譯。
-                if (typeof applyLang === "function") {
-                    // 假設目前使用的是全域變數 currentLang
+                if (typeof applyLang === "function" && typeof currentLang !== "undefined") {
                     applyLang(currentLang); 
                 }
             })
@@ -341,33 +312,28 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 });
 
+// 💡 摺疊按鈕事件（保留唯一一處，且包含安全檢查）
+const toggleBtn = document.getElementById('toggleBtn');
+const collapseContent = document.getElementById('collapseContent');
 
-// 💡 1. 確保 toggleBtn 和 collapseContent 都存在才綁定事件
 if (toggleBtn && collapseContent) {
     toggleBtn.addEventListener('click', function () {
-        // 切換按鈕自身的 active 狀態（改變箭頭方向）
         this.classList.toggle('active');
-
-        // 切換內容容器的 active 狀態
         collapseContent.classList.toggle('active');
 
-        // 判斷是否展開，並動態設定高度（達到平滑動畫效果）
         if (collapseContent.classList.contains('active')) {
             collapseContent.style.maxHeight = collapseContent.scrollHeight + "px";
-            
-            // 💡 2. 對內部子元素選取器也加上安全保護
             const textSpan = toggleBtn.querySelector('span:first-child');
             if (textSpan) textSpan.innerText = "關：LIFE+ 四大美學維度演算法";
         } else {
             collapseContent.style.maxHeight = "0";
-            
             const textSpan = toggleBtn.querySelector('span:first-child');
             if (textSpan) textSpan.innerText = "開：LIFE+ 四大美學維度演算法";
         }
     });
 }
 
-// ── 4. 終極優化：點擊後另開精緻預覽網頁，內嵌科學實證與下載功能 ──
+// 下載科學報告
 function downloadScienceReport() {
     const EN = typeof currentLang !== 'undefined' && currentLang === 'en';
     const T = EN ? {
@@ -393,9 +359,6 @@ function downloadScienceReport() {
         s2Item2Title: 'Slowing Dementia & Building Cognitive Reserve',
         s2Item2Body: 'Early structured archiving and mental anchoring of personal life events can effectively build "Cognitive Reserve," significantly delaying dementia progression later in life.',
         s2Item2Link: '🔗 See the NIA (National Institute on Aging) on cognitive reserve & brain protection →',
-        s2Item3Title: 'Neuroaesthetics & Emotional Stability',
-        s2Item3Body: 'Deep aesthetic translation and the artistic creation process can significantly suppress cortisol (stress hormone) release, activate neural microcirculation, and balance the autonomic nervous system.',
-        s2Item3Link: '🔗 See NCBI on art therapy & neural mechanism research →',
         s3Title: '✦ Digital Assets & Physical Memorial Carriers',
         s3Body: 'The LIFE+ System encodes fleeting life moments into warm, eternal geometric rings within the cosmos. This visual coordinate works beautifully as a digital wallpaper and memory archive, and later becomes the key index for premium physical laser-engraved memorial pieces or custom digital books — a trustworthy anchor point amid life\'s chaos.',
         btnPrint: 'Save or Print Report',
@@ -426,9 +389,6 @@ function downloadScienceReport() {
         s2Item2Title: '減緩失智與提升認知儲備',
         s2Item2Body: '提早建立個人生命事件的結構化封存與精神錨定，能有效累積大腦的「認知儲備」（Cognitive Reserve），在年長時顯著延緩失智病程。',
         s2Item2Link: '🔗 查閱美國國家老化研究所 (NIA) 關於認知儲備與大腦保護機制 →',
-        s2Item3Title: '神經美學（Neuroaesthetics）與情緒安定',
-        s2Item3Body: '深度的美學轉譯與藝術創造過程，能顯著抑制體內皮質醇（壓力荷爾蒙）分泌，活化大腦神經元微循環，平衡自主神經系統。',
-        s2Item3Link: '🔗 查閱美國國家生物技術資訊中心 (NCBI) 藝術治療與神經機制研究文獻 →',
         s3Title: '✦ 數位資產與實體紀念載體',
         s3Body: 'LIFE+ 系統將稍縱即逝的生命瞬間，編碼為宇宙中溫暖而永恆的幾何年輪。此視覺座標不僅適合作為數位桌布與記憶封存，更是日後轉化為高質感實體雷雕記憶載體、客製化數位書籍的關鍵索引，在慌亂的時空中提供最值得信賴的錨定點。',
         btnPrint: '儲存或列印報告',
@@ -436,7 +396,7 @@ function downloadScienceReport() {
         footerNote: '本實證基於神經美學與認知心理學框架推演。',
         alertBlocked: '您的瀏覽器封鎖了彈出視窗，請允許彈出以查閱科學實證。'
     };
-    // 💡 核心技術：建立包含完整美學排版與下載按鈕的獨立網頁字串
+
     const scienceHtmlContent = `
 <!DOCTYPE html> 
 <html lang="${T.htmlLang}">
@@ -446,159 +406,21 @@ function downloadScienceReport() {
     <title>${T.pageTitle}</title>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@300;400&display=swap" rel="stylesheet">
     <style>
-        body {
-            background-color: #0A0C12;
-            color: #E8EAF0;
-            font-family: 'Noto Serif TC', serif;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            margin: 0;
-            padding: 40px 20px;
-            box-sizing: border-box;
-        }
-        .report-card {
-            width: 100%;
-            max-width: 800px;
-            background: #111420;
-            border: 0.5px solid rgba(232, 234, 240, 0.15);
-            border-radius: 16px;
-            padding: 45px 50px;
-            box-sizing: border-box;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.6);
-            position: relative;
-        }
-        .header-logo {
-            font-size: 0.8125rem;
-            letter-spacing: 6px;
-            color: #8A90A8;
-            text-align: center;
-            margin-bottom: 25px;
-        }
-        .title {
-            font-size: 2.25rem;
-            font-weight: 300;
-            letter-spacing: 3px;
-            color: #ffffff;
-            text-align: center;
-            margin-bottom: 6px;
-        }
-        .subtitle {
-            font-size: 1rem;
-            color: #8A90A8;
-            letter-spacing: 1.5px;
-            text-align: center;
-            margin-bottom: 40px;
-        }
-        .section-title {
-            font-size: 1.25rem;
-            letter-spacing: 2px;
-            color: #00e5ff;
-            margin-top: 30px;
-            margin-bottom: 12px;
-            border-bottom: 0.5px solid rgba(0, 229, 255, 0.2);
-            padding-bottom: 6px;
-        }
-        .content-box {
-            font-size: 1rem;
-            line-height: 1.8;
-            letter-spacing: 1.5px;
-            color: #D1D4E0;
-            margin-bottom: 25px;
-            text-align: justify;
-        }
-        .highlight {
-            color: #33ffaa;
-            font-weight: 400;
-        }
-        .ref-link {
-            display: inline-block;
-            color: #00e5ff;
-            text-decoration: none;
-            font-size: 11px;
-            margin-top: 4px;
-            border-bottom: 0.5px dashed rgba(0, 229, 255, 0.4);
-            transition: all 0.3s ease;
-        }
-        .ref-link:hover { color: #ffffff; border-bottom-color: #ffffff; }
-        
-        /* 💡 新增：頁尾下載功能區塊樣式 */
-        .action-zone {
-            text-align: center;
-            margin-top: 40px;
-            border-top: 0.5px solid rgba(232, 234, 240, 0.1);
-            padding-top: 30px;
-        }
-        .btn-download-now {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-            padding: 10px 24px;
-            background: transparent;
-            border: 0.5px solid #33ffaa; /* 綠色安全指示 */
-            color: #33ffaa;
-            font-family: 'Noto Serif TC', serif;
-            font-size: 12px;
-            letter-spacing: 1.5px;
-            border-radius: 20px;
-            cursor: pointer;
-            transition: all 0.4s ease;
-        }
-        .btn-download-now:hover {
-            background: #33ffaa;
-            color: #111420;
-            box-shadow: 0 0 15px rgba(51,255,170,0.3);
-        }
-        .footer-note {
-            font-size: 11px;
-            color: #62687F;
-            letter-spacing: 1px;
-            line-height: 1.6;
-            margin-top: 25px;
-            text-align: center;
-        }
-
-        .btn-download-now, .btn-back-to-booking {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-            padding: 10px 22px;
-            background: transparent;
-            font-family: 'Noto Serif TC', serif;
-            font-size: 12px;
-            letter-spacing: 1.5px;
-            border-radius: 20px;
-            cursor: pointer;
-            text-decoration: none !important; /* 👈 絕對消除 a 標籤預設的底線 */
-            transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
-            white-space: nowrap;
-            box-sizing: border-box;
-        }
-        .btn-download-now {
-            border: 0.5px solid rgba(232, 234, 240, 0.3);
-            color: #8A90A8;
-        }
-        .btn-download-now:hover {
-            border-color: #ffffff;
-            color: #ffffff;
-            box-shadow: 0 0 12px rgba(255,255,255,0.1);
-        }
-        .btn-back-to-booking {
-            border: 0.5px solid #00e5ff;
-            color: #00e5ff;
-        }
-        .btn-back-to-booking:hover {
-            background: #00e5ff;
-            color: #111420;
-            box-shadow: 0 0 15px rgba(0,229,255,0.3);
-        }
-
-    @media (max-width: 880px) {
-            .report-card {padding: 30px 20px;} 
-             }
+        body { background-color: #0A0C12; color: #E8EAF0; font-family: 'Noto Serif TC', serif; display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0; padding: 40px 20px; box-sizing: border-box; }
+        .report-card { width: 100%; max-width: 800px; background: #111420; border: 0.5px solid rgba(232, 234, 240, 0.15); border-radius: 16px; padding: 45px 50px; box-sizing: border-box; box-shadow: 0 10px 40px rgba(0,0,0,0.6); position: relative; }
+        .header-logo { font-size: 0.8125rem; letter-spacing: 6px; color: #8A90A8; text-align: center; margin-bottom: 25px; }
+        .title { font-size: 2.25rem; font-weight: 300; letter-spacing: 3px; color: #ffffff; text-align: center; margin-bottom: 6px; }
+        .subtitle { font-size: 1rem; color: #8A90A8; letter-spacing: 1.5px; text-align: center; margin-bottom: 40px; }
+        .section-title { font-size: 1.25rem; letter-spacing: 2px; color: #00e5ff; margin-top: 30px; margin-bottom: 12px; border-bottom: 0.5px solid rgba(0, 229, 255, 0.2); padding-bottom: 6px; }
+        .content-box { font-size: 1rem; line-height: 1.8; letter-spacing: 1.5px; color: #D1D4E0; margin-bottom: 25px; text-align: justify; }
+        .action-zone { text-align: center; margin-top: 40px; border-top: 0.5px solid rgba(232, 234, 240, 0.1); padding-top: 30px; }
+        .btn-download-now, .btn-back-to-booking { display: inline-flex; align-items: center; justify-content: center; gap: 8px; padding: 10px 22px; background: transparent; font-family: 'Noto Serif TC', serif; font-size: 12px; letter-spacing: 1.5px; border-radius: 20px; cursor: pointer; text-decoration: none !important; transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1); white-space: nowrap; box-sizing: border-box; }
+        .btn-download-now { border: 0.5px solid rgba(232, 234, 240, 0.3); color: #8A90A8; }
+        .btn-download-now:hover { border-color: #ffffff; color: #ffffff; box-shadow: 0 0 12px rgba(255,255,255,0.1); }
+        .btn-back-to-booking { border: 0.5px solid #00e5ff; color: #00e5ff; }
+        .btn-back-to-booking:hover { background: #00e5ff; color: #111420; box-shadow: 0 0 15px rgba(0,229,255,0.3); }
+        .footer-note { font-size: 11px; color: #62687F; letter-spacing: 1px; line-height: 1.6; margin-top: 25px; text-align: center; }
+        @media (max-width: 880px) { .report-card {padding: 30px 20px;} }
     </style>
 </head>
 <body>
@@ -606,58 +428,25 @@ function downloadScienceReport() {
         <div class="header-logo">LIFE+ Legacy Matrix</div>
         <div class="title">${T.title}</div>
         <div class="subtitle">${T.subtitle}</div>
-        
         <div class="section-title">${T.s1Title}</div>
-        <div class="content-box">
-            ${T.s1Body}
-        </div>
-        
+        <div class="content-box">${T.s1Body}</div>
         <div class="section-title">${T.s2Title}</div>
         <div class="content-box">
             ${T.s2Intro}<br><br>
-            
-            1. <span class="highlight">${T.s2Item1Title}</span>：<br>
-            ${T.s2Item1Body}<br>
-            <a href="https://www.alz.org/alzheimers-dementia/research_progress/non-pharmacological-therapies" class="ref-link" target="_blank">${T.s2Item1Link}</a><br><br>
-            
-            2. <span class="highlight">${T.s2Item2Title}</span>：<br>
-            ${T.s2Item2Body}<br>
-            <a href="https://www.nia.nih.gov/news/cognitive-reserve-what-it-and-how-does-it-protect-brain" class="ref-link" target="_blank">${T.s2Item2Link}</a><br><br>
-            
-            3. <span class="highlight">${T.s2Item3Title}</span>：<br>
-            ${T.s2Item3Body}<br>
-            <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC8472506/" class="ref-link" target="_blank">${T.s2Item3Link}</a>
+            1. <span style="color:#33ffaa;">${T.s2Item1Title}</span>：<br>${T.s2Item1Body}<br><a href="https://www.alz.org/alzheimers-dementia/research_progress/non-pharmacological-therapies" style="color:#00e5ff;" target="_blank">${T.s2Item1Link}</a><br><br>
+            2. <span style="color:#33ffaa;">${T.s2Item2Title}</span>：<br>${T.s2Item2Body}<br><a href="https://www.nia.nih.gov/news/cognitive-reserve-what-it-and-how-does-it-protect-brain" style="color:#00e5ff;" target="_blank">${T.s2Item2Link}</a>
         </div>
-        
         <div class="section-title">${T.s3Title}</div>
-        <div class="content-box">
-            ${T.s3Body}
-        </div>
-        
+        <div class="content-box">${T.s3Body}</div>
         <div class="action-zone">
-            <div class="btn-group-footer">
-                <button class="btn-download-now" onclick="window.print()">
-                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
-                    ${T.btnPrint}
-                </button>
-                
-                <a href="https://xuexue-ni.github.io/LIFE-LM/#booking" target="_top" class="btn-back-to-booking">
-                    ${T.btnBooking}
-                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
-                </a>
-            </div>
-            
-            <div class="footer-note">
-                © 2026 LIFE+ Legacy Matrix System & XUEXUEni Studio. All Rights Reserved.<br>
-                ${T.footerNote}
-            </div>
+            <button class="btn-download-now" onclick="window.print()">${T.btnPrint}</button>
+            <a href="https://xuexue-ni.github.io/LIFE-LM/#booking" target="_top" class="btn-back-to-booking">${T.btnBooking}</a>
+            <div class="footer-note">© 2026 LIFE+ Legacy Matrix System & XUEXUEni Studio.<br>${T.footerNote}</div>
         </div>
     </div>
-    
 </body>
 </html>`;
 
-    // ── 💡 終極亮點：不再默默下載，而是直接另開新視窗並寫入內容 ──
     const newWindow = window.open();
     if (newWindow) {
         newWindow.document.open();
