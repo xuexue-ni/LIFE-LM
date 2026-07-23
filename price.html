@@ -122,15 +122,16 @@
     </nav>
     <div class="content-container"> 
         <!--🔮 服務方案內容區塊 (Pricing Section) -->
-        <section class="pricing-rows-section">
+       <section class="pricing-rows-section">
             <div class="pricing-wrapper">
-                <div class="pricing-row-header" id="priceHeader">
+                <div class="pricing-row-header">
                     <h2>LIFE+ Legacy Matrix 服務方案</h2>
                     <p>可選擇適合您的方案與加值服務或 <strong>私人顧問級訂製</strong>，來為您定錨生命中最珍貴的記憶軌跡。</p>
                 </div>
                 <!-- 方案區塊 -->
-                <div class="rows-container" id="priceRows">
-                    <div class="product-row" id="row-00">
+                <div class="rows-container">
+                    <!---00 / free--->
+                    <div class="product-row">
                         <div class="row-meta">
                             <span class="row-badge">00 / BASIC</span>
                             <h3>免費體驗</h3>
@@ -147,7 +148,8 @@
                             <a href="#booking" class="row-action-btn">啟動資產委託</a>
                         </div>
                     </div>
-                    <div class="product-row" id="row-01">
+                    <!---01 / BASIC--->
+                    <div class="product-row">
                         <div class="row-meta">
                             <span class="row-badge">01 / BASIC</span>
                             <h3>基礎數位憶留</h3>
@@ -170,7 +172,8 @@
                             <a href="#booking" class="row-action-btn">啟動資產委託</a>
                         </div>
                     </div>
-                    <div class="product-row" id="row-02">
+                    <!---02 / BASIC--->
+                    <div class="product-row">
                         <div class="row-meta">
                             <span class="row-badge">02 / BASIC</span>
                             <h3>印記・時光圖譜</h3>
@@ -183,6 +186,7 @@
                                 ✔ 將獨一無二的生命座標轉譯為當代藝術品<br>
                             </p>
                             <p>👉 一座屬於時間的紀念碑，為您深刻封存與守護。</p>
+                            <span style="color:aqua;"> 名額限定-體驗價 : 3,600元+ </span>
                         </div>
                         <div class="row-pricing-action">
                             <div class="row-price">
@@ -192,7 +196,8 @@
                             <a href="#booking" class="row-action-btn">啟動資產委託</a>
                         </div>
                     </div>
-                    <div class="product-row featured-row" id="row-03">
+                    <!---03 / POPULAR--->
+                    <div class="product-row featured-row">
                         <div class="row-meta">
                             <span class="row-badge featured-badge">03 / POPULAR</span>
                             <h3>LIFE+核心典藏</h3>
@@ -205,16 +210,18 @@
                                 ✔ 視覺化作品設計<br>
                                 ✔ 初版典藏成果</p>
                             <p>👉 適合：「紀念禮物／自留保存」的人生禮物</p>
+                            <span style="color:aqua;font-weight: bold;"> 名額限定-體驗價 : 8,800元+</span>
                         </div>
                         <div class="row-pricing-action">
                             <div class="row-price">
-                                <span class="currency">NT$</span><span class="amount">8,800</span><span class="unit">/
+                                <span class="currency">NT$</span><span class="amount">12,800</span><span class="unit">/
                                     起</span>
                             </div>
                             <a href="#booking" class="row-action-btn solid">優先客製預約</a>
                         </div>
                     </div>
-                    <div class="product-row" id="row-04">
+                    <!---04 / PREMIUM--->
+                    <div class="product-row">
                         <div class="row-meta">
                             <span class="row-badge">04 / PREMIUM</span>
                             <h3>永恆資產典藏設計</h3>
@@ -230,13 +237,32 @@
                         </div>
                         <div class="row-pricing-action">
                             <div class="row-price">
-                                <span class="currency">NT$</span><span class="amount">16,800</span><span class="unit">/
+                                <span class="currency">NT$</span><span class="amount">18,800</span><span class="unit">/
                                     起</span>
                             </div>
                             <a href="#booking" class="row-action-btn">尊榮專案洽詢</a>
                         </div>
                     </div>
-                     <div class="product-row" id="row-05">
+                    <!---05 / EXTENSIONS--->
+                        <div class="product-row extension-row">
+                            <div class="row-meta">
+                                <span class="row-badge">05 / CURATION</span>
+                                <h3>生命策展時空展廳</h3>
+                            </div>
+                            <div class="row-content">
+                                <p>專屬線上虛擬展廳與線下微型展覽規劃設計。依據委託需求彈性增配。<br>
+                            🌟 規劃準備中，敬請期待!</p>
+                            </div>
+                            <div class="row-pricing-action">
+                                <div class="row-price">
+                                    <span class="currency">NT$</span><span class="amount">98,800</span><span class="unit">/
+                                        起</span>
+                                </div>
+                                <a href="#booking" class="row-action-btn">傳承信託服務</a>
+                            </div>
+                        </div>
+
+                     <div class="product-row">
                         <div class="row-meta">
                             <span class="row-badge">05 / EXTENSIONS</span>
                             <h3>多元美學加值配置</h3>
@@ -256,12 +282,11 @@
                                 〈數位〉專屬數位網頁設計或影像處理<br>
                                 〈實體〉藝術展示品:e.g.掛畫、塑像、各式材質擺件<br>
                             </p>
-                           
                         </div>
                         <div class="row-pricing-action">
                             <div class="row-price">
                                 <span class="currency">另行報價</span><br>
-                                <span class="unit">材質數量皆為製作成本調整因素</span>
+                                <span class="unit">材質/數量/時程，製作成本各有不同</span>
                             </div>
                         </div>
                     </div>
