@@ -84,9 +84,6 @@
             <a href="index.html#booking" onclick="closeMobileMenu()">專屬預約</a>
             <a href="index.html#about" onclick="closeMobileMenu()">關於LIFE+</a>
             <div class="mobile-menu-social-footer" aria-label="社群分享">
-                <button class="lang-toggle-btn" onclick="switchLang()" style="margin:0 0 8px;">EN</button>
-                <a href="price.html" target="_blank" class="share-icon-quiz" title="看看適合方案" onclick="closeMobileMenu()">
-                    <span class="icon-txt">✨了解典藏服務 </span></a>
                 <a href="https://social-plugins.line.me/lineit/share?url=https://xuexue-ni.github.io/LIFE-LM/"
                     target="_blank" class="social-btn" title="分享至 LINE" onclick="closeMobileMenu()">
                     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
@@ -96,11 +93,28 @@
                         </path>
                     </svg>
                 </a>
+                <!-- FB -->
                 <a href="https://www.facebook.com/sharer/sharer.php?u=https://xuexue-ni.github.io/LIFE-LM/"
                     target="_blank" class="social-btn" title="分享至 Facebook" onclick="closeMobileMenu()">
                     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
                         stroke-linecap="round" stroke-linejoin="round">
                         <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path>
+                    </svg>
+                </a>
+                <!-- Threads -->
+                <a href="https://www.threads.com/@lifeplus.studio" target="_blank" class="social-btn" title="Threads">
+                    <svg viewBox="0 0 20 22" class="social-svg threads-svg">
+                        <path
+                            d="M12 11c0-1.1-.9-2-2-2s-2 .9-2 2 .9 2 2 2 2-.9 2-2zm0 0v1.5c0 .83.67 1.5 1.5 1.5s1.5-.67 1.5-1.5V11c0-2.76-2.24-5-5-5s-5 2.24-5 5 2.24 5 5 5c1.22 0 2.33-.44 3.2-1.17">
+                        </path>
+                    </svg>
+                </a>
+                <!-- IG -->
+                <a href="https://www.instagram.com/lifeplus_tw/" target="_blank" class="social-btn" title="Instagram">
+                    <svg viewBox="0 0 24 24" class="social-svg">
+                        <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+                        <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+                        <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
                     </svg>
                 </a>
                 <button class="social-btn" onclick="copyCurrentUrl(); closeMobileMenu();" title="複製網頁連結">
@@ -117,6 +131,8 @@
                     </svg>
                     🧠
                 </a>
+               <!-----語言切換---->
+                <button class="lang-toggle-btn" style="margin:20px 0;" onclick="switchLang()">EN</button>
             </div>
         </div>
     </nav>
@@ -273,10 +289,10 @@
                                〈數位〉個人專屬數位網頁設計<br>
                                〈實體〉精裝書 <br>
                                 🖼 <span class="itemname">光軌</span> :融入現代居家空間的質感陪伴<br>
-                                〈數位〉專屬數位網頁設計或影像處理<br>
+                                〈數位〉專屬數位網頁設計或影像/音頻處理<br>
                                 〈實體〉e.g.掛畫、公仔展示、擺件、常用周邊<br> 
                                 🎁 <span class="itemname">我在</span>:<br>
-                                〈數位〉專屬數位網頁設計或影像處理<br> 
+                                〈數位〉專屬數位網頁設計或影像/音頻處理<br> 
                                 〈實體〉藝術展示品:e.g.掛畫、公仔展示、擺件、常用周邊<br>
                                 💾 <span class="itemname">生命樹</span>:<br>
                                 〈數位〉專屬數位網頁設計或影像處理<br>
@@ -300,7 +316,7 @@
                 <p class="desc">請留下您的聯繫方式，為您進行深度生命記憶策展、定製實體記憶紀念。
                     <br>我們將有專人盡快與您取得聯繫。
                 </p>
-               <form class="booking-form" action="https://formspree.io/f/mlgqpygq" method="POST" onsubmit="triggerFormSubmit(event)">
+                <form class="booking-form" action="https://formspree.io/f/mlgqpygq" method="POST" onsubmit="triggerFormSubmit(event)">
                     <div class="form-row">
                         <div class="form-col">
                             <label>聯絡姓名 *</label>
