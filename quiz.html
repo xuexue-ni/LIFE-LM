@@ -1,0 +1,1188 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LIFE System 生命旅程 | 故事引導與記憶典藏</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- 引入 Lucide Icons CDN -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@300;400;500;600&family=Zen+Maru+Gothic:wght@400;500;700&display=swap');
+    
+    html { font-size: 16px; }
+    body {
+      font-family: 'Zen Maru Gothic', 'Noto Serif TC', serif;
+      background-color: #0b1329; /* 沉穩洗練的深石墨藍 */
+      color: #f1f5f9;
+      overflow-x: hidden;
+      line-height: 1.75;
+    }
+    
+    .font-serif-tc { font-family: 'Noto Serif TC', serif; }
+
+    /* 背景柔和漸變 */
+    .bg-dark-ambient {
+      background: radial-gradient(circle at 50% 20%, #1e293b 0%, #0b1329 100%);
+      transition: background 1.5s ease;
+    }
+
+    /* 動態效果 */
+    .fade-in { animation: fadeIn 0.6s ease-out forwards; }
+    .fade-out { animation: fadeOut 0.5s ease-in forwards; }
+    
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(8px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes fadeOut {
+      from { opacity: 1; transform: translateY(0); }
+      to { opacity: 0; transform: translateY(-8px); }
+    }
+
+    /* 打字光標閃爍 */
+    .typing-cursor::after {
+      content: '|';
+      animation: blink 0.8s infinite;
+      color: #fde68a;
+    }
+    @keyframes blink {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0; }
+    }
+
+    /* 動態種子 */
+    .seed-anim {
+      animation: seedDrop 0.8s ease-out forwards;
+    }
+    @keyframes seedDrop {
+      0% { transform: translateY(-12px) scale(0.8); opacity: 0; }
+      100% { transform: translateY(0) scale(1); opacity: 1; }
+    }
+
+    /* 水滴與漣漪動畫 */
+    .ripple-wrapper {
+      position: relative;
+      width: 100px;
+      height: 100px;
+      margin: 0 auto;
+    }
+    .water-drop {
+      animation: dropFall 0.8s ease-in forwards;
+    }
+    @keyframes dropFall {
+      0% { transform: translateY(-40px) scaleY(1.1); opacity: 0; }
+      70% { transform: translateY(0) scaleY(0.95); opacity: 1; }
+      100% { transform: translateY(0) scale(0); opacity: 0; }
+    }
+    .ripple {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 10px;
+      height: 10px;
+      border: 1px solid rgba(253, 230, 138, 0.4);
+      border-radius: 50%;
+      transform: translate(-50%, -50%);
+      animation: rippleExpand 1.5s ease-out 0.4s infinite;
+      opacity: 0;
+    }
+    @keyframes rippleExpand {
+      0% { width: 10px; height: 10px; opacity: 1; }
+      100% { width: 160px; height: 160px; opacity: 0; }
+    }
+
+    /* 麥克風錄音脈衝 */
+    .mic-pulse { animation: micPulse 1.2s infinite; }
+    @keyframes micPulse {
+      0% { box-shadow: 0 0 0 0 rgba(251, 191, 36, 0.4); }
+      70% { box-shadow: 0 0 0 8px rgba(251, 191, 36, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(251, 191, 36, 0); }
+    }
+
+    .save-blink { animation: saveBlink 1.5s ease-in-out; }
+    @keyframes saveBlink { 0% { opacity: 0 } 20% { opacity: 1 } 80% { opacity: 1 } 100% { opacity: 0 } }
+    
+    .icon-sprout { transition: all .3s ease; opacity: 0.25; }
+    .icon-sprout.grown { opacity: 1; color: #fde68a; transform: translateY(-1px); }
+
+    .spin-slow { animation: spin 10s linear infinite; }
+    @keyframes spin { 100% { transform: rotate(360deg); } }
+
+    .fade-in-text { animation: gentleFade 0.6s ease-in-out forwards; }
+    @keyframes gentleFade { from { opacity: 0; transform: translateY(3px); } to { opacity: 1; transform: translateY(0); } }
+  </style>
+</head>
+<body id="bgContainer" class="bg-dark-ambient min-h-screen flex flex-col justify-between items-center p-4 sm:p-6 relative text-slate-100">
+
+  <!-- 音效資源檔 -->
+  <audio id="bgm" loop src="./audio/alex-morgan-no-copyright-music-528321.mp3" preload="auto"></audio>
+  <audio id="waterSFX" src="./audio/water-droplet.mp3" preload="auto"></audio>
+  <audio id="typingSFX" src="./audio/keyboard-typing.mp3" preload="auto"></audio>
+
+  <!-- ==================== 階段一：前導 Intro 畫面 ==================== -->
+  <div id="introSection" class="w-full flex-1 flex flex-col justify-between items-center max-w-2xl mx-auto">
+    <!-- 啟動遮罩 -->
+    <div id="startOverlay" class="fixed inset-0 bg-slate-950/95 z-50 flex flex-col items-center justify-center p-6 space-y-8">
+      <div class="space-y-3 text-center">
+        <h1 class="text-2xl sm:text-3xl font-serif-tc text-amber-200 tracking-wide font-medium">LIFE System 生命旅程</h1>
+        <p class="text-xs sm:text-sm text-slate-400 font-mono tracking-widest">建議開啟聲音或配戴耳機，感受沉靜傾聽體驗</p>
+      </div>
+      <div class="flex flex-col sm:flex-row items-center gap-4">
+        <button type="button" onclick="initJourney()" class="px-8 py-3 bg-amber-200/10 hover:bg-amber-200/20 text-amber-200 rounded-full font-serif-tc text-xs tracking-widest transition duration-300 flex items-center gap-2">
+          <i data-lucide="sparkles" class="w-4 h-4 text-amber-200"></i>
+          <span>開啟沉靜體驗</span>
+        </button>
+        <button type="button" id="quickStartBtn" onclick="skipIntroToQuiz()" class="hidden px-6 py-3 bg-slate-800/80 hover:bg-slate-700 text-slate-300 rounded-full font-serif-tc text-xs tracking-widest transition">
+          <span>跳過前導，直接回歸故事</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Intro 頂部導覽 -->
+    <header class="w-full flex justify-between items-center z-20 pt-2">
+      <div class="text-xs text-slate-500 font-mono tracking-widest">LIFE SYSTEM JOURNEY</div>
+      <div class="flex items-center gap-3">
+        <button type="button" onclick="skipIntroToQuiz()" class="text-xs text-slate-400 hover:text-amber-200 underline underline-offset-4 transition font-serif-tc">
+          跳過前導
+        </button>
+        <button id="audioToggleBtn" onclick="toggleAudio()" class="flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-slate-800/60 hover:bg-slate-800 text-xs text-slate-300 transition">
+          <i id="audioIcon" data-lucide="music" class="w-3.5 h-3.5 text-amber-200"></i>
+          <span id="audioText">開啟音樂</span>
+        </button>
+      </div>
+    </header>
+
+    <!-- Intro 主體動畫區 -->
+    <main class="w-full max-w-lg my-auto flex flex-col items-center justify-center text-center z-10 space-y-8 py-10">
+      <!-- 序幕 1: 歡迎文字 -->
+      <div id="introWelcome" class="hidden space-y-4">
+        <h1 class="text-2xl sm:text-3xl font-serif-tc font-medium text-slate-100 tracking-wide fade-in">
+          歡迎來到 LIFE System 生命旅程
+        </h1>
+        <p class="text-xs text-slate-500 font-mono tracking-widest">LIFE System Journey</p>
+      </div>
+
+      <!-- 序幕 2: 打字效果區 -->
+      <div id="introTyping" class="hidden min-h-[60px] flex items-center justify-center">
+        <p id="typingText" class="text-lg sm:text-xl font-serif-tc text-slate-200 leading-relaxed tracking-wider typing-cursor"></p>
+      </div>
+
+      <!-- 序幕 3: 靜心引導詩文 -->
+      <div id="introInvitation" class="hidden space-y-6 text-slate-200 font-serif-tc text-sm sm:text-base leading-loose tracking-wide fade-in">
+        <div class="flex items-center justify-center gap-2">
+          <button type="button" id="memoryGuideBtn" onclick="toggleAudioGuide('./audio/audio-guide-001.mp3', 'memoryGuideBtn')" class="text-xs bg-slate-800/80 hover:bg-slate-700 text-amber-200 px-3.5 py-1.5 rounded-full transition flex items-center gap-1.5 shrink-0" title="點擊開啟/關閉語音嚮導">
+            <i data-lucide="volume-2" class="w-3.5 h-3.5"></i>
+            <span class="guide-text">語音嚮導</span>
+          </button>
+          <p class="text-amber-200 text-base font-medium">「在開始之前，我想邀請你做一件事。」</p>
+        </div>
+        <div class="space-y-2 text-slate-300 text-sm">
+          <p>請找一個安靜、讓身心放鬆的地方。</p>
+          <p>帶上一杯喜歡的熱飲更好。</p>
+          <p>如果可以戴上耳機，聽著舒服的音樂。</p>
+          <p>今天我們不急著回答任何問題，也沒有標準答案。</p>
+          <p class="text-slate-100 pt-2 font-medium">我們一起，重新認識一路走來的自己。</p>
+        </div>
+        <div class="pt-4">
+          <button type="button" onclick="showNameQuestion()" class="px-8 py-3 bg-slate-800/80 hover:bg-slate-700 text-slate-100 rounded-full text-xs tracking-widest transition shadow-lg flex items-center gap-2 mx-auto">
+            <span>有些故事適合留下</span>
+            <i data-lucide="sprout" class="w-4 h-4 text-amber-200"></i>
+          </button>
+        </div>
+      </div>
+
+      <!-- 步驟 1: 暱稱詢問 -->
+      <div id="stepNameArea" class="hidden w-full space-y-6 fade-in">
+        <div class="my-2 seed-anim flex justify-center">
+          <i data-lucide="sprout" class="w-9 h-9 text-amber-200 stroke-[1.5]"></i>
+        </div>
+        <div class="flex items-center justify-center gap-2">
+          <label for="userNameInput" class="block font-serif-tc text-lg text-slate-100 tracking-wide">
+            你希望，我怎麼稱呼你？
+          </label>
+        </div>
+
+        <div class="max-w-xs mx-auto space-y-3">
+          <div class="relative">
+            <input type="text" id="userNameInput" placeholder="輸入暱稱，或點按麥克風..." class="w-full bg-slate-900/80 border-b border-amber-300/40 focus:border-amber-300 text-center py-3 pr-10 text-slate-100 placeholder-slate-500 focus:outline-none transition">
+            <button type="button" id="micBtn1" onclick="toggleSpeechRecognition('userNameInput', 'micBtn1', 'micStatus1')" class="absolute right-1 top-1/2 -translate-y-1/2 p-2 text-slate-400 hover:text-amber-200 transition" title="語音輸入">
+              <i data-lucide="mic" class="w-4 h-4"></i>
+            </button>
+          </div>
+          <p id="micStatus1" class="text-xs text-amber-200 hidden"> 正在聆聽您的聲音...</p>
+        </div>
+
+        <button type="button" onclick="submitNameAndNext()" class="px-8 py-3 bg-amber-200 text-slate-900 font-semibold rounded-full text-xs tracking-widest transition hover:bg-amber-100 shadow-md">
+          開始探索
+        </button>
+      </div>
+
+      <!-- 步驟 2: 記憶引言 -->
+      <div id="stepMemoryArea" class="hidden w-full space-y-6 fade-in">
+        <div class="space-y-3">
+          <p class="font-serif-tc text-base sm:text-lg text-slate-100 leading-relaxed">
+            <span id="displayName" class="font-medium text-amber-200"></span>，如果今天有一位從未見過你的人，你希望在他心中的你將會是什麼樣子？
+          </p>
+          <p class="font-serif-tc text-sm text-slate-400">請用一句話，寫下你希望別人對你留下的印象。</p>
+        </div>
+
+        <div class="max-w-md mx-auto space-y-2">
+          <div class="relative">
+            <textarea id="userMemoryInput" rows="3" placeholder="寫下一句最能代表現在的你的話..." class="w-full bg-slate-900/80 rounded-xl p-4 pr-12 text-sm text-slate-100 placeholder-slate-500 focus:outline-none focus:ring-1 focus:ring-amber-300/50 transition"></textarea>
+            <button type="button" id="micBtn2" onclick="toggleSpeechRecognition('userMemoryInput', 'micBtn2', 'micStatus2')" class="absolute right-3 bottom-3 p-2 bg-slate-800 hover:bg-slate-700 rounded-full text-amber-200 transition" title="語音輸入">
+              <i data-lucide="mic" class="w-4 h-4"></i>
+            </button>
+          </div>
+          <p id="micStatus2" class="text-xs text-amber-200 hidden"> 正在聆聽您的聲音...</p>
+        </div>
+
+        <p class="text-xs text-slate-500 font-serif-tc">真正的故事，總是從一句簡單的介紹開始</p>
+        <div>
+          <button type="button" onclick="finishIntroAndRipple()" class="px-10 py-3.5 bg-amber-200 hover:bg-amber-100 text-slate-900 font-semibold rounded-full text-xs tracking-widest transition shadow-md">
+            我準備好了
+          </button>
+        </div>
+      </div>
+    </main>
+
+    <!-- Intro 頁尾 -->
+    <footer class="w-full text-center pb-2 z-10">
+      <p class="text-[11px] text-slate-600 tracking-widest font-mono">© LIFE SYSTEM • MEMORY ARCHIVE</p>
+    </footer>
+  </div>
+
+  <!-- 水滴漣漪轉場 Modal -->
+  <div id="rippleModal" class="fixed inset-0 bg-slate-950/95 backdrop-blur-sm flex flex-col items-center justify-center z-50 hidden">
+    <div class="ripple-wrapper mb-6 flex justify-center items-center">
+      <div class="water-drop text-amber-200">
+        <i data-lucide="droplet" class="w-6 h-6 text-amber-200"></i>
+      </div>
+      <div class="ripple"></div>
+      <div class="ripple" style="animation-delay: 0.4s;"></div>
+    </div>
+    <p class="font-serif-tc text-sm text-slate-200 tracking-widest fade-in">記憶如水，泛起漣漪...</p>
+    <p class="text-xs text-slate-500 font-mono mt-2">正在進入生命故事空間</p>
+  </div>
+
+
+  <!-- ==================== 階段二：問卷故事引導 主內容 ==================== -->
+  <div id="quizSection" class="w-full hidden flex-1 flex-col max-w-2xl mx-auto pt-14 pb-12">
+    <!-- 頂部導覽欄 -->
+    <div class="fixed top-0 left-0 w-full z-40 bg-slate-950/80 backdrop-blur-md px-4 py-3">
+      <div class="max-w-2xl mx-auto flex justify-between items-center">
+        <!-- 左側：進度指標 -->
+        <div class="flex items-center gap-3">
+          <div class="text-xs text-amber-200/90 font-mono flex items-center gap-1 font-medium">
+            <span>記憶累積</span>
+            <span id="leafCount">0</span>/<span id="leafTotal">7</span>
+          </div>
+          <div class="flex items-center gap-1.5" id="leafIcons"></div>
+        </div>
+
+        <!-- 右側：控制區 -->
+        <div class="flex items-center gap-3">
+          <button type="button" id="bgmToggleBtn" onclick="toggleBGM()" class="rounded-full p-1.5 bg-slate-800/50 hover:bg-slate-700/80 text-slate-300 transition flex items-center justify-center" title="播放/暫停背景音樂">
+            <i data-lucide="music" id="bgmIcon" class="w-3.5 h-3.5"></i>
+          </button>
+
+          <div class="flex gap-1 text-xs">
+            <button type="button" onclick="setFont(-1)" class="bg-slate-800/50 hover:bg-slate-700/80 rounded px-2 py-0.5 text-slate-300 transition">A-</button>
+            <button type="button" onclick="setFont(0)" class="bg-slate-800/50 hover:bg-slate-700/80 rounded px-2 py-0.5 text-slate-300 transition">A</button>
+            <button type="button" onclick="setFont(1)" class="bg-slate-800/50 hover:bg-slate-700/80 rounded px-2 py-0.5 text-slate-300 transition">A+</button>
+          </div>
+          <div id="saveIndicator" class="text-xs text-amber-200/80 opacity-0 transition">✓ 已自動儲存</div>
+        </div>
+      </div>
+      <div id="welcomeBanner" class="hidden max-w-2xl mx-auto mt-2 text-xs text-slate-300 bg-slate-800/80 rounded-lg p-2.5 flex justify-between items-center shadow-md">
+        <span>✨ 歡迎回來，已自動載入您的上次進度</span>
+        <button type="button" onclick="dismissBanner()" class="underline text-slate-400 hover:text-slate-200 ml-2">關閉</button>
+      </div>
+    </div>
+
+    <!-- 主問卷動態渲染區 -->
+    <div id="app" class="mt-4"></div>
+    
+    <!-- 底部按鈕導航 -->
+    <div class="mt-8 space-y-4">
+      <div class="flex justify-between items-center gap-3">
+        <button type="button" onclick="prevStep()" id="prevBtn" class="text-xs text-slate-300 bg-slate-800/60 hover:bg-slate-700/80 rounded-full px-5 py-2.5 transition">← 上一章</button>
+        <span class="text-xs text-slate-500 font-mono tracking-widest" id="stepIndicator"></span>
+        <button type="button" onclick="nextStep()" id="nextBtn" class="text-xs text-slate-900 bg-amber-200 font-semibold rounded-full px-6 py-2.5 hover:bg-amber-100 transition shadow-md">下一章 →</button>
+      </div>
+      <div class="text-center pt-2">
+        <button type="button" onclick="nextStep()" class="text-xs text-slate-400 hover:text-amber-200 underline decoration-slate-600 underline-offset-4 font-serif-tc transition">
+          這章暫時沒有想法，先留白看下一章 🍃
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 故事卡片預覽 Modal -->
+  <div id="cardModal" class="fixed inset-0 z-50 bg-slate-950/90 backdrop-blur-md hidden flex items-center justify-center p-4">
+    <div class="bg-slate-900 rounded-2xl p-6 max-w-md w-full space-y-4 shadow-2xl relative max-h-[85vh] flex flex-col overflow-hidden">
+      <button type="button" onclick="closeCardModal()" class="absolute top-4 right-4 text-slate-400 hover:text-slate-100 z-10 p-1">✕</button>
+      
+      <div class="text-center pb-3 border-b border-slate-800 shrink-0">
+        <span class="text-xs text-amber-200/80 font-mono tracking-widest uppercase" id="cardChapter">CHAPTER</span>
+        <h3 class="text-lg font-serif-tc text-slate-100 mt-1 font-medium" id="cardTitle">記憶卡片</h3>
+      </div>
+      
+      <div class="bg-slate-950/60 p-4 rounded-xl space-y-3 min-h-[140px] flex-1 overflow-y-auto break-words max-w-full">
+        <p class="text-xs text-amber-200/90 font-serif-tc italic leading-relaxed break-words" id="cardQuote">「…」</p>
+        <p class="text-sm text-slate-200 font-serif-tc leading-relaxed whitespace-pre-wrap break-words overflow-hidden" id="cardContent"></p>
+      </div>
+      
+      <div class="text-center pt-1 shrink-0">
+        <p class="text-xs text-amber-200/90 font-serif-tc">✨ 記憶已妥善封存於您的生命地圖中</p>
+      </div>
+    </div>
+  </div>
+
+<script>
+    lucide.createIcons();
+
+    const STORAGE_KEY = 'lifeSystemData';
+    const bgm = document.getElementById('bgm');
+    const waterSFX = document.getElementById('waterSFX');
+    const typingSFX = document.getElementById('typingSFX');
+
+    let isPlayingBGM = false;
+    let enableSFX = false; 
+    let activeRecognition = null;
+    let currentGuideAudio = null;
+    let idleTimer = null;
+
+    // 🌟 針對不同題目（章節 ID）客製化的標籤靈感庫配置
+    const SECTION_TAG_LIBRARIES = {
+      seed: {
+        emotions: { label: '✨ 心情情緒', tags: ['平靜', '沉澱', '期待', '徬徨', '釋懷', '感謝', '溫暖'] },
+        state: { label: '🌱 當下狀態', tags: ['自我探索中', '重新開始', '穩定沉澱', '渴望改變', '忙碌充實', '停下腳步'] },
+        temperature: { label: '☕ 心的溫度', tags: ['溫熱', '微涼', '晴朗', '微風吹拂', '安靜如水', '充滿希望'] },
+        spaces: { label: '🏡 所在角落', tags: ['深夜房間', '陽台角落', '咖啡館一角', '書桌前', '旅途途中'] }
+      },
+      identity: {
+        moments: { label: '🌿 真我時刻', tags: ['獨自獨處', '沉浸興趣', '摘下面具', '赤子之心', '自由呼吸'] },
+        places: { label: '☕ 自在場合', tags: ['山海自然', '深夜房間', '一人旅行', '熟悉的街角', '畫室工作室'] },
+        childhood: { label: '🪁 童年記憶', tags: ['無憂無慮', '奔跑操場', '樹蔭涼風', '玩具秘密基地', '純粹笑聲'] },
+        feelings: { label: '✨ 純粹感受', tags: ['被愛的安全感', '真正的自由', '踏實沉穩', '無所畏懼', '自我認同'] }
+      },
+      people: {
+        relations: { label: '🤝 陪伴關係', tags: ['長輩教誨', '摯友相伴', '伴侶扶持', '恩師啟蒙', '寵物陪伴', '生命貴人'] },
+        dialogues: { label: '💬 深刻對話', tags: ['溫柔鼓勵', '嚴厲叮嚀', '深夜長談', '無聲擁抱', '默默支持'] },
+        scenes: { label: '🏡 經典畫面', tags: ['餐桌圍坐', '離別月台', '病榻陪伴', '老家客廳', '並肩散步'] },
+        impacts: { label: '🌌 深遠影響', tags: ['學會勇敢', '懂得包容', '放下執著', '堅定信念', '學會愛自己'] }
+      },
+      treasures: {
+        objects: { label: '💎 珍藏物件', tags: ['手寫信件', '老舊相片', '紀念飾品', '舊書本', '手作禮物', '傳家物品'] },
+        time: { label: '⏳ 歲月痕跡', tags: ['褪色泛黃', '磨損邊角', '保留溫度', '時間印記', '歷久彌新'] },
+        meanings: { label: '❤️ 情感連結', tags: ['愛與思念', '青春見證', '承諾標記', '勇氣護身符', '莫逆之交'] },
+        senses: { label: '☕ 記憶觸點', tags: ['熟悉氣味', '沉靜觸感', '溫暖光影', '舊時旋律'] }
+      },
+      highlight: {
+        achieve: { label: '🏆 驕傲成就', tags: ['突破自我', '跨越難關', '咬牙堅持', '實現夢想', '獨立完成'] },
+        emotions: { label: '✨ 勝利感受', tags: ['內心踏實', '自信發光', '熱淚盈眶', '無比驕傲', '釋放壓力'] },
+        types: { label: '🌟 高光類型', tags: ['職場突破', '個人冒險', '走出低谷', '溫暖助人', '堅持興趣'] },
+        growth: { label: '🌱 新的認識', tags: ['原來我比想像堅強', '學會相信自己', '不再輕言放棄', '找到生命熱情'] }
+      },
+      turning: {
+        period: { label: '📅 時空階段', tags: ['獨自搬家那年', '轉職換工作', '結束一段關係', '遭遇挫折時', '選擇出國'] },
+        decisions: { label: '🔀 重要抉擇', tags: ['勇敢放手', '選擇轉彎', '重新開始', '跳出舒適圈', '接受不完美'] },
+        feelings: { label: '🌊 當時心情', tags: ['不安與恐懼', '破釜沉舟', '內心掙扎', '滿懷憧憬', '坦然接受'] },
+        gains: { label: '🍃 今日體悟', tags: ['一切都是最好的安排', '感謝當時的勇氣', '看見不同風景', '更加成熟穩重'] }
+      },
+      future: {
+        recipients: { label: '💌 寄送對象', tags: ['未來的自己', '親愛的家人', '珍視的伴侶', '親密摯友', '所有關心我的人'] },
+        messages: { label: '✨ 跨越時間的話', tags: ['請記得照顧自己', '你已經做得很好了', '保持善良與勇敢', '不要忘記初心', '謝謝你的努力'] },
+        wishes: { label: '🌿 溫柔叮嚀', tags: ['平安健康', '內心平靜', '順應自然', '擁抱每種可能', '隨遇而安'] },
+        blessings: { label: '💖 祝福能量', tags: ['給予勇氣', '帶去溫暖', '撫平焦慮', '堅定信念'] }
+      }
+    };
+
+    // AI 陪伴溫暖語句
+    const COMPANION_MESSAGES = [
+      "✨ 謝謝你願意將這段記憶溫柔地傾訴下來…",
+      "🍃 慢慢來，光是想起這些細節，就很勇敢了。",
+      "☕ 這一段故事，聽起來有種獨特的溫度與力量。",
+      "💭 留在字裡行間的情感，時間都會好好替你保管。",
+      "🌿 沉澱一下也很好，每一個字都是屬於你的生命軌跡。"
+    ];
+
+    // 各章節結構與沉靜意象圖定義
+    const SECTIONS = [
+      {
+        id: 'seed',
+        title: '第 00 章',
+        subTitle: '起點',
+        imageUrl: 'https://images.unsplash.com/photo-1518241353330-0f7941c2d9b5?auto=format&fit=crop&w=1200&q=80',
+        audioUrl: './audio/audio-guide-00-01.mp3',
+        verses: [
+          '每個故事，都有一個瞬間的畫面。',
+        ],
+        promptIntro: '回歸平靜，感受此刻的心境。',
+        mainQ: {
+          key: 'mainStory',
+          label: '如果把今天的你留在故事的第一頁，你會怎麼記下此刻的自己？',
+          clues: [
+            '近來發生了什麼事對你造成了影響？',
+            '目前最貼近哪種生活狀態？（自我探索中、重新開始、穩定沉澱、渴望改變…）',
+            '現在的你好嗎？你的心情是平靜、期待、徬徨，還是釋懷、感謝、溫暖？'
+          ]
+        },
+        outro: '無論此刻是平靜或波瀾，這都是你故事裡最真實的開頭。'
+      },
+      {
+        id: 'identity',
+        title: '第 01 章',
+        subTitle: '小時候的我',
+        imageUrl: 'https://images.unsplash.com/photo-1448375240586-882707db888b?auto=format&fit=crop&w=1200&q=80',
+        audioUrl: './audio/audio-guide-01.mp3',
+        verses: [
+          '卸下工作與身分，也卸下別人的期待。',
+          '還記得小時候的你是什麼樣子嗎？'
+        ],
+        promptIntro: '讓你覺得最自在的片刻。',
+        mainQ: {
+          key: 'mainStory',
+          label: '如果回到那段時光，你最先想起的是什麼？',
+          clues: [
+            '有哪些特別的回憶？冒險、調皮、勇敢事蹟、純真……',
+            '那時候的你，最喜歡的事?什麼顏色/食物/地點/嗜好/怪癖....?',
+            '就像小時候寫過的畢業紀念冊，你會怎麼形容當時的自己？'
+          ]
+        },
+        outro: '這是你靈魂深處最純粹的原色。'
+      },
+      {
+        id: 'people',
+        title: '第 02 章',
+        subTitle: '重要的人',
+        imageUrl: 'https://images.unsplash.com/photo-1511632765486-a01980e01a18?auto=format&fit=crop&w=1200&q=80',
+        audioUrl: './audio/audio-guide-02.mp3',
+        verses: [ '有些人即使很久沒見，依然溫柔地住在心裡。'],
+        promptIntro: '今天，想起一位對你重要的人。',
+        mainQ: {
+          key: 'mainStory',
+          label: '生命中哪些人，對你的人生產生了深遠的影響？',
+          clues: [
+            '寫下他/她的暱稱或與你的關係，以及對方在你心中的模樣。',
+            '當時是怎樣的情境?第一個浮現的對話或畫面是什麼？如何陪伴你走過後來的歲月？',
+            '家人、親友、伴侶、師長、寵物，甚至可以是偶像，都能深刻的影響我們。'
+          ]
+        },
+        outro: '人與人的交會，讓我們的生命地圖變得溫暖而豐沛。'
+      },
+      {
+        id: 'treasures',
+        title: '第 03 章',
+        subTitle: '我的珍藏',
+        imageUrl: 'https://images.unsplash.com/photo-1513519245088-0e12902e5a38?auto=format&fit=crop&w=1200&q=80',
+        audioUrl: './audio/audio-guide-03.mp3',
+        verses: [
+          '時間會靜靜流逝，但有些物件替我們鎖住了當時的情感與溫度。'
+        ],
+        promptIntro: '有些東西也留住了一段時間。',
+        mainQ: {
+          key: 'mainStory',
+          label: '如果現在從身邊找一件最有故事的物品，它會是？',
+          clues: [
+            '它是怎麼來到你身邊的？物品背後承載著什麼特殊的紀念？',
+            '它陪你經歷了人生中的哪段時光或情感轉折？',
+            '當你重新摸到或看見它時，會觸發你什麼樣的回憶與溫度？'
+          ]
+        },
+        outro: '物件是記憶的容器，感謝它默默陪伴你走了這麼遠。'
+      },
+      {
+        id: 'highlight',
+        title: '第 04 章',
+        subTitle: '時間抽屜',
+        imageUrl: 'https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=1200&q=80',
+        audioUrl: './audio/audio-guide-04.mp3',
+        verses: [
+          '人生有很多日子，當時只是日子，後來才成了回憶。'
+        ],
+        promptIntro: '回想當時的我，做的真好!。',
+        mainQ: {
+          key: 'mainStory',
+          label: '童年到青春年少、工作生活到現在的日子裡，哪些時刻，讓你感到踏實與驕傲？',
+          clues: [
+            '寫下那個讓你發光、內心感到無比踏實的具體時刻。',
+            '可以是某次頑皮的冒險，艱難的旅程，記憶深刻的平凡日常，都是生命中的閃亮。',
+            '記錄下每一段你走過的痕跡，那些值得被珍藏的時刻，都是你生命的寶藏。'
+          ]
+        },
+        outro: '這些成就感是你一步步積累的星光，永遠不會消失。'
+      },
+      {
+        id: 'turning',
+        title: '第 05 章',
+        subTitle: '走到今天',
+        imageUrl: 'https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?auto=format&fit=crop&w=1200&q=80',
+        audioUrl: './audio/audio-guide-05.mp3',
+        verses: [
+          '人生的航道，常因為一個決定或一次溫柔的轉彎而變得不同。'
+        ],
+        promptIntro: '今天，回顧那個讓你變得不一樣的轉折。',
+        mainQ: {
+          key: 'mainStory',
+          label: '有沒有一個轉折點，讓後來的你走向了完全不同的人生方向？',
+          clues: [
+            '這大概發生在什麼時期？（如：決定獨自搬家的那年、換工作的夏天…）',
+            '當時做決定前後的心情是什麼？經歷了哪些掙扎與勇氣？',
+            '現在回頭看，你想對當時做出選擇的自己說些什麼感想？'
+          ]
+        },
+        outro: '所有的轉折都是養分，帶領你來到了今天的風景。'
+      },
+      {
+        id: 'future',
+        title: '第 06 章',
+        subTitle: '留給未來',
+        imageUrl: 'https://images.unsplash.com/photo-1499750310107-5fef28a66643?auto=format&fit=crop&w=1200&q=80',
+        audioUrl: './audio/audio-guide-06.mp3',
+        verses: [
+          '走過這些故事，你已經看見部分熟悉的自己。'
+        ],
+        promptIntro: '故事走到這裡，下一頁還沒有寫完',
+        mainQ: {
+          key: 'mainStory',
+          label: '如果未來的自己或重要的人看到了這些，你最想傳遞什麼？',
+          clues: [
+            '這封信你最想寫給誰？（未來的自己、家人、摯友、或所有關心你的人）',
+            '從這些記憶中得到的啟發，以及想留給未來的溫柔叮嚀。',
+            '你希望收到信的人，在閱讀時能感受到什麼樣的力量與溫度？'
+          ]
+        },
+        outro: '文字與記憶擁有跨越時間的力量，謝謝你用心紀錄下這份生命資產。'
+      }
+    ];
+
+    let data = loadData();
+    let current = 0;
+
+    window.addEventListener('DOMContentLoaded', () => {
+      if (hasAnyData()) {
+        const quickBtn = document.getElementById('quickStartBtn');
+        if (quickBtn) quickBtn.classList.remove('hidden');
+      }
+    });
+
+    // Web Audio API 動態音效
+    const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    function playSound(type) {
+      if (!enableSFX) return;
+      if (audioCtx.state === 'suspended') audioCtx.resume();
+
+      if (type === 'page') {
+        const bufferSize = audioCtx.sampleRate * 0.08;
+        const buffer = audioCtx.createBuffer(1, bufferSize, audioCtx.sampleRate);
+        const output = buffer.getChannelData(0);
+        for (let i = 0; i < bufferSize; i++) output[i] = (Math.random() * 2 - 1) * Math.exp(-i / (bufferSize * 0.3));
+        const whiteNoise = audioCtx.createBufferSource();
+        whiteNoise.buffer = buffer;
+        const filter = audioCtx.createBiquadFilter();
+        filter.type = 'lowpass'; filter.frequency.value = 800;
+        const gain = audioCtx.createGain();
+        gain.gain.setValueAtTime(0.08, audioCtx.currentTime);
+        whiteNoise.connect(filter); filter.connect(gain); gain.connect(audioCtx.destination);
+        whiteNoise.start();
+      } else if (type === 'water') {
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+        osc.type = 'sine';
+        osc.frequency.setValueAtTime(600, audioCtx.currentTime);
+        osc.frequency.exponentialRampToValueAtTime(1200, audioCtx.currentTime + 0.06);
+        gain.gain.setValueAtTime(0.1, audioCtx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.08);
+        osc.connect(gain); gain.connect(audioCtx.destination);
+        osc.start(); osc.stop(audioCtx.currentTime + 0.08);
+      }
+    }
+
+    function skipIntroToQuiz() {
+      document.getElementById('introSection').classList.add('hidden');
+      const quizEl = document.getElementById('quizSection');
+      quizEl.classList.remove('hidden');
+      quizEl.classList.add('flex');
+      renderStep();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function initJourney() {
+      const overlay = document.getElementById('startOverlay');
+      overlay.classList.add('fade-out');
+      setTimeout(() => overlay.classList.add('hidden'), 500);
+
+      toggleAudio();
+
+      const welcomeEl = document.getElementById('introWelcome');
+      welcomeEl.classList.remove('hidden');
+
+      setTimeout(() => {
+        welcomeEl.classList.add('fade-out');
+        setTimeout(() => {
+          welcomeEl.classList.add('hidden');
+          startTypingEffect();
+        }, 800);
+      }, 1800);
+    }
+
+    function toggleAudio() {
+      const audioIcon = document.getElementById('audioIcon');
+      const audioText = document.getElementById('audioText');
+      const bgmIcon = document.getElementById('bgmIcon');
+      const bgmBtn = document.getElementById('bgmToggleBtn');
+
+      if (isPlayingBGM) {
+        bgm.pause();
+        typingSFX.pause();
+        isPlayingBGM = false;
+        enableSFX = false;
+
+        if (audioText) audioText.textContent = '開啟音樂';
+        if (audioIcon) audioIcon.setAttribute('data-lucide', 'music');
+
+        if (bgmIcon) bgmIcon.classList.remove('spin-slow', 'text-amber-200');
+        if (bgmBtn) bgmBtn.classList.remove('bg-slate-700');
+      } else {
+        bgm.volume = (currentGuideAudio && !currentGuideAudio.paused) ? 0.12 : 0.3;
+        bgm.play().then(() => {
+          isPlayingBGM = true;
+          enableSFX = true;
+
+          if (audioText) audioText.textContent = '關閉音樂';
+          if (audioIcon) audioIcon.setAttribute('data-lucide', 'music-2');
+
+          if (bgmIcon) bgmIcon.classList.add('spin-slow', 'text-amber-200');
+          if (bgmBtn) bgmBtn.classList.add('bg-slate-700');
+        }).catch(err => console.log('音樂播放受限：', err));
+      }
+      lucide.createIcons();
+    }
+
+    function toggleBGM() { toggleAudio(); }
+
+    function startTypingEffect() {
+      const typingContainer = document.getElementById('introTyping');
+      const typingText = document.getElementById('typingText');
+      const text = "今天，謝謝你願意把時間留給自己...";
+      typingContainer.classList.remove('hidden');
+      
+      let index = 0;
+      typingSFX.currentTime = 0;
+      typingSFX.volume = 0.7;
+      typingSFX.loop = true;
+      
+      if (enableSFX) typingSFX.play().catch(err => console.warn(err));
+
+      const timer = setInterval(() => {
+        if (index < text.length) {
+          typingText.textContent += text.charAt(index);
+          index++;
+        } else {
+          clearInterval(timer);
+          typingSFX.pause();
+          typingSFX.currentTime = 0;
+
+          setTimeout(() => {
+            typingContainer.classList.add('fade-out');
+            setTimeout(() => {
+              typingContainer.classList.add('hidden');
+              showQuietInvitationDirectly();
+            }, 800);
+          }, 1500);
+        }
+      }, 120);
+    }
+
+    function showQuietInvitationDirectly() {
+      document.getElementById('introInvitation').classList.remove('hidden');
+    }
+
+    function showNameQuestion() {
+      document.getElementById('introInvitation').classList.add('hidden');
+      document.getElementById('stepNameArea').classList.remove('hidden');
+    }
+
+    function submitNameAndNext() {
+      const nameInput = document.getElementById('userNameInput').value.trim();
+      const userName = nameInput || '無名旅人';
+
+      document.getElementById('displayName').textContent = userName;
+      document.getElementById('stepNameArea').classList.add('hidden');
+      document.getElementById('stepMemoryArea').classList.remove('hidden');
+    }
+
+    function finishIntroAndRipple() {
+      const userName = document.getElementById('userNameInput').value.trim() || '無名旅人';
+      const userMemory = document.getElementById('userMemoryInput').value.trim() || '';
+
+      let guide = loadData();
+      if (!guide.answers) guide.answers = {};
+      if (!guide.answers.seed) guide.answers.seed = {};
+
+      guide.answers.seed.name = userName;
+      guide.answers.seed.intro = userMemory;
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(guide));
+
+      if (enableSFX) waterSFX.play().catch(()=>{});
+      document.getElementById('rippleModal').classList.remove('hidden');
+
+      setTimeout(() => {
+        document.getElementById('rippleModal').classList.add('hidden');
+        skipIntroToQuiz();
+      }, 1800);
+    }
+
+    function loadData() {
+      const raw = localStorage.getItem(STORAGE_KEY);
+      const empty = { fontScale: 0, answers: {} };
+      SECTIONS.forEach(s => {
+        empty.answers[s.id] = {};
+        empty.answers[s.id][s.mainQ.key] = '';
+      });
+      if (!raw) return empty;
+      try {
+        const parsed = JSON.parse(raw);
+        SECTIONS.forEach(s => {
+          if (!parsed.answers[s.id]) parsed.answers[s.id] = {};
+          if (parsed.answers[s.id][s.mainQ.key] === undefined) parsed.answers[s.id][s.mainQ.key] = '';
+        });
+        return parsed;
+      } catch (e) { return empty; }
+    }
+
+    function hasAnyData() {
+      return SECTIONS.some(s => data.answers[s.id] && data.answers[s.id][s.mainQ.key]);
+    }
+
+    function save() {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+      const ind = document.getElementById('saveIndicator');
+      if (ind) {
+        ind.classList.remove('save-blink'); void ind.offsetWidth; ind.classList.add('save-blink');
+      }
+    }
+
+    function setFont(delta) {
+      data.fontScale = delta === 0 ? 0 : Math.max(-1, Math.min(1, data.fontScale + delta));
+      document.documentElement.style.fontSize = (16 + data.fontScale * 2) + 'px';
+      save();
+    }
+
+    function sectionAnswered(s) {
+      return !!(data.answers[s.id] && data.answers[s.id][s.mainQ.key]);
+    }
+
+    function updateLeaves() {
+      const grown = SECTIONS.filter(sectionAnswered).length;
+      const leafCountEl = document.getElementById('leafCount');
+      if (leafCountEl) leafCountEl.textContent = grown;
+      
+      const leafIconsEl = document.getElementById('leafIcons');
+      if (leafIconsEl) {
+        leafIconsEl.innerHTML = SECTIONS.map((s) => `
+          <i data-lucide="sprout" class="w-3.5 h-3.5 icon-sprout ${sectionAnswered(s) ? 'grown' : ''}"></i>
+        `).join('');
+      }
+      lucide.createIcons();
+    }
+
+    function toggleAudioGuide(audioUrl, btnId = 'quizGuideBtn') {
+      if (!audioUrl) {
+        alert('此章節語音仍在準備中…');
+        return;
+      }
+
+      if (currentGuideAudio && !currentGuideAudio.paused) {
+        stopAudioGuide(btnId);
+        return;
+      }
+
+      stopAudioGuide(btnId);
+
+      if (isPlayingBGM && bgm) bgm.volume = 0.1;
+
+      currentGuideAudio = new Audio(audioUrl);
+      currentGuideAudio.play().then(() => {
+        updateGuideUI(true, btnId);
+      }).catch(err => {
+        console.error(err);
+        updateGuideUI(false, btnId);
+        if (isPlayingBGM && bgm) bgm.volume = 0.3;
+      });
+
+      currentGuideAudio.onended = () => {
+        if (isPlayingBGM && bgm) bgm.volume = 0.3;
+        updateGuideUI(false, btnId);
+      };
+
+      currentGuideAudio.onerror = () => {
+        if (isPlayingBGM && bgm) bgm.volume = 0.3;
+        updateGuideUI(false, btnId);
+      };
+    }
+
+    function stopAudioGuide(btnId = 'quizGuideBtn') {
+      if (currentGuideAudio) {
+        currentGuideAudio.pause();
+        currentGuideAudio.currentTime = 0;
+        currentGuideAudio = null;
+      }
+      if (isPlayingBGM && bgm) bgm.volume = 0.3;
+      updateGuideUI(false, btnId);
+    }
+
+    function updateGuideUI(speaking, btnId = 'quizGuideBtn') {
+      const btn = document.getElementById(btnId);
+      if (!btn) return;
+
+      const icon = btn.querySelector('i') || btn.querySelector('[data-lucide]');
+      const textEl = btn.querySelector('.guide-text') || btn.querySelector('span');
+
+      if (speaking) {
+        btn.classList.add('bg-slate-700', 'text-amber-200');
+        if (icon) icon.setAttribute('data-lucide', 'square');
+        if (textEl) textEl.textContent = '停止朗讀';
+      } else {
+        btn.classList.remove('bg-slate-700', 'text-amber-200');
+        if (icon) icon.setAttribute('data-lucide', 'volume-2');
+        if (textEl) textEl.textContent = '語音嚮導';
+      }
+      lucide.createIcons();
+    }
+
+    function toggleSpeechRecognition(inputId, btnId, statusId) {
+      const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+      if (!SpeechRecognition) {
+        alert('您的瀏覽器不支援語音輸入，請直接使用鍵盤輸入。');
+        return;
+      }
+
+      const inputEl = document.getElementById(inputId);
+      const btnEl = document.getElementById(btnId);
+      const statusEl = document.getElementById(statusId);
+
+      if (activeRecognition) {
+        activeRecognition.stop();
+        return;
+      }
+
+      const recognition = new SpeechRecognition();
+      recognition.lang = 'zh-TW';
+      recognition.continuous = false;
+      recognition.interimResults = true;
+
+      recognition.onstart = () => {
+        activeRecognition = recognition;
+        if (btnEl) btnEl.classList.add('mic-pulse', 'text-amber-200');
+        if (statusEl) statusEl.classList.remove('hidden');
+      };
+
+      recognition.onresult = (event) => {
+        let transcript = '';
+        for (let i = event.resultIndex; i < event.results.length; i++) {
+          transcript += event.results[i][0].transcript;
+        }
+        inputEl.value = transcript;
+        inputEl.dispatchEvent(new Event('input'));
+      };
+
+      recognition.onerror = () => stopMicUI(btnEl, statusEl);
+      recognition.onend = () => {
+        stopMicUI(btnEl, statusEl);
+        activeRecognition = null;
+      };
+
+      recognition.start();
+    }
+
+    function stopMicUI(btnEl, statusEl) {
+      if (btnEl) btnEl.classList.remove('mic-pulse', 'text-amber-200');
+      if (statusEl) statusEl.classList.add('hidden');
+    }
+
+    function handleInputCompanion(textareaEl, hintId) {
+      const hintEl = document.getElementById(hintId);
+      if (!hintEl) return;
+      clearTimeout(idleTimer);
+
+      if (textareaEl.value.length >= 80) {
+        idleTimer = setTimeout(() => {
+          if (hintEl.classList.contains('hidden')) {
+            const randomMsg = COMPANION_MESSAGES[Math.floor(Math.random() * COMPANION_MESSAGES.length)];
+            hintEl.textContent = randomMsg;
+            hintEl.classList.remove('hidden');
+            hintEl.classList.add('fade-in-text');
+          }
+        }, 6000);
+      } else {
+        hintEl.classList.add('hidden');
+      }
+    }
+
+    // 🌟 切換記憶靈感標籤分類（支援動態選擇該章節專屬標籤庫）
+    function switchTagCategory(sectionId, catKey) {
+      const tagLib = SECTION_TAG_LIBRARIES[sectionId];
+      if (!tagLib || !tagLib[catKey]) return;
+
+      const catData = tagLib[catKey];
+
+      // 切換第一層 Tab 按鈕的高亮狀態
+      Object.keys(tagLib).forEach(k => {
+        const btn = document.getElementById(`cat_btn_${sectionId}_${k}`);
+        if (btn) {
+          if (k === catKey) {
+            btn.className = 'tag-cat-btn text-[11px] px-3 py-1 rounded-full transition font-medium cursor-pointer bg-amber-400/20 text-amber-200 border border-amber-300/40';
+          } else {
+            btn.className = 'tag-cat-btn text-[11px] px-3 py-1 rounded-full transition font-medium cursor-pointer bg-slate-800/60 text-slate-400 border border-transparent hover:text-slate-200';
+          }
+        }
+      });
+
+      // 渲染第二層 標籤 (Chips)
+      const container = document.getElementById(`tag_chips_container_${sectionId}`);
+      if (container) {
+        container.innerHTML = catData.tags.map(tag => `
+          <button type="button" 
+                  onclick="appendTagToText('${sectionId}', '${tag}')" 
+                  class="text-xs bg-slate-950 hover:bg-amber-400/20 hover:text-amber-200 hover:border-amber-400/40 border border-slate-800 text-slate-300 px-2.5 py-1 rounded-lg transition-all duration-200 flex items-center gap-1 active:scale-95 cursor-pointer">
+            <span class="text-amber-400/70">+</span>
+            <span>#${tag}</span>
+          </button>
+        `).join('');
+      }
+    }
+
+    // 點擊標籤追加至對應輸入框
+    function appendTagToText(sectionId, tagText) {
+      const s = SECTIONS.find(sec => sec.id === sectionId);
+      if (!s) return;
+      
+      const inputId = `${sectionId}_${s.mainQ.key}`;
+      const textarea = document.getElementById(inputId);
+      if (!textarea) return;
+
+      const tagFormatted = `#${tagText} `;
+      if (textarea.value.length === 0) {
+        textarea.value = tagFormatted;
+      } else {
+        textarea.value = textarea.value.trimEnd() + ' ' + tagFormatted;
+      }
+      
+      textarea.dispatchEvent(new Event('input'));
+      textarea.focus();
+    }
+
+    /* 主要問卷思考區域 */
+    function renderMainQuestionArea(s) {
+      const val = (data.answers[s.id] && data.answers[s.id][s.mainQ.key]) || '';
+      const idAttr = `${s.id}_${s.mainQ.key}`;
+
+      // 取得目前章節專屬的標籤庫，若無則降級選用 seed
+      const currentTagLib = SECTION_TAG_LIBRARIES[s.id] || SECTION_TAG_LIBRARIES.seed;
+
+      return `
+      <div class="mb-5 bg-slate-900/50 rounded-xl p-4 sm:p-6 shadow-inner">
+        <span class="text-xs text-amber-200/90 tracking-wider font-mono uppercase mb-1.5 block font-medium">Q:我想知道...</span>
+        <p class="text-base sm:text-lg font-serif-tc text-slate-100 font-medium mb-3.5 leading-relaxed">${s.mainQ.label}</p>
+        
+        <div class="mb-4 p-3.5 bg-slate-950/40 rounded-xl space-y-1.5 text-xs sm:text-sm text-slate-300 font-serif-tc">
+          <p class="text-amber-200/90 font-medium pb-1 flex items-center gap-1.5">
+            <i data-lucide="sparkles" class="w-3.5 h-3.5"></i>
+            <span>您可以這樣想想：</span>
+          </p>
+          <ul class="space-y-1.5 pl-1 text-slate-300/90 leading-relaxed">
+            ${s.mainQ.clues.map((clue, idx) => `<li class="flex items-start gap-2"><span class="text-amber-200/80 font-mono shrink-0">${idx + 1}.</span><span>${clue}</span></li>`).join('')}
+          </ul>
+        </div>
+
+        <!-- 🌟 兩層式 JSON 標籤靈感庫 (依據章節動態生成分類) -->
+        <div class="mb-4 bg-slate-950/60 rounded-xl p-3.5 border border-slate-800/80">
+          <div class="flex items-center justify-between mb-2.5">
+            <span class="text-xs text-amber-200/90 font-serif-tc flex items-center gap-1.5 font-medium">
+              <i data-lucide="tag" class="w-3.5 h-3.5 text-amber-300"></i> 靈感標籤提示 (點擊可快速帶入文字)
+            </span>
+          </div>
+
+          <!-- 第一層：章節專屬分類膠囊按鈕 -->
+          <div class="flex flex-wrap gap-1.5 mb-2.5 pb-2.5 border-b border-slate-800/80">
+            ${Object.keys(currentTagLib).map((catKey, idx) => `
+              <button type="button" 
+                      onclick="switchTagCategory('${s.id}', '${catKey}')" 
+                      class="tag-cat-btn text-[11px] px-3 py-1 rounded-full transition font-medium cursor-pointer ${idx === 0 ? 'bg-amber-400/20 text-amber-200 border border-amber-300/40' : 'bg-slate-800/60 text-slate-400 border border-transparent hover:text-slate-200'}"
+                      id="cat_btn_${s.id}_${catKey}">
+                ${currentTagLib[catKey].label}
+              </button>
+            `).join('')}
+          </div>
+
+          <!-- 第二層：標籤關鍵字 (Chips) 容器區塊 -->
+          <div id="tag_chips_container_${s.id}" class="flex flex-wrap gap-1.5 min-h-[36px] items-center">
+            <!-- JS 動態帶入 -->
+          </div>
+        </div>
+
+        <div class="space-y-2 pt-1">
+          <label for="${idAttr}" class="block text-xs sm:text-sm text-slate-300 font-serif-tc">✍️ 寫下您的故事記憶：</label>
+          <div class="relative">
+            <textarea id="${idAttr}" maxlength="600" class="w-full bg-slate-950/80 border border-slate-800/80 focus:border-amber-300/50 rounded-xl p-4 pr-10 text-sm leading-relaxed text-slate-100 placeholder-slate-500 focus:outline-none transition min-h-[140px]" placeholder="順心記錄即可，也可以寫下要點之後再補充...">${val}</textarea>
+            <button type="button" id="${idAttr}_mic" onclick="toggleSpeechRecognition('${idAttr}', '${idAttr}_mic', '${idAttr}_stt_status')" class="absolute right-3 bottom-3 p-2 bg-slate-800/80 hover:bg-slate-700 text-amber-200 rounded-full transition" title="按一下用說的">
+              <i data-lucide="mic" class="w-4 h-4"></i>
+            </button>
+          </div>
+          <div class="flex justify-between items-center text-xs pt-1">
+            <span id="${idAttr}_stt_status" class="text-amber-200 font-mono hidden"> 正在聆聽您的聲音</span>
+            <div class="text-slate-500 ml-auto font-mono"><span id="${idAttr}_wc">${val.length}</span> / 600 字</div>
+          </div>
+          <div id="${idAttr}_companion" class="hidden text-xs text-amber-200/90 font-serif-tc mt-2 bg-slate-800/70 p-3 rounded-lg"></div>
+        </div>
+      </div>`;
+    }
+
+    function openCardModal(s) {
+      const mainInputEl = document.getElementById(`${s.id}_${s.mainQ.key}`);
+      let mainVal = mainInputEl ? mainInputEl.value.trim() : (data.answers[s.id] ? data.answers[s.id][s.mainQ.key] : '');
+
+      let displayText = mainVal ? `📌 ${s.mainQ.label}\n\n${mainVal}` : '（您尚未填寫此章節的內容，可以寫下幾句話後再點擊預覽卡片喔…）';
+
+      document.getElementById('cardChapter').textContent = s.title;
+      document.getElementById('cardTitle').textContent = s.subTitle;
+      document.getElementById('cardQuote').textContent = `「${s.verses[0]}」`;
+      document.getElementById('cardContent').textContent = displayText;
+      document.getElementById('cardModal').classList.remove('hidden');
+      lucide.createIcons();
+    }
+
+    function closeCardModal() {
+      document.getElementById('cardModal').classList.add('hidden');
+    }
+
+    function renderStep() {
+      stopAudioGuide('quizGuideBtn');
+      const s = SECTIONS[current];
+
+      document.getElementById('app').innerHTML = `
+        <div class="step active fade-in">
+          <div class="bg-slate-800/40 rounded-2xl overflow-hidden shadow-xl backdrop-blur-md">
+            
+            <!-- 章節頂部沉靜意象視覺區 -->
+            <div class="relative h-44 sm:h-52 w-full overflow-hidden bg-slate-950">
+              <img src="${s.imageUrl}" alt="${s.subTitle}" class="w-full h-full object-cover opacity-60 transition duration-700 hover:scale-105">
+              <div class="absolute inset-0 bg-gradient-to-t from-slate-900/90 via-slate-900/30 to-transparent"></div>
+              
+              <div class="absolute bottom-3.5 left-5 right-5 flex justify-between items-end">
+                <div>
+                  <span class="text-xs text-amber-200/90 font-mono tracking-wider uppercase drop-shadow">${s.title}</span>
+                  <h2 class="text-slate-100 text-xl sm:text-2xl font-serif-tc font-medium mt-0.5 drop-shadow-md">${s.subTitle}</h2>
+                </div>
+                <button type="button" id="quizGuideBtn" onclick="toggleAudioGuide('${s.audioUrl}', 'quizGuideBtn')" class="text-xs bg-slate-950/70 hover:bg-slate-800 text-amber-200 px-3.5 py-1.5 rounded-full backdrop-blur-md transition flex items-center gap-1.5 shrink-0 shadow-md">
+                  <i data-lucide="volume-2" class="w-3.5 h-3.5"></i>
+                  <span class="guide-text">語音嚮導</span>
+                </button>
+              </div>
+            </div>
+
+            <div class="p-4 sm:p-6 space-y-4">
+              <!-- 精簡後的詩文引言區域：輕量、橫向串聯、極省空間 -->
+              <div class="rounded-xl px-4 py-3 font-serif-tc flex flex-wrap sm:flex-nowrap items-center justify-between gap-2 text-xs sm:text-sm">
+                <p class="text-slate-300/90 italic leading-relaxed">
+                  ${s.verses.join(' ')}
+                </p>
+                <span class="text-amber-200/80 text-xs font-medium shrink-0 pt-0.5 sm:pt-0">
+                  🍃 ${s.promptIntro}
+                </span>
+              </div>
+
+              <!-- 主要思考提問區 -->
+              ${renderMainQuestionArea(s)}
+
+              <!-- 底部結語與卡片預覽 -->
+              <div class="p-3.5 rounded-xl text-xs sm:text-sm text-slate-300 font-serif-tc flex justify-between items-center gap-2">
+                <span>✨ ${s.outro}</span>
+                <button type="button" onclick="openCardModal(SECTIONS[${current}])" class="shrink-0 text-xs text-amber-200/90 hover:text-amber-100 flex items-center gap-1 transition">
+                  <i data-lucide="book-open" class="w-3.5 h-3.5"></i>
+                  <span>預覽記憶卡</span>
+                </button>
+              </div>
+            </div>
+
+          </div>
+        </div>`;
+
+      lucide.createIcons();
+      
+      // 初始化當前章節專屬靈感標籤庫的第一個分類
+      const currentTagLib = SECTION_TAG_LIBRARIES[s.id] || SECTION_TAG_LIBRARIES.seed;
+      const firstCatKey = Object.keys(currentTagLib)[0];
+      switchTagCategory(s.id, firstCatKey);
+
+      bindEvents(s);
+
+      const stepInd = document.getElementById('stepIndicator');
+      if (stepInd) stepInd.textContent = `${current + 1} / ${SECTIONS.length}`;
+
+      const prevBtn = document.getElementById('prevBtn');
+      if (prevBtn) {
+        prevBtn.classList.toggle('opacity-40', current === 0);
+        prevBtn.classList.toggle('pointer-events-none', current === 0);
+      }
+
+      const nextBtn = document.getElementById('nextBtn');
+      if (nextBtn) {
+        nextBtn.textContent = current === SECTIONS.length - 1 ? '✨ 生成 LIFE 生命地圖' : '下一章 →';
+      }
+
+      updateLeaves();
+    }
+
+    function bindEvents(s) {
+      const idAttr = `${s.id}_${s.mainQ.key}`;
+      const el = document.getElementById(idAttr);
+      if (el) {
+        el.addEventListener('input', () => {
+          if (!data.answers[s.id]) data.answers[s.id] = {};
+          data.answers[s.id][s.mainQ.key] = el.value;
+          
+          const wc = document.getElementById(idAttr + '_wc');
+          if (wc) wc.textContent = el.value.length;
+          
+          handleInputCompanion(el, `${idAttr}_companion`);
+          save(); updateLeaves();
+        });
+      }
+    }
+
+    function nextStep() {
+      playSound('page');
+      if (current < SECTIONS.length - 1) { 
+        current++; renderStep(); window.scrollTo({ top: 0, behavior: 'smooth' }); 
+      } else { 
+        save(); window.location.href = 'result.html'; 
+      }
+    }
+
+    function prevStep() { 
+      playSound('page');
+      if (current > 0) { 
+        current--; renderStep(); window.scrollTo({ top: 0, behavior: 'smooth' }); 
+      } 
+    }
+
+    function dismissBanner() { 
+      const banner = document.getElementById('welcomeBanner');
+      if (banner) banner.classList.add('hidden'); 
+    }
+
+    if (hasAnyData()) {
+      const banner = document.getElementById('welcomeBanner');
+      if (banner) banner.classList.remove('hidden');
+    }
+    document.documentElement.style.fontSize = (16 + data.fontScale * 2) + 'px';
+    
+    const leafTotalEl = document.getElementById('leafTotal');
+    if (leafTotalEl) leafTotalEl.textContent = SECTIONS.length;
+</script>
+</body>
+</html>

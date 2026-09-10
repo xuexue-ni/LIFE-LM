@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LIFE System 生命地圖 | 結果頁面</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="https://unpkg.com/lucide@latest"></script>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@300;400;500;600&family=Zen+Maru+Gothic:wght@400;500;700&display=swap');
+  body{font-family:'Zen Maru Gothic','Noto Serif TC',serif;background:radial-gradient(circle at 50% 20%,#1e293b 0%,#0b1329 100%);color:#f1f5f9;line-height:1.75;}
+  .font-serif-tc{font-family:'Noto Serif TC',serif;}
+  textarea,input[type=text],input[type=url]{background:rgba(2,6,23,.8);border:1px solid rgba(51,65,85,.8);}
+  textarea:focus,input:focus{outline:none;border-color:rgba(252,211,77,.5);}
+  .card{background:rgba(30,41,59,.4);backdrop-filter:blur(6px);}
+  .save-blink{animation:blk 1.4s ease-in-out;}
+  @keyframes blk{0%{opacity:0}20%{opacity:1}80%{opacity:1}100%{opacity:0}}
+  .img-preview{max-height:220px;object-fit:cover;}
+</style>
+</head>
+<body class="min-h-screen p-4 sm:p-6">
+
+<div class="max-w-2xl mx-auto space-y-6 pb-16">
+
+  <!-- 頁首：姓名與生命引言 -->
+  <header class="text-center space-y-2 pt-4">
+    <p class="text-xs text-slate-500 font-mono tracking-widest">LIFE SYSTEM · 生命地圖</p>
+    <h1 class="text-2xl font-serif-tc text-amber-200" id="userNameDisplay">—</h1>
+    <p class="text-sm text-slate-300 font-serif-tc" id="userIntroDisplay"></p>
+    <div id="saveIndicator" class="text-xs text-amber-200/80 opacity-0 transition h-4">✓ 已自動儲存</div>
+  </header>
+
+  <div id="cardsContainer" class="space-y-5"></div>
+
+</div>
+
+<script>
+lucide.createIcons();
+const STORAGE_KEY = 'lifeSystemData';
+
+// 與 005.html 對應的章節結構（僅取顯示所需欄位）
+const SECTIONS = [
+  { id:'seed', title:'第 00 章', subTitle:'起點', q:'如果把今天的你留在故事的第一頁，你會怎麼記下此刻的自己？' },
+  { id:'identity', title:'第 01 章', subTitle:'小時候的我', q:'如果回到那段時光，你最先想起的是什麼？' },
+  { id:'people', title:'第 02 章', subTitle:'重要的人', q:'生命中哪些人，對你的人生產生了深遠的影響？' },
+  { id:'treasures', title:'第 03 章', subTitle:'我的珍藏', q:'如果現在從身邊找一件最有故事的物品，它會是？' },
+  { id:'highlight', title:'第 04 章', subTitle:'時間抽屜', q:'哪些時刻，讓你感到踏實與驕傲？' },
+  { id:'turning', title:'第 05 章', subTitle:'走到今天', q:'有沒有一個轉折點，讓後來的你走向了完全不同的人生方向？' },
+  { id:'future', title:'第 06 章', subTitle:'留給未來', q:'如果未來的自己或重要的人看到了這些，你最想傳遞什麼？' }
+];
+
+function loadData(){
+  const raw = localStorage.getItem(STORAGE_KEY);
+  const empty = { fontScale:0, answers:{} };
+  SECTIONS.forEach(s=>{ empty.answers[s.id] = { mainStory:'' }; });
+  if(!raw) return empty;
+  try{
+    const parsed = JSON.parse(raw);
+    if(!parsed.answers) parsed.answers = {};
+    SECTIONS.forEach(s=>{ if(!parsed.answers[s.id]) parsed.answers[s.id] = {}; });
+    return parsed;
+  }catch(e){ return empty; }
+}
+
+let data = loadData();
+
+function save(){
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+  const ind = document.getElementById('saveIndicator');
+  ind.classList.remove('save-blink'); void ind.offsetWidth; ind.classList.add('save-blink');
+}
+
+function renderHeader(){
+  const seed = data.answers.seed || {};
+  document.getElementById('userNameDisplay').textContent = seed.name || '無名旅人';
+  document.getElementById('userIntroDisplay').textContent = seed.intro || '';
+}
+
+function urlEmbedHtml(url){
+  if(!url) return '';
+  const yt = url.match(/(?:youtu\.be\/|v=)([\w-]{11})/);
+  if(yt) return `<iframe class="w-full aspect-video rounded-lg mt-2" src="https://www.youtube.com/embed/${yt[1]}" allowfullscreen></iframe>`;
+  return `<a href="${url}" target="_blank" class="text-amber-200 text-xs underline break-all mt-2 inline-block">${url}</a>`;
+}
+
+function cardTemplate(s){
+  const a = data.answers[s.id] || {};
+  return `
+  <div class="card rounded-2xl p-4 sm:p-6 space-y-4 shadow-xl">
+    <div>
+      <span class="text-xs text-amber-200/80 font-mono uppercase">${s.title}</span>
+      <h2 class="text-lg font-serif-tc text-slate-100">${s.subTitle}</h2>
+      <p class="text-xs text-slate-400 mt-1">${s.q}</p>
+    </div>
+
+    <!-- 原文字故事（可編輯） -->
+    <div class="space-y-1">
+      <label class="text-xs text-slate-300">✍️ 故事記憶</label>
+      <textarea data-id="${s.id}" data-field="mainStory" rows="4" maxlength="600"
+        class="w-full rounded-xl p-3 text-sm text-slate-100 placeholder-slate-500">${a.mainStory||''}</textarea>
+    </div>
+
+    <!-- 新增：文字故事2 -->
+    <div class="space-y-1">
+      <label class="text-xs text-slate-300">📖 文字故事 2（延伸補充）</label>
+      <textarea data-id="${s.id}" data-field="story2" rows="3" maxlength="600" placeholder="想補充更多細節嗎？"
+        class="w-full rounded-xl p-3 text-sm text-slate-100 placeholder-slate-500">${a.story2||''}</textarea>
+    </div>
+
+    <!-- 新增：圖片上傳 -->
+    <div class="space-y-1">
+      <label class="text-xs text-slate-300">🖼️ 圖片上傳</label>
+      <input type="file" accept="image/*" data-id="${s.id}" data-field="image" class="text-xs text-slate-300 w-full">
+      <img class="img-preview rounded-lg mt-2 ${a.image?'':'hidden'}" id="img_${s.id}" src="${a.image||''}">
+    </div>
+
+    <!-- 新增：外部連結 -->
+    <div class="space-y-1">
+      <label class="text-xs text-slate-300">🔗 外部連結（影音／大型檔案）</label>
+      <input type="url" data-id="${s.id}" data-field="externalUrl" placeholder="https://..."
+        value="${a.externalUrl||''}" class="w-full rounded-xl p-3 text-sm text-slate-100 placeholder-slate-500">
+      <div id="embed_${s.id}">${urlEmbedHtml(a.externalUrl)}</div>
+    </div>
+  </div>`;
+}
+
+function renderCards(){
+  document.getElementById('cardsContainer').innerHTML = SECTIONS.map(cardTemplate).join('');
+  bindEvents();
+}
+
+function bindEvents(){
+  document.querySelectorAll('textarea[data-field], input[type=url][data-field]').forEach(el=>{
+    el.addEventListener('input', ()=>{
+      const id = el.dataset.id, field = el.dataset.field;
+      if(!data.answers[id]) data.answers[id] = {};
+      data.answers[id][field] = el.value;
+      if(field === 'externalUrl') document.getElementById('embed_'+id).innerHTML = urlEmbedHtml(el.value);
+      save();
+    });
+  });
+
+  document.querySelectorAll('input[type=file][data-field]').forEach(el=>{
+    el.addEventListener('change', ()=>{
+      const id = el.dataset.id;
+      const file = el.files[0];
+      if(!file) return;
+      const reader = new FileReader();
+      reader.onload = e=>{
+        if(!data.answers[id]) data.answers[id] = {};
+        data.answers[id].image = e.target.result;
+        const img = document.getElementById('img_'+id);
+        img.src = e.target.result;
+        img.classList.remove('hidden');
+        save();
+      };
+      reader.readAsDataURL(file);
+    });
+  });
+}
+
+renderHeader();
+renderCards();
+</script>
+</body>
+</html>
