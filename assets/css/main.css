@@ -528,7 +528,7 @@ p.desc {
 
 /* 當被激活打開時 (.active) 的樣式狀態 */
 .faq-item.active .faq-answer {
-  max-height: 200px;
+  max-height: 500px;
   /* 給予足夠的展開空間 */
   opacity: 1;
 }
