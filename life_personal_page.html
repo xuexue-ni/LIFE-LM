@@ -1,0 +1,369 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>個人頁面｜LIFE+</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;600&family=Noto+Sans+TC:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#0b1329;--deep:#070d1f;--panel:#121c3a;--line:#2a3860;
+  --text:#e8ecf5;--mute:#9aa5c4;--amber:#e8b866;--amber-dim:#8a6c3a;
+  --serif:"Noto Serif TC","Songti TC",serif;--sans:"Noto Sans TC","PingFang TC",sans-serif;
+}
+*{box-sizing:border-box;margin:0}
+html{scroll-padding-top:1rem}
+body{background:var(--ink);color:var(--text);font-family:var(--sans);line-height:1.75;min-height:100vh}
+a,button{font:inherit;color:inherit}
+button{cursor:pointer;background:none;border:0}
+:focus-visible{outline:2px solid var(--amber);outline-offset:3px}
+.wrap{max-width:860px;margin:0 auto;padding:0 1.25rem}
+
+/* 頁首 */
+header{padding:4rem 0 2rem}
+header h1{font-family:var(--serif);font-weight:600;font-size:clamp(2rem,6vw,3.2rem);letter-spacing:.12em;color:var(--amber);line-height:1.3}
+header p{color:var(--mute);margin-top:.75rem;max-width:34rem}
+.meta{display:flex;flex-wrap:wrap;gap:.75rem 1.5rem;margin-top:1.5rem;font-size:.9rem;color:var(--mute)}
+.role{margin-left:auto;display:flex;align-items:center;gap:.5rem}
+.role select{background:var(--panel);color:var(--text);border:1px solid var(--line);border-radius:6px;padding:.3rem .6rem}
+
+/* 章節時間軸（主視覺） */
+.rail{list-style:none;padding:0;margin:1rem 0 2.5rem;display:flex;overflow-x:auto;gap:0;position:relative}
+.rail li{flex:1 0 5.5rem;position:relative;text-align:center;padding-top:1.6rem}
+.rail li::before{content:"";position:absolute;top:.5rem;left:0;right:0;height:1px;background:var(--line)}
+.rail li:first-child::before{left:50%}.rail li:last-child::before{right:50%}
+.rail button{display:block;width:100%;padding:.2rem .3rem .6rem;color:var(--mute);font-family:var(--serif)}
+.rail button::before{content:"";position:absolute;top:.15rem;left:50%;width:.75rem;height:.75rem;margin-left:-.375rem;border-radius:50%;background:var(--ink);border:1px solid var(--amber-dim)}
+.rail .has button::before{background:var(--amber);border-color:var(--amber);box-shadow:0 0 12px var(--amber)}
+.rail .on button{color:var(--text)}
+.rail .on button::before{transform:scale(1.5)}
+.rail button[disabled]{cursor:default;opacity:.45}
+.rail small{display:block;font-family:var(--sans);font-size:.75rem}
+
+/* 故事列表 */
+h2{font-family:var(--serif);font-weight:400;font-size:1.5rem;margin-bottom:.25rem}
+.sub{color:var(--mute);font-size:.9rem;margin-bottom:1.5rem}
+.list{list-style:none;padding:0;border-top:1px solid var(--line)}
+.list li{border-bottom:1px solid var(--line)}
+.item{display:grid;grid-template-columns:5.5rem 1fr;gap:1rem;width:100%;text-align:left;padding:1.1rem 0;align-items:center}
+.item:hover h3{color:var(--amber)}
+.thumb{width:5.5rem;aspect-ratio:1;border-radius:8px;background:linear-gradient(135deg,#1a2650,#0e1735);background-size:cover;background-position:center;border:1px solid var(--line)}
+.item h3{font-family:var(--serif);font-weight:400;font-size:1.1rem;transition:color .2s}
+.item p{color:var(--mute);font-size:.9rem;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.tags{display:flex;gap:.75rem;margin-top:.35rem;font-size:.78rem;color:var(--amber-dim)}
+.empty{padding:2.5rem 0;color:var(--mute)}
+
+/* 故事詳情 */
+dialog{width:min(640px,calc(100% - 2rem));max-height:90vh;margin:auto;background:var(--panel);color:var(--text);border:1px solid var(--line);border-radius:12px;padding:0;overflow:auto}
+dialog::backdrop{background:rgba(4,8,20,.8)}
+.d-img{width:100%;aspect-ratio:16/9;background:linear-gradient(135deg,#1a2650,#0e1735) center/cover}
+.d-body{padding:1.5rem}
+.d-body h3{font-family:var(--serif);font-weight:600;font-size:1.4rem}
+.d-body time{color:var(--mute);font-size:.85rem}
+.d-text{margin:1rem 0;white-space:pre-line;font-family:var(--serif);line-height:2}
+audio{width:100%;margin-top:.5rem}
+.noaudio{color:var(--mute);font-size:.85rem}
+.close{position:sticky;top:0;float:right;margin:.6rem;padding:.3rem .8rem;border-radius:999px;background:rgba(7,13,31,.85);border:1px solid var(--line);z-index:2}
+
+footer{padding:3rem 0;color:var(--mute);font-size:.8rem}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+
+/* 試用採集 */
+[hidden]{display:none!important}
+.primary{background:var(--amber);color:#1a1405;border-radius:999px;padding:.45rem 1.2rem;font-weight:500}
+.primary:disabled{opacity:.5}
+#form label{display:block;margin-top:1rem;font-size:.9rem;color:var(--mute)}
+#form input,#form select,#form textarea{display:block;width:100%;margin-top:.3rem;background:var(--ink);color:var(--text);border:1px solid var(--line);border-radius:6px;padding:.55rem .7rem;font:inherit}
+.rec{margin-top:1.25rem;padding:1rem;border:1px solid var(--line);border-radius:10px}
+.timer{font-family:var(--serif);font-size:1.6rem;margin-bottom:.5rem}
+.rec.on .timer{color:var(--amber)}
+.actions{display:flex;justify-content:flex-end;gap:.75rem;margin-top:1.5rem}
+.actions button:not(.primary),.danger,.link,#recReset{border:1px solid var(--line);border-radius:999px;padding:.4rem 1rem;color:var(--mute)}
+.danger{margin-top:1rem}
+.link{margin-top:.5rem}
+#photoPrev{max-width:100%;max-height:200px;border-radius:8px;margin-top:.5rem}
+.notice{background:rgba(232,184,102,.1);border:1px solid var(--amber-dim);border-radius:8px;padding:.5rem .75rem;font-size:.85rem;color:var(--amber);margin-top:.75rem}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1 id="name">　</h1>
+    <p id="intro"></p>
+    <div class="meta">
+      <span id="count"></span>
+      <button id="addBtn" class="primary" type="button">＋ 新增故事</button>
+      <label class="role">檢視身分
+        <select id="roleSel" aria-label="檢視身分">
+          <option value="owner">本人</option>
+          <option value="family">受邀家人</option>
+          <option value="guest">訪客</option>
+        </select>
+      </label>
+    </div>
+  </header>
+
+  <nav aria-label="章節"><ol class="rail" id="rail"></ol></nav>
+  <main id="main" aria-live="polite"></main>
+  <footer>© LIFE+ 個人典藏頁｜內容僅限受邀者檢視<br><button id="clearAll" class="link" type="button">清除所有試用資料</button></footer>
+</div>
+
+<dialog id="dlg" aria-label="故事內容"></dialog>
+
+<dialog id="form" aria-label="新增故事">
+  <div class="d-body">
+    <h3>新增故事</h3>
+    <p class="notice">試用版：資料只存在這台裝置的瀏覽器，不會上傳。</p>
+    <label>標題<input id="fTitle" maxlength="40"></label>
+    <label>章節<select id="fChap"></select></label>
+    <label>可見範圍<select id="fVis">
+      <option value="private">僅本人</option><option value="family">家人可見</option><option value="public">公開</option>
+    </select></label>
+    <label>文字（選填）<textarea id="fText" rows="4"></textarea></label>
+    <div class="rec" id="rec">
+      <div class="timer" id="recTime">0:00 / 3:00</div>
+      <button type="button" id="recBtn" class="primary">開始錄音</button>
+      <button type="button" id="recReset" hidden>重錄</button>
+      <audio id="recPrev" controls hidden></audio>
+      <p id="recMsg" class="noaudio"></p>
+    </div>
+    <label>照片（選填，1 張）<input type="file" id="fPhoto" accept="image/*"></label>
+    <img id="photoPrev" alt="照片預覽" hidden>
+    <div class="actions"><button id="fCancel" type="button">取消</button><button id="fSave" class="primary" type="button">儲存</button></div>
+    <p id="fMsg" class="noaudio"></p>
+  </div>
+</dialog>
+
+<script>
+/* ========== 設定：章節（POC 啟用 4 章；MVP 把 enabled 全改 true） ========== */
+const CHAPTERS=[
+  {id:"start",   name:"起點",     enabled:true},
+  {id:"people",  name:"人",       enabled:true},
+  {id:"turning", name:"轉折",     enabled:true},
+  {id:"me",      name:"我",       enabled:true},
+  {id:"treasure",name:"寶物",     enabled:false},
+  {id:"drawer",  name:"時間抽屜", enabled:false},
+  {id:"future",  name:"留給未來", enabled:false}
+];
+
+/* ========== 資料層：串接後台時只改這個物件 ==========
+   getPage() 需回傳：{ owner, intro, role, stories:[{id,chapter,title,date,text,audioUrl,photoUrl,visibility}] }
+   visibility：private（僅本人）/ family（家人）/ public（訪客）
+   role 與可見範圍由後端判斷並只回傳可看的資料；此處前端過濾僅為示範備援。 */
+const API={
+  async getPage(){
+    return {
+      owner:"示範用戶", intro:"把一路走來的聲音與畫面，收在這裡。", role:"owner",
+      stories:[
+        {id:"s1",chapter:"start",title:"放學後的那碗湯",date:"2026-10-04",
+         text:"巷口阿嬤的湯鍋總在四點冒煙。\n我會把書包甩在腳邊，等第一碗盛出來。",
+         audioUrl:"",photoUrl:"",visibility:"family"},
+        {id:"s2",chapter:"people",title:"外婆的縫紉機",date:"2026-10-11",
+         text:"踏板的聲音，是我最早記得的節奏。",audioUrl:"",photoUrl:"",visibility:"private"},
+        {id:"s3",chapter:"people",title:"第一次一個人搭夜車",date:"2026-10-18",
+         text:"車窗映出自己的臉，那天我知道我可以。",audioUrl:"",photoUrl:"",visibility:"public"}
+      ]
+    };
+  }
+};
+
+/* ========== 權限：角色可看的範圍 ========== */
+const CAN_SEE={owner:["private","family","public"],family:["family","public"],guest:["public"]};
+const VIS_LABEL={private:"僅本人",family:"家人可見",public:"公開"};
+
+/* ========== 渲染 ========== */
+const $=id=>document.getElementById(id);
+const el=(t,p={},...kids)=>{const e=document.createElement(t);
+  for(const k in p){k==="class"?e.className=p[k]:k==="text"?e.textContent=p[k]:e.setAttribute(k,p[k]);}
+  kids.forEach(k=>e.append(k));return e;};
+let PAGE=null,current="start";
+
+const visible=()=>PAGE.stories.filter(s=>CAN_SEE[$("roleSel").value].includes(s.visibility));
+
+function renderRail(){
+  const rail=$("rail");rail.replaceChildren();
+  const list=visible();
+  CHAPTERS.forEach(c=>{
+    const n=list.filter(s=>s.chapter===c.id).length;
+    const b=el("button",{type:"button",text:c.name},el("small",{text:c.enabled?(n?`${n} 則`:"尚無"):"即將開放"}));
+    if(!c.enabled)b.disabled=true;
+    b.addEventListener("click",()=>{current=c.id;render();});
+    rail.append(el("li",{class:(n?"has ":"")+(c.id===current?"on":"")},b));
+  });
+}
+
+function renderList(){
+  const c=CHAPTERS.find(x=>x.id===current);
+  const items=visible().filter(s=>s.chapter===current);
+  const main=$("main");main.replaceChildren(el("h2",{text:c.name}));
+  main.append(el("p",{class:"sub",text:`${items.length} 則故事`}));
+  if(!items.length){main.append(el("p",{class:"empty",text:"這一章還沒有內容。錄下第一段聲音，就會出現在這裡。"}));return;}
+  const ul=el("ul",{class:"list"});
+  items.forEach(s=>{
+    const th=el("div",{class:"thumb"});
+    if(s.photoUrl)th.style.backgroundImage=`url("${encodeURI(s.photoUrl)}")`;
+    const tags=el("div",{class:"tags"},
+      el("span",{text:s.audioUrl?"有語音":"尚無語音"}),
+      el("span",{text:s.photoUrl?"有照片":"尚無照片"}),
+      el("span",{text:VIS_LABEL[s.visibility]}));
+    const b=el("button",{class:"item",type:"button"},th,
+      el("div",{},el("h3",{text:s.title}),el("p",{text:s.text}),tags));
+    b.addEventListener("click",()=>openStory(s));
+    ul.append(el("li",{},b));
+  });
+  main.append(ul);
+}
+
+function openStory(s){
+  const d=$("dlg");d.replaceChildren();
+  const close=el("button",{class:"close",type:"button",text:"關閉"});
+  close.addEventListener("click",()=>d.close());
+  const img=el("div",{class:"d-img"});
+  if(s.photoUrl)img.style.backgroundImage=`url("${encodeURI(s.photoUrl)}")`;
+  const audio=s.audioUrl?el("audio",{controls:"",preload:"none",src:s.audioUrl}):el("p",{class:"noaudio",text:"這則故事尚未附上語音。"});
+  d.append(close,img,el("div",{class:"d-body"},
+    el("h3",{text:s.title}),el("time",{text:s.date}),
+    el("p",{class:"d-text",text:s.text}),audio,...(s.local?[delBtn(s)]:[])));
+  d.showModal();
+}
+$("dlg").addEventListener("click",e=>{if(e.target===e.currentTarget)e.currentTarget.close();});
+
+function render(){
+  $("count").textContent=`共 ${visible().length} 則故事`;
+  $("addBtn").hidden=$("roleSel").value!=="owner";
+  renderRail();renderList();
+}
+
+/* ========== 試用採集：本機儲存（IndexedDB），正式版改為上傳後台 ========== */
+const DB={_db:null,
+  open(){return this._db||(this._db=new Promise((res,rej)=>{const r=indexedDB.open("lifeplus_trial",1);
+    r.onupgradeneeded=()=>r.result.createObjectStore("stories",{keyPath:"id"});
+    r.onsuccess=()=>res(r.result);r.onerror=()=>rej(r.error);}));},
+  async tx(mode,fn){const db=await this.open();return new Promise((res,rej)=>{
+    const t=db.transaction("stories",mode),rq=fn(t.objectStore("stories"));
+    t.oncomplete=()=>res(rq&&rq.result);t.onerror=()=>rej(t.error);t.onabort=()=>rej(t.error);});},
+  all(){return this.tx("readonly",s=>s.getAll());},
+  put(v){return this.tx("readwrite",s=>s.put(v));},
+  del(id){return this.tx("readwrite",s=>s.delete(id));},
+  clear(){return this.tx("readwrite",s=>s.clear());}
+};
+async function loadLocal(){
+  try{
+    const rows=await DB.all();
+    PAGE.stories=PAGE.stories.filter(s=>!s.local).concat(rows.map(r=>({...r,local:true,
+      audioUrl:r.audioBlob?URL.createObjectURL(r.audioBlob):"",
+      photoUrl:r.photoBlob?URL.createObjectURL(r.photoBlob):""})));
+  }catch(e){}
+}
+function delBtn(s){
+  const b=el("button",{class:"danger",type:"button",text:"刪除這則試用資料"});
+  b.addEventListener("click",async()=>{
+    if(!confirm("確定刪除？刪除後無法復原。"))return;
+    await DB.del(s.id);await loadLocal();$("dlg").close();render();
+  });
+  return b;
+}
+
+let rec=null,stream=null,chunks=[],tick=null,sec=0,audioBlob=null,photoBlob=null;
+const MAX=180,fmt=n=>`${Math.floor(n/60)}:${String(n%60).padStart(2,"0")}`;
+const pickType=()=>["audio/webm;codecs=opus","audio/mp4","audio/webm","audio/ogg"]
+  .find(t=>window.MediaRecorder&&MediaRecorder.isTypeSupported(t))||"";
+
+function stopAll(){
+  clearInterval(tick);
+  if(rec&&rec.state==="recording"){rec.onstop=null;rec.stop();}
+  if(stream)stream.getTracks().forEach(t=>t.stop());
+  stream=null;$("rec").classList.remove("on");
+}
+function resetRec(){
+  stopAll();audioBlob=null;sec=0;
+  $("recTime").textContent=`0:00 / ${fmt(MAX)}`;
+  $("recPrev").hidden=true;$("recPrev").removeAttribute("src");
+  $("recBtn").hidden=false;$("recBtn").textContent="開始錄音";
+  $("recReset").hidden=true;$("recMsg").textContent="";
+}
+async function toggleRec(){
+  if(rec&&rec.state==="recording"){rec.stop();return;}
+  if(!window.MediaRecorder||!navigator.mediaDevices){
+    $("recMsg").textContent="此瀏覽器不支援錄音，請改用 Chrome 或 Safari，並使用 https 網址。";return;}
+  try{stream=await navigator.mediaDevices.getUserMedia({audio:true});}
+  catch(e){$("recMsg").textContent="無法使用麥克風：請在瀏覽器允許權限，且網址需為 https。";return;}
+  const type=pickType();chunks=[];
+  rec=new MediaRecorder(stream,type?{mimeType:type}:{});
+  rec.ondataavailable=e=>{if(e.data.size)chunks.push(e.data);};
+  rec.onstop=()=>{
+    clearInterval(tick);stream.getTracks().forEach(t=>t.stop());stream=null;
+    $("rec").classList.remove("on");
+    audioBlob=new Blob(chunks,{type:rec.mimeType||type||"audio/webm"});
+    $("recPrev").src=URL.createObjectURL(audioBlob);$("recPrev").hidden=false;
+    $("recBtn").hidden=true;$("recReset").hidden=false;
+    $("recMsg").textContent=`已錄製 ${fmt(sec)}，可試聽後儲存。`;
+  };
+  rec.start();sec=0;$("rec").classList.add("on");
+  $("recBtn").textContent="停止錄音";$("recMsg").textContent="錄音中…";
+  tick=setInterval(()=>{
+    sec++;$("recTime").textContent=`${fmt(sec)} / ${fmt(MAX)}`;
+    if(sec===150)$("recMsg").textContent="快到 3 分鐘了，請準備收尾。";
+    if(sec>=MAX)rec.stop();
+  },1000);
+}
+async function shrink(file){
+  try{
+    const b=await createImageBitmap(file),k=Math.min(1,1280/Math.max(b.width,b.height));
+    const c=document.createElement("canvas");c.width=Math.round(b.width*k);c.height=Math.round(b.height*k);
+    c.getContext("2d").drawImage(b,0,0,c.width,c.height);
+    return await new Promise(r=>c.toBlob(r,"image/jpeg",.85));
+  }catch(e){return file;}
+}
+function openForm(){
+  resetRec();photoBlob=null;
+  ["fTitle","fText","fPhoto"].forEach(i=>$(i).value="");
+  $("photoPrev").hidden=true;$("fMsg").textContent="";$("fVis").value="private";
+  $("fChap").replaceChildren(...CHAPTERS.filter(c=>c.enabled).map(c=>el("option",{value:c.id,text:c.name})));
+  $("fChap").value=CHAPTERS.find(c=>c.id===current&&c.enabled)?current:"start";
+  $("form").showModal();
+}
+async function saveStory(){
+  const title=$("fTitle").value.trim(),text=$("fText").value.trim();
+  if(rec&&rec.state==="recording"){$("fMsg").textContent="請先停止錄音。";return;}
+  if(!title){$("fMsg").textContent="請填寫標題。";return;}
+  if(!audioBlob&&!photoBlob&&!text){$("fMsg").textContent="請至少錄音、選照片或寫一點文字。";return;}
+  const chapter=$("fChap").value;
+  try{
+    await DB.put({id:"l_"+Date.now(),chapter,title,text,audioBlob,photoBlob,
+      date:new Date().toISOString().slice(0,10),visibility:$("fVis").value});
+  }catch(e){$("fMsg").textContent="儲存失敗：裝置空間不足，或瀏覽器為無痕模式。";return;}
+  await loadLocal();current=chapter;$("form").close();render();
+}
+$("addBtn").addEventListener("click",openForm);
+$("recBtn").addEventListener("click",toggleRec);
+$("recReset").addEventListener("click",resetRec);
+$("fSave").addEventListener("click",saveStory);
+$("fCancel").addEventListener("click",()=>$("form").close());
+$("form").addEventListener("close",stopAll);
+$("fPhoto").addEventListener("change",async e=>{
+  const f=e.target.files[0];if(!f)return;
+  photoBlob=await shrink(f);$("photoPrev").src=URL.createObjectURL(photoBlob);$("photoPrev").hidden=false;
+});
+$("clearAll").addEventListener("click",async()=>{
+  if(!confirm("清除這台裝置上所有試用資料？無法復原。"))return;
+  try{await DB.clear();}catch(e){}
+  await loadLocal();render();
+});
+
+(async()=>{
+  try{
+    PAGE=await API.getPage();await loadLocal();
+    $("name").textContent=PAGE.owner;$("intro").textContent=PAGE.intro;
+    $("roleSel").value=PAGE.role||"guest";
+    $("roleSel").addEventListener("change",render);
+    render();
+  }catch(e){
+    $("main").textContent="無法載入內容，請重新整理或聯絡 LIFE+。";
+  }
+})();
+</script>
+</body>
+</html>
