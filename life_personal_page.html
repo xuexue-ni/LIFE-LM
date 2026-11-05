@@ -225,7 +225,7 @@ function openStory(s){
   const audio=s.audioUrl?el("audio",{controls:"",preload:"none",src:s.audioUrl}):el("p",{class:"noaudio",text:"這則故事尚未附上語音。"});
   d.append(close,img,el("div",{class:"d-body"},
     el("h3",{text:s.title}),el("time",{text:s.date}),
-    el("p",{class:"d-text",text:s.text}),audio,...(s.local?[delBtn(s)]:[])));
+    el("p",{class:"d-text",text:s.text}),audio,...(s.audioBlob?[el("p",{class:"noaudio",text:`語音：${s.audioBlob.type}・${fmtSize(s.audioBlob.size)}`})]:[]),...(s.photoBlob?[el("p",{class:"noaudio",text:`照片：${fmtSize(s.photoBlob.size)}`})]:[]),...(s.local?[delBtn(s)]:[])));
   d.showModal();
 }
 $("dlg").addEventListener("click",e=>{if(e.target===e.currentTarget)e.currentTarget.close();});
@@ -267,6 +267,7 @@ function delBtn(s){
 }
 
 let rec=null,stream=null,chunks=[],tick=null,sec=0,audioBlob=null,photoBlob=null;
+function fmtSize(n){return n>1048576?(n/1048576).toFixed(2)+" MB":Math.round(n/1024)+" KB";}
 const MAX=180,fmt=n=>`${Math.floor(n/60)}:${String(n%60).padStart(2,"0")}`;
 const pickType=()=>["audio/webm;codecs=opus","audio/mp4","audio/webm","audio/ogg"]
   .find(t=>window.MediaRecorder&&MediaRecorder.isTypeSupported(t))||"";
@@ -299,7 +300,7 @@ async function toggleRec(){
     audioBlob=new Blob(chunks,{type:rec.mimeType||type||"audio/webm"});
     $("recPrev").src=URL.createObjectURL(audioBlob);$("recPrev").hidden=false;
     $("recBtn").hidden=true;$("recReset").hidden=false;
-    $("recMsg").textContent=`已錄製 ${fmt(sec)}，可試聽後儲存。`;
+    $("recMsg").textContent=`已錄製 ${fmt(sec)}・${audioBlob.type}・${fmtSize(audioBlob.size)}，可試聽後儲存。`;
   };
   rec.start();sec=0;$("rec").classList.add("on");
   $("recBtn").textContent="停止錄音";$("recMsg").textContent="錄音中…";
