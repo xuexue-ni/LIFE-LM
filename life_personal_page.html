@@ -266,7 +266,7 @@ function delBtn(s){
   return b;
 }
 
-let rec=null,stream=null,chunks=[],tick=null,sec=0,audioBlob=null,photoBlob=null;
+let t0=0,rec=null,stream=null,chunks=[],tick=null,sec=0,audioBlob=null,photoBlob=null;
 function fmtSize(n){return n>1048576?(n/1048576).toFixed(2)+" MB":Math.round(n/1024)+" KB";}
 const MAX=180,fmt=n=>`${Math.floor(n/60)}:${String(n%60).padStart(2,"0")}`;
 const pickType=()=>["audio/webm;codecs=opus","audio/mp4","audio/webm","audio/ogg"]
@@ -292,23 +292,23 @@ async function toggleRec(){
   try{stream=await navigator.mediaDevices.getUserMedia({audio:true});}
   catch(e){$("recMsg").textContent="無法使用麥克風：請在瀏覽器允許權限，且網址需為 https。";return;}
   const type=pickType();chunks=[];
-  rec=new MediaRecorder(stream,type?{mimeType:type}:{});
+  rec=new MediaRecorder(stream,{...(type?{mimeType:type}:{}),audioBitsPerSecond:64000});
   rec.ondataavailable=e=>{if(e.data.size)chunks.push(e.data);};
   rec.onstop=()=>{
-    clearInterval(tick);stream.getTracks().forEach(t=>t.stop());stream=null;
+    sec=Math.round((Date.now()-t0)/1000);clearInterval(tick);stream.getTracks().forEach(t=>t.stop());stream=null;
     $("rec").classList.remove("on");
     audioBlob=new Blob(chunks,{type:rec.mimeType||type||"audio/webm"});
     $("recPrev").src=URL.createObjectURL(audioBlob);$("recPrev").hidden=false;
     $("recBtn").hidden=true;$("recReset").hidden=false;
     $("recMsg").textContent=`已錄製 ${fmt(sec)}・${audioBlob.type}・${fmtSize(audioBlob.size)}，可試聽後儲存。`;
   };
-  rec.start();sec=0;$("rec").classList.add("on");
+  rec.start();sec=0;t0=Date.now();$("rec").classList.add("on");
   $("recBtn").textContent="停止錄音";$("recMsg").textContent="錄音中…";
   tick=setInterval(()=>{
-    sec++;$("recTime").textContent=`${fmt(sec)} / ${fmt(MAX)}`;
+    sec=Math.floor((Date.now()-t0)/1000);$("recTime").textContent=`${fmt(sec)} / ${fmt(MAX)}`;
     if(sec===150)$("recMsg").textContent="快到 3 分鐘了，請準備收尾。";
     if(sec>=MAX)rec.stop();
-  },1000);
+  },250);
 }
 async function shrink(file){
   try{
