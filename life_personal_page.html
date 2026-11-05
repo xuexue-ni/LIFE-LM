@@ -343,7 +343,13 @@ $("recBtn").addEventListener("click",toggleRec);
 $("recReset").addEventListener("click",resetRec);
 $("fSave").addEventListener("click",saveStory);
 $("fCancel").addEventListener("click",()=>$("form").close());
-$("form").addEventListener("close",stopAll);
+const stopPlay=d=>d.querySelectorAll("audio").forEach(a=>{a.pause();a.removeAttribute("src");a.load();});
+const _close=HTMLDialogElement.prototype.close;
+HTMLDialogElement.prototype.close=function(...a){stopPlay(this);return _close.apply(this,a);};
+["dlg","form"].forEach(i=>$(i).addEventListener("cancel",()=>stopPlay($(i))));
+addEventListener("pagehide",()=>{stopPlay($("dlg"));stopPlay($("form"));});
+$("dlg").addEventListener("close",()=>stopPlay($("dlg")));
+$("form").addEventListener("close",()=>{stopAll();stopPlay($("form"));});
 $("fPhoto").addEventListener("change",async e=>{
   const f=e.target.files[0];if(!f)return;
   photoBlob=await shrink(f);$("photoPrev").src=URL.createObjectURL(photoBlob);$("photoPrev").hidden=false;
