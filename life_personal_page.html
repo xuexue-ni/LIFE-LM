@@ -131,7 +131,6 @@ footer{padding:3rem 0;color:var(--mute);font-size:.8rem}
     <label>可見範圍<select id="fVis">
       <option value="private">僅本人</option><option value="family">家人可見</option><option value="public">公開</option>
     </select></label>
-    <div id="fColorBox"><label id="fColorLbl">這段回憶是什麼顏色？</label><div class="chips" id="fColor" role="group" aria-labelledby="fColorLbl"></div></div>
     <label>文字（選填）<textarea id="fText" rows="4"></textarea></label>
     <div class="rec" id="rec">
       <div class="timer" id="recTime">0:00 / 3:00</div>
@@ -142,6 +141,7 @@ footer{padding:3rem 0;color:var(--mute);font-size:.8rem}
     </div>
     <label>照片（選填，1 張）<input type="file" id="fPhoto" accept="image/*"></label>
     <img id="photoPrev" alt="照片預覽" hidden>
+    <div id="fColorBox"><label id="fColorLbl">最後，這段回憶是什麼顏色？</label><div class="chips" id="fColor" role="group" aria-labelledby="fColorLbl"></div></div>
     <div class="actions"><button id="fCancel" type="button">取消</button><button id="fSave" class="primary" type="button">儲存</button></div>
     <p id="fMsg" class="noaudio"></p>
   </div>
@@ -305,7 +305,7 @@ function buildChips(){
 let t0=0,rec=null,stream=null,chunks=[],tick=null,sec=0,audioBlob=null,photoBlob=null;
 function fmtSize(n){return n>1048576?(n/1048576).toFixed(2)+" MB":Math.round(n/1024)+" KB";}
 const MAX=180,fmt=n=>`${Math.floor(n/60)}:${String(n%60).padStart(2,"0")}`;
-const pickType=()=>["audio/webm;codecs=opus","audio/mp4","audio/webm","audio/ogg"]
+const pickType=()=>["audio/mp4","audio/webm;codecs=opus","audio/webm","audio/ogg"]
   .find(t=>window.MediaRecorder&&MediaRecorder.isTypeSupported(t))||"";
 
 function stopAll(){
@@ -323,22 +323,29 @@ function resetRec(){
 }
 async function toggleRec(){
   if(rec&&rec.state==="recording"){rec.stop();return;}
-  if(!window.MediaRecorder||!navigator.mediaDevices){
-    $("recMsg").textContent="此瀏覽器不支援錄音，請改用 Chrome 或 Safari，並使用 https 網址。";return;}
+  if(/\bLine\/|FBAN|FBAV|Instagram/i.test(navigator.userAgent)){
+    const u=new URL(location.href);u.searchParams.set("openExternalBrowser","1");
+    $("recMsg").innerHTML=`App 內建瀏覽器無法錄音，請<a href="${u}" style="color:var(--amber)">改用 Safari / Chrome 開啟</a>。`;return;}
+  if(!window.MediaRecorder||!navigator.mediaDevices||!navigator.mediaDevices.getUserMedia){
+    $("recMsg").textContent="此瀏覽器不支援錄音，請改用最新版 Chrome 或 Safari。";return;}
   try{stream=await navigator.mediaDevices.getUserMedia({audio:true});}
-  catch(e){$("recMsg").textContent="無法使用麥克風：請在瀏覽器允許權限，且網址需為 https。";return;}
+  catch(e){$("recMsg").textContent=e.name==="NotAllowedError"?"麥克風權限被拒：請到瀏覽器／手機設定允許麥克風後重試。"
+    :e.name==="NotFoundError"?"找不到麥克風。":`無法使用麥克風（${e.name}）。`;return;}
   const type=pickType();chunks=[];
-  rec=new MediaRecorder(stream,{...(type?{mimeType:type}:{}),audioBitsPerSecond:64000});
+  try{rec=new MediaRecorder(stream,type?{mimeType:type}:undefined);}
+  catch(e){try{rec=new MediaRecorder(stream);}catch(e2){stream.getTracks().forEach(t=>t.stop());stream=null;
+    $("recMsg").textContent=`無法啟動錄音（${e2.name}）。`;return;}}
   rec.ondataavailable=e=>{if(e.data.size)chunks.push(e.data);};
   rec.onstop=()=>{
     sec=Math.round((Date.now()-t0)/1000);clearInterval(tick);stream.getTracks().forEach(t=>t.stop());stream=null;
     $("rec").classList.remove("on");
-    audioBlob=new Blob(chunks,{type:rec.mimeType||type||"audio/webm"});
+    if(!chunks.length){resetRec();$("recMsg").textContent="沒有錄到聲音，請重試（錄音時勿切換 App 或鎖螢幕）。";return;}
+    audioBlob=new Blob(chunks,{type:(rec.mimeType||type||"audio/mp4").split(";")[0]});
     $("recPrev").src=URL.createObjectURL(audioBlob);$("recPrev").hidden=false;
     $("recBtn").hidden=true;$("recReset").hidden=false;
     $("recMsg").textContent=`已錄製 ${fmt(sec)}・${audioBlob.type}・${fmtSize(audioBlob.size)}，可試聽後儲存。`;
   };
-  rec.start();sec=0;t0=Date.now();$("rec").classList.add("on");
+  rec.start(1000);sec=0;t0=Date.now();$("rec").classList.add("on");
   $("recBtn").textContent="停止錄音";$("recMsg").textContent="錄音中…";
   tick=setInterval(()=>{
     sec=Math.floor((Date.now()-t0)/1000);$("recTime").textContent=`${fmt(sec)} / ${fmt(MAX)}`;
