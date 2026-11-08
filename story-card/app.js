@@ -3,7 +3,9 @@
   var $ = function (id) { return document.getElementById(id); };
   var COLORS = window.EMOTION_COLORS;
   var id = new URLSearchParams(location.search).get('id') || 'a';
-  var story = window.MOCK_STORIES[id] || window.MOCK_STORIES.a;
+  var story = window.MOCK_STORIES[id];
+  if (!story && window.parent !== window) { try { story = parent.LIFEPLUS_getStory(id); } catch (e) {} } // 個人頁本機試用故事
+  story = story || window.MOCK_STORIES.a;
   var STORE_KEY = 'lifeplus.storyColor.' + story.id;
 
   // ---------- 色彩 ----------
@@ -126,7 +128,7 @@
 
     if (story.audio.src) {
       audio.src = story.audio.src;
-      audio.addEventListener('loadedmetadata', function () { dur = audio.duration; $('tTotal').textContent = fmt(dur); });
+      audio.addEventListener('loadedmetadata', function () { if (isFinite(audio.duration)) { dur = audio.duration; $('tTotal').textContent = fmt(dur); } });
       audio.addEventListener('timeupdate', function () { cur = audio.currentTime; render(); });
       audio.addEventListener('play', function () { setPlaying(true); });
       audio.addEventListener('pause', function () { setPlaying(false); });

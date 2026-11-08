@@ -57,6 +57,12 @@ h2{font-family:var(--serif);font-weight:400;font-size:1.5rem;margin-bottom:.25re
 .layer.on{opacity:1}
 .layer iframe{display:block;width:100%;height:100%;border:0}
 body.locked{overflow:hidden}
+.orbs li{display:flex;flex-direction:column;align-items:center}
+.orbs .del{margin-top:.3rem;font-size:.7rem;color:var(--mute);text-decoration:underline}
+.chips{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:.6rem .25rem;margin-top:.5rem}
+.chips button{display:flex;flex-direction:column;align-items:center;gap:.3rem;padding:.4rem 0;border-radius:10px;border:1px solid transparent;font-size:.7rem;color:var(--mute)}
+.chips button[aria-pressed="true"]{border-color:var(--amber);color:var(--text)}
+.chips .orb{width:28px;height:28px;margin:0;box-shadow:0 0 8px var(--glow)}
 .empty{padding:2.5rem 0;color:var(--mute)}
 
 /* 故事詳情 */
@@ -115,7 +121,6 @@ footer{padding:3rem 0;color:var(--mute);font-size:.8rem}
 </div>
 
 <div class="layer" id="layer" hidden><iframe id="cardFrame" title="故事卡"></iframe></div>
-<dialog id="dlg" aria-label="試用故事內容"></dialog>
 
 <dialog id="form" aria-label="新增故事">
   <div class="d-body">
@@ -126,6 +131,7 @@ footer{padding:3rem 0;color:var(--mute);font-size:.8rem}
     <label>可見範圍<select id="fVis">
       <option value="private">僅本人</option><option value="family">家人可見</option><option value="public">公開</option>
     </select></label>
+    <div id="fColorBox"><label id="fColorLbl">這段回憶是什麼顏色？</label><div class="chips" id="fColor" role="group" aria-labelledby="fColorLbl"></div></div>
     <label>文字（選填）<textarea id="fText" rows="4"></textarea></label>
     <div class="rec" id="rec">
       <div class="timer" id="recTime">0:00 / 3:00</div>
@@ -205,8 +211,10 @@ function renderList(){
     if(c)paintOrb(orb,c);
     const b=el("button",{class:"orb-btn",type:"button","aria-label":`${s.title}，${c?c.word:"未選色"}`},
       orb,el("h3",{text:s.title}),el("time",{text:s.date.replace(/-/g,".")}),el("small",{text:VIS_LABEL[s.visibility]}));
-    b.addEventListener("click",()=>s.local?openStory(s):openCard(s.id));
-    ul.append(el("li",{},b));
+    b.addEventListener("click",()=>openCard(s.id));
+    const li=el("li",{},b);
+    if(s.local&&$("roleSel").value==="owner")li.append(delBtn(s));
+    ul.append(li);
   });
   main.append(ul);
 }
@@ -220,10 +228,17 @@ function paintOrb(o,c){
    ["--glow",`rgba(${c.rgb},${a})`],["--glow2",`rgba(${c.rgb},${a/2.5})`]].forEach(([k,v])=>o.style.setProperty(k,v));
 }
 
+/* 本機試用故事 → story-card 資料結構（iframe 內 app.js 呼叫） */
+window.LIFEPLUS_getStory=id=>{
+  const s=PAGE&&PAGE.stories.find(x=>x.id===id&&x.local);
+  return s&&{id:s.id,title:s.title,date:s.date,color:s.color||null,text:s.text,
+    audio:s.audioUrl?{src:s.audioUrl,duration:s.duration||0}:null,photos:s.photoUrl?[s.photoUrl]:[]};
+};
+
 /* ========== 故事卡圖層（iframe）；網址 #story=<id> 可直接開啟 ========== */
 let pushed=false,lastBtn=null;
 function openCard(id,fromHash){
-  if(!window.MOCK_STORIES[id])return;
+  if(!PAGE.stories.some(s=>s.id===id))return;
   lastBtn=document.activeElement;
   $("cardFrame").src=`story-card/?id=${encodeURIComponent(id)}`;
   $("layer").hidden=false;document.body.classList.add("locked");
@@ -242,19 +257,6 @@ function closeCard(){
 addEventListener("popstate",()=>{if(!$("layer").hidden&&!location.hash.startsWith("#story=")){pushed=false;hideCard();}});
 addEventListener("message",e=>{if(e.origin===location.origin&&e.data&&e.data.type==="lifeplus:closeCard")closeCard();});
 
-function openStory(s){
-  const d=$("dlg");d.replaceChildren();
-  const close=el("button",{class:"close",type:"button",text:"關閉"});
-  close.addEventListener("click",()=>d.close());
-  const img=el("div",{class:"d-img"});
-  if(s.photoUrl)img.style.backgroundImage=`url("${encodeURI(s.photoUrl)}")`;
-  const audio=s.audioUrl?el("audio",{controls:"",preload:"none",src:s.audioUrl}):el("p",{class:"noaudio",text:"這則故事尚未附上語音。"});
-  d.append(close,img,el("div",{class:"d-body"},
-    el("h3",{text:s.title}),el("time",{text:s.date}),
-    el("p",{class:"d-text",text:s.text}),audio,...(s.audioBlob?[el("p",{class:"noaudio",text:`語音：${s.audioBlob.type}・${fmtSize(s.audioBlob.size)}`})]:[]),...(s.photoBlob?[el("p",{class:"noaudio",text:`照片：${fmtSize(s.photoBlob.size)}`})]:[]),...(s.local?[delBtn(s)]:[])));
-  d.showModal();
-}
-$("dlg").addEventListener("click",e=>{if(e.target===e.currentTarget)e.currentTarget.close();});
 
 function render(){
   $("count").textContent=`共 ${visible().length} 則故事`;
@@ -284,14 +286,22 @@ async function loadLocal(){
   }catch(e){}
 }
 function delBtn(s){
-  const b=el("button",{class:"danger",type:"button",text:"刪除這則試用資料"});
+  const b=el("button",{class:"del",type:"button",text:"刪除","aria-label":`刪除「${s.title}」`});
   b.addEventListener("click",async()=>{
     if(!confirm("確定刪除？刪除後無法復原。"))return;
-    await DB.del(s.id);await loadLocal();$("dlg").close();render();
+    await DB.del(s.id);try{localStorage.removeItem(COLOR_KEY+s.id);}catch(e){}await loadLocal();render();
   });
   return b;
 }
 
+let pickColor=null;
+function buildChips(){
+  $("fColor").replaceChildren(...EMOTION_COLORS.map(c=>{
+    const o=el("span",{class:"orb","aria-hidden":"true"});paintOrb(o,c);
+    const b=el("button",{type:"button","aria-pressed":"false"},o,document.createTextNode(c.btn));
+    b.addEventListener("click",()=>{pickColor=c.key;$("fColor").querySelectorAll("button").forEach(x=>x.setAttribute("aria-pressed",String(x===b)));$("fMsg").textContent="";});
+    return b;}));
+}
 let t0=0,rec=null,stream=null,chunks=[],tick=null,sec=0,audioBlob=null,photoBlob=null;
 function fmtSize(n){return n>1048576?(n/1048576).toFixed(2)+" MB":Math.round(n/1024)+" KB";}
 const MAX=180,fmt=n=>`${Math.floor(n/60)}:${String(n%60).padStart(2,"0")}`;
@@ -345,7 +355,7 @@ async function shrink(file){
   }catch(e){return file;}
 }
 function openForm(){
-  resetRec();photoBlob=null;
+  resetRec();photoBlob=null;pickColor=null;buildChips();
   ["fTitle","fText","fPhoto"].forEach(i=>$(i).value="");
   $("photoPrev").hidden=true;$("fMsg").textContent="";$("fVis").value="private";
   $("fChap").replaceChildren(...CHAPTERS.filter(c=>c.enabled).map(c=>el("option",{value:c.id,text:c.name})));
@@ -356,10 +366,11 @@ async function saveStory(){
   const title=$("fTitle").value.trim(),text=$("fText").value.trim();
   if(rec&&rec.state==="recording"){$("fMsg").textContent="請先停止錄音。";return;}
   if(!title){$("fMsg").textContent="請填寫標題。";return;}
+  if(!pickColor){$("fMsg").textContent="請選一個顏色。";return;}
   if(!audioBlob&&!photoBlob&&!text){$("fMsg").textContent="請至少錄音、選照片或寫一點文字。";return;}
   const chapter=$("fChap").value;
   try{
-    await DB.put({id:"l_"+Date.now(),chapter,title,text,audioBlob,photoBlob,
+    await DB.put({id:"l_"+Date.now(),chapter,title,text,audioBlob,photoBlob,color:pickColor,duration:audioBlob?sec:0,
       date:new Date().toISOString().slice(0,10),visibility:$("fVis").value});
   }catch(e){$("fMsg").textContent="儲存失敗：裝置空間不足，或瀏覽器為無痕模式。";return;}
   await loadLocal();current=chapter;$("form").close();render();
@@ -372,9 +383,8 @@ $("fCancel").addEventListener("click",()=>$("form").close());
 const stopPlay=d=>d.querySelectorAll("audio").forEach(a=>{a.pause();a.removeAttribute("src");a.load();});
 const _close=HTMLDialogElement.prototype.close;
 HTMLDialogElement.prototype.close=function(...a){stopPlay(this);return _close.apply(this,a);};
-["dlg","form"].forEach(i=>$(i).addEventListener("cancel",()=>stopPlay($(i))));
-addEventListener("pagehide",()=>{stopPlay($("dlg"));stopPlay($("form"));});
-$("dlg").addEventListener("close",()=>stopPlay($("dlg")));
+["form"].forEach(i=>$(i).addEventListener("cancel",()=>stopPlay($(i))));
+addEventListener("pagehide",()=>stopPlay($("form")));
 $("form").addEventListener("close",()=>{stopAll();stopPlay($("form"));});
 $("fPhoto").addEventListener("change",async e=>{
   const f=e.target.files[0];if(!f)return;
