@@ -47,7 +47,7 @@ h2{font-family:var(--serif);font-weight:400;font-size:1.5rem;margin-bottom:.25re
 .sub{color:var(--mute);font-size:.9rem;margin-bottom:1.5rem}
 .orbs{list-style:none;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1.6rem .5rem;padding:1.6rem .75rem;background:var(--panel);border:1px solid var(--line);border-radius:16px}
 .orb-btn{display:flex;flex-direction:column;align-items:center;gap:.45rem;width:100%;text-align:center}
-.orb{width:72px;height:72px;border-radius:50%;margin-bottom:.35rem;background:radial-gradient(circle at 34% 28%,var(--hi) 0%,var(--base) 50%,var(--lo) 100%);box-shadow:0 0 18px var(--glow),0 0 44px var(--glow2);border:1px solid var(--rim);transition:transform .3s ease}
+.orb{width:56px;height:56px;border-radius:50%;margin-bottom:.35rem;background:radial-gradient(circle at 34% 28%,var(--hi) 0%,var(--base) 50%,var(--lo) 100%);box-shadow:0 0 14px var(--glow),0 0 32px var(--glow2);border:1px solid var(--rim);transition:transform .3s ease}
 .orb-btn:hover .orb,.orb-btn:focus-visible .orb{transform:scale(1.07)}
 .orb.unset{background:none;box-shadow:none;border:1px dashed rgba(232,234,240,.3)}
 .orb-btn h3{font-family:var(--serif);font-weight:400;font-size:.9rem;line-height:1.45;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
@@ -215,8 +215,8 @@ function renderList(){
 const COLOR_KEY="lifeplus.storyColor.";
 function colorOf(s){let k=null;try{k=localStorage.getItem(COLOR_KEY+s.id);}catch(e){}return k||s.color||null;}
 function paintOrb(o,c){
-  const a=c.dim?.22:.5;
-  [["--hi",c.hi],["--base",c.base],["--lo",c.lo],["--rim",c.rim||"transparent"],
+  const a=c.dim?.4:.5;
+  [["--hi",c.hi],["--base",c.base],["--lo",c.lo],["--rim",c.dim?"rgba(0,229,255,.75)":(c.rim||"transparent")],
    ["--glow",`rgba(${c.rgb},${a})`],["--glow2",`rgba(${c.rgb},${a/2.5})`]].forEach(([k,v])=>o.style.setProperty(k,v));
 }
 
