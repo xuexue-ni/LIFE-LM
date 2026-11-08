@@ -14,6 +14,7 @@ window.EMOTION_COLORS = [
 window.MOCK_STORIES = {
   a: {
     id: 'a',
+    chapter: 'people', visibility: 'family', // 個人頁用
     title: '外婆家的那棵芒果樹',
     date: '2026-11-06',
     color: 'pink',
@@ -23,6 +24,7 @@ window.MOCK_STORIES = {
   },
   b: {
     id: 'b',
+    chapter: 'turning', visibility: 'public', // 個人頁用
     title: '第一次自己搭夜車',
     date: '2026-10-21',
     color: 'purple',
@@ -32,6 +34,7 @@ window.MOCK_STORIES = {
   },
   c: {
     id: 'c',
+    chapter: 'people', visibility: 'private', // 個人頁用
     title: '爸爸的最後一通電話',
     date: '2026-09-02',
     color: 'black',

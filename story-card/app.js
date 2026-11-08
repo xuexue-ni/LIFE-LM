@@ -209,6 +209,7 @@
     $('sheet').addEventListener('click', function (e) { if (e.target === this) closeSheet(); });
     document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && !$('sheet').hidden) closeSheet(); });
     $('close').addEventListener('click', function () {
+      if (window.parent !== window) { parent.postMessage({ type: 'lifeplus:closeCard' }, location.origin); return; }
       if (history.length > 1) history.back(); else location.href = '../';
     });
   }

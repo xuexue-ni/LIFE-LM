@@ -9,8 +9,8 @@
 <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;600&family=Noto+Sans+TC:wght@400;500&display=swap" rel="stylesheet">
 <style>
 :root{
-  --ink:#0b1329;--deep:#070d1f;--panel:#121c3a;--line:#2a3860;
-  --text:#e8ecf5;--mute:#9aa5c4;--amber:#e8b866;--amber-dim:#8a6c3a;
+  --ink:#050508;--deep:#050508;--panel:#111420;--line:rgba(232,234,240,.1);
+  --text:#E8EAF0;--mute:#8A90A8;--amber:#00E5FF;--amber-dim:rgba(0,229,255,.4);
   --serif:"Noto Serif TC","Songti TC",serif;--sans:"Noto Sans TC","PingFang TC",sans-serif;
 }
 *{box-sizing:border-box;margin:0}
@@ -23,7 +23,7 @@ button{cursor:pointer;background:none;border:0}
 
 /* 頁首 */
 header{padding:4rem 0 2rem}
-header h1{font-family:var(--serif);font-weight:600;font-size:clamp(2rem,6vw,3.2rem);letter-spacing:.12em;color:var(--amber);line-height:1.3}
+header h1{font-family:var(--serif);font-weight:600;font-size:clamp(2rem,6vw,3.2rem);letter-spacing:.12em;color:var(--text);line-height:1.3}
 header p{color:var(--mute);margin-top:.75rem;max-width:34rem}
 .meta{display:flex;flex-wrap:wrap;gap:.75rem 1.5rem;margin-top:1.5rem;font-size:.9rem;color:var(--mute)}
 .role{margin-left:auto;display:flex;align-items:center;gap:.5rem}
@@ -45,34 +45,38 @@ header p{color:var(--mute);margin-top:.75rem;max-width:34rem}
 /* 故事列表 */
 h2{font-family:var(--serif);font-weight:400;font-size:1.5rem;margin-bottom:.25rem}
 .sub{color:var(--mute);font-size:.9rem;margin-bottom:1.5rem}
-.list{list-style:none;padding:0;border-top:1px solid var(--line)}
-.list li{border-bottom:1px solid var(--line)}
-.item{display:grid;grid-template-columns:5.5rem 1fr;gap:1rem;width:100%;text-align:left;padding:1.1rem 0;align-items:center}
-.item:hover h3{color:var(--amber)}
-.thumb{width:5.5rem;aspect-ratio:1;border-radius:8px;background:linear-gradient(135deg,#1a2650,#0e1735);background-size:cover;background-position:center;border:1px solid var(--line)}
-.item h3{font-family:var(--serif);font-weight:400;font-size:1.1rem;transition:color .2s}
-.item p{color:var(--mute);font-size:.9rem;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
-.tags{display:flex;gap:.75rem;margin-top:.35rem;font-size:.78rem;color:var(--amber-dim)}
+.orbs{list-style:none;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1.6rem .5rem;padding:1.6rem .75rem;background:var(--panel);border:1px solid var(--line);border-radius:16px}
+.orb-btn{display:flex;flex-direction:column;align-items:center;gap:.45rem;width:100%;text-align:center}
+.orb{width:72px;height:72px;border-radius:50%;margin-bottom:.35rem;background:radial-gradient(circle at 34% 28%,var(--hi) 0%,var(--base) 50%,var(--lo) 100%);box-shadow:0 0 18px var(--glow),0 0 44px var(--glow2);border:1px solid var(--rim);transition:transform .3s ease}
+.orb-btn:hover .orb,.orb-btn:focus-visible .orb{transform:scale(1.07)}
+.orb.unset{background:none;box-shadow:none;border:1px dashed rgba(232,234,240,.3)}
+.orb-btn h3{font-family:var(--serif);font-weight:400;font-size:.9rem;line-height:1.45;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.orb-btn time{font-size:.72rem;letter-spacing:.08em;color:var(--mute)}
+.orb-btn small{font-size:.68rem;color:var(--amber-dim)}
+.layer{position:fixed;inset:0;z-index:50;background:var(--ink);opacity:0;transition:opacity .25s ease}
+.layer.on{opacity:1}
+.layer iframe{display:block;width:100%;height:100%;border:0}
+body.locked{overflow:hidden}
 .empty{padding:2.5rem 0;color:var(--mute)}
 
 /* 故事詳情 */
 dialog{width:min(640px,calc(100% - 2rem));max-height:90vh;margin:auto;background:var(--panel);color:var(--text);border:1px solid var(--line);border-radius:12px;padding:0;overflow:auto}
-dialog::backdrop{background:rgba(4,8,20,.8)}
-.d-img{width:100%;aspect-ratio:16/9;background:linear-gradient(135deg,#1a2650,#0e1735) center/cover}
+dialog::backdrop{background:rgba(5,5,8,.85)}
+.d-img{width:100%;aspect-ratio:16/9;background:var(--panel) center/cover}
 .d-body{padding:1.5rem}
 .d-body h3{font-family:var(--serif);font-weight:600;font-size:1.4rem}
 .d-body time{color:var(--mute);font-size:.85rem}
 .d-text{margin:1rem 0;white-space:pre-line;font-family:var(--serif);line-height:2}
 audio{width:100%;margin-top:.5rem}
 .noaudio{color:var(--mute);font-size:.85rem}
-.close{position:sticky;top:0;float:right;margin:.6rem;padding:.3rem .8rem;border-radius:999px;background:rgba(7,13,31,.85);border:1px solid var(--line);z-index:2}
+.close{position:sticky;top:0;float:right;margin:.6rem;padding:.3rem .8rem;border-radius:999px;background:rgba(5,5,8,.85);border:1px solid var(--line);z-index:2}
 
 footer{padding:3rem 0;color:var(--mute);font-size:.8rem}
 @media (prefers-reduced-motion:reduce){*{transition:none!important}}
 
 /* 試用採集 */
 [hidden]{display:none!important}
-.primary{background:var(--amber);color:#1a1405;border-radius:999px;padding:.45rem 1.2rem;font-weight:500}
+.primary{background:var(--amber);color:#050508;border-radius:999px;padding:.45rem 1.2rem;font-weight:500}
 .primary:disabled{opacity:.5}
 #form label{display:block;margin-top:1rem;font-size:.9rem;color:var(--mute)}
 #form input,#form select,#form textarea{display:block;width:100%;margin-top:.3rem;background:var(--ink);color:var(--text);border:1px solid var(--line);border-radius:6px;padding:.55rem .7rem;font:inherit}
@@ -84,7 +88,7 @@ footer{padding:3rem 0;color:var(--mute);font-size:.8rem}
 .danger{margin-top:1rem}
 .link{margin-top:.5rem}
 #photoPrev{max-width:100%;max-height:200px;border-radius:8px;margin-top:.5rem}
-.notice{background:rgba(232,184,102,.1);border:1px solid var(--amber-dim);border-radius:8px;padding:.5rem .75rem;font-size:.85rem;color:var(--amber);margin-top:.75rem}
+.notice{background:rgba(0,229,255,.08);border:1px solid var(--amber-dim);border-radius:8px;padding:.5rem .75rem;font-size:.85rem;color:var(--amber);margin-top:.75rem}
 </style>
 </head>
 <body>
@@ -110,7 +114,8 @@ footer{padding:3rem 0;color:var(--mute);font-size:.8rem}
   <footer>© LIFE+ 個人典藏頁｜內容僅限受邀者檢視<br><button id="clearAll" class="link" type="button">清除所有試用資料</button></footer>
 </div>
 
-<dialog id="dlg" aria-label="故事內容"></dialog>
+<div class="layer" id="layer" hidden><iframe id="cardFrame" title="故事卡"></iframe></div>
+<dialog id="dlg" aria-label="試用故事內容"></dialog>
 
 <dialog id="form" aria-label="新增故事">
   <div class="d-body">
@@ -136,6 +141,7 @@ footer{padding:3rem 0;color:var(--mute);font-size:.8rem}
   </div>
 </dialog>
 
+<script src="story-card/data.js"></script>
 <script>
 /* ========== 設定：章節（POC 啟用 4 章；MVP 把 enabled 全改 true） ========== */
 const CHAPTERS=[
@@ -149,22 +155,14 @@ const CHAPTERS=[
 ];
 
 /* ========== 資料層：串接後台時只改這個物件 ==========
-   getPage() 需回傳：{ owner, intro, role, stories:[{id,chapter,title,date,text,audioUrl,photoUrl,visibility}] }
+   getPage() 需回傳：{ owner, intro, role, stories:[ story-card/data.js 結構 + chapter, visibility ] }
    visibility：private（僅本人）/ family（家人）/ public（訪客）
    role 與可見範圍由後端判斷並只回傳可看的資料；此處前端過濾僅為示範備援。 */
 const API={
   async getPage(){
     return {
       owner:"示範用戶", intro:"把一路走來的聲音與畫面，收在這裡。", role:"owner",
-      stories:[
-        {id:"s1",chapter:"start",title:"放學後的那碗湯",date:"2026-10-04",
-         text:"巷口阿嬤的湯鍋總在四點冒煙。\n我會把書包甩在腳邊，等第一碗盛出來。",
-         audioUrl:"",photoUrl:"",visibility:"family"},
-        {id:"s2",chapter:"people",title:"外婆的縫紉機",date:"2026-10-11",
-         text:"踏板的聲音，是我最早記得的節奏。",audioUrl:"",photoUrl:"",visibility:"private"},
-        {id:"s3",chapter:"people",title:"第一次一個人搭夜車",date:"2026-10-18",
-         text:"車窗映出自己的臉，那天我知道我可以。",audioUrl:"",photoUrl:"",visibility:"public"}
-      ]
+      stories:Object.values(window.MOCK_STORIES)
     };
   }
 };
@@ -200,21 +198,49 @@ function renderList(){
   const main=$("main");main.replaceChildren(el("h2",{text:c.name}));
   main.append(el("p",{class:"sub",text:`${items.length} 則故事`}));
   if(!items.length){main.append(el("p",{class:"empty",text:"這一章還沒有內容。錄下第一段聲音，就會出現在這裡。"}));return;}
-  const ul=el("ul",{class:"list"});
+  const ul=el("ul",{class:"orbs"});
   items.forEach(s=>{
-    const th=el("div",{class:"thumb"});
-    if(s.photoUrl)th.style.backgroundImage=`url("${encodeURI(s.photoUrl)}")`;
-    const tags=el("div",{class:"tags"},
-      el("span",{text:s.audioUrl?"有語音":"尚無語音"}),
-      el("span",{text:s.photoUrl?"有照片":"尚無照片"}),
-      el("span",{text:VIS_LABEL[s.visibility]}));
-    const b=el("button",{class:"item",type:"button"},th,
-      el("div",{},el("h3",{text:s.title}),el("p",{text:s.text}),tags));
-    b.addEventListener("click",()=>openStory(s));
+    const key=colorOf(s),c=key&&EMOTION_COLORS.find(x=>x.key===key);
+    const orb=el("span",{class:"orb"+(c?"":" unset"),"aria-hidden":"true"});
+    if(c)paintOrb(orb,c);
+    const b=el("button",{class:"orb-btn",type:"button","aria-label":`${s.title}，${c?c.word:"未選色"}`},
+      orb,el("h3",{text:s.title}),el("time",{text:s.date.replace(/-/g,".")}),el("small",{text:VIS_LABEL[s.visibility]}));
+    b.addEventListener("click",()=>s.local?openStory(s):openCard(s.id));
     ul.append(el("li",{},b));
   });
   main.append(ul);
 }
+
+/* ========== 記憶球色彩（沿用 story-card 的 EMOTION_COLORS 與 localStorage） ========== */
+const COLOR_KEY="lifeplus.storyColor.";
+function colorOf(s){let k=null;try{k=localStorage.getItem(COLOR_KEY+s.id);}catch(e){}return k||s.color||null;}
+function paintOrb(o,c){
+  const a=c.dim?.22:.5;
+  [["--hi",c.hi],["--base",c.base],["--lo",c.lo],["--rim",c.rim||"transparent"],
+   ["--glow",`rgba(${c.rgb},${a})`],["--glow2",`rgba(${c.rgb},${a/2.5})`]].forEach(([k,v])=>o.style.setProperty(k,v));
+}
+
+/* ========== 故事卡圖層（iframe）；網址 #story=<id> 可直接開啟 ========== */
+let pushed=false,lastBtn=null;
+function openCard(id,fromHash){
+  if(!window.MOCK_STORIES[id])return;
+  lastBtn=document.activeElement;
+  $("cardFrame").src=`story-card/?id=${encodeURIComponent(id)}`;
+  $("layer").hidden=false;document.body.classList.add("locked");
+  requestAnimationFrame(()=>$("layer").classList.add("on"));
+  if(!fromHash){history.pushState({story:id},"",`#story=${id}`);pushed=true;}
+}
+function hideCard(){
+  $("layer").classList.remove("on");$("layer").hidden=true;
+  document.body.classList.remove("locked");$("cardFrame").src="about:blank";
+  render();if(lastBtn&&document.contains(lastBtn))lastBtn.focus();
+}
+function closeCard(){
+  if(pushed){pushed=false;history.back();}
+  else{history.replaceState(null,"",location.pathname+location.search);hideCard();}
+}
+addEventListener("popstate",()=>{if(!$("layer").hidden&&!location.hash.startsWith("#story=")){pushed=false;hideCard();}});
+addEventListener("message",e=>{if(e.origin===location.origin&&e.data&&e.data.type==="lifeplus:closeCard")closeCard();});
 
 function openStory(s){
   const d=$("dlg");d.replaceChildren();
@@ -366,7 +392,11 @@ $("clearAll").addEventListener("click",async()=>{
     $("name").textContent=PAGE.owner;$("intro").textContent=PAGE.intro;
     $("roleSel").value=PAGE.role||"guest";
     $("roleSel").addEventListener("change",render);
+    const first=CHAPTERS.find(c=>c.enabled&&visible().some(s=>s.chapter===c.id));
+    if(first)current=first.id;
     render();
+    const m=location.hash.match(/^#story=(.+)$/);
+    if(m)openCard(decodeURIComponent(m[1]),true);
   }catch(e){
     $("main").textContent="無法載入內容，請重新整理或聯絡 LIFE+。";
   }
