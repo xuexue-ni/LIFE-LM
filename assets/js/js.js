@@ -456,3 +456,13 @@ function downloadScienceReport() {
         alert(T.alertBlocked);
     }
 }
+// 區塊淡入
+(function () {
+    const els = document.querySelectorAll('.reveal');
+    if (!els.length || !('IntersectionObserver' in window)) return;
+    document.documentElement.classList.add('fx');
+    const io = new IntersectionObserver(entries => {
+        entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
+    }, { threshold: 0.12 });
+    els.forEach(el => io.observe(el));
+})();

@@ -19,24 +19,29 @@ void main(){
   vec2 uv=(gl_FragCoord.xy-.5*R)/R.y;
   vec3 col=vec3(.0196,.0196,.0314);
   vec2 m=(M-.5*R)/R.y;
+  float ar=R.x/R.y;
+  float dim=mix(1.,.4,smoothstep(0.,1400.,S));
   float d=length(uv-m*.35);
   float rip=sin(d*42.-T*1.1)*.5+.5;
   rip=pow(rip,18.)*smoothstep(1.4,.1,d);
-  col+=vec3(0.,.9,1.)*rip*.07;
+  col+=vec3(0.,.9,1.)*rip*.045*dim;
+  // 中央閱讀區遮罩：光球靠兩側
+  float lane=smoothstep(.18,.55,abs(uv.x)/max(ar*.5,.5));
   for(int i=0;i<8;i++){
     float f=float(i);
-    vec2 c=vec2(sin(T*.05*(.6+h(f))+f*2.1)*.75*R.x/R.y,
-                cos(T*.04*(.6+h(f+9.))+f*1.7)*.42);
-    c.y+=sin(S*.0006+f)*.08;
-    float r=.035+.025*h(f+5.);
+    float side=mod(f,2.)<1.?-1.:1.;
+    vec2 c=vec2(side*(.62+.22*sin(T*.05*(.6+h(f))+f*2.1))*ar*.5,
+                cos(T*.04*(.6+h(f+9.))+f*1.7)*.42+sin(S*.0006+f)*.08);
+    float r=.03+.02*h(f+5.);
     float q=length(uv-c);
-    float core=smoothstep(r,r*.2,q);
-    float glow=exp(-q*q/(r*r*9.))*.22;
+    float core=smoothstep(r*1.4,0.,q);
+    float glow=exp(-q*q/(r*r*12.))*.12;
+    float k=dim*(.35+.65*lane);
     if(i==7){
-      float rim=smoothstep(.006,0.,abs(q-r*.8));
-      col=mix(col,vec3(.03,.035,.05),core*.9)+vec3(0.,.9,1.)*(rim*.5+glow*.25);
+      float rim=smoothstep(.01,0.,abs(q-r*.8));
+      col=mix(col,vec3(.03,.035,.05),core*.7)+vec3(0.,.9,1.)*(rim*.22+glow*.2)*k;
     }else{
-      col+=C[i]*(core*.55+glow);
+      col+=C[i]*(core*.28+glow)*k;
     }
   }
   col+=(h(dot(gl_FragCoord.xy,vec2(12.9898,78.233)))-.5)*.012;
