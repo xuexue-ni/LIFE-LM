@@ -32,7 +32,9 @@ void main(){
     float lobes=5.+floor(h(fk+2.)*4.);
     float w=(sin(a*lobes+s+T*.4)*.6+sin(a*2.+s*1.7-T*.25)*.4)*(.006+.05*rr);
     float e=abs(d+w-rr);
-    float ln=smoothstep(.0013,0.,e)+exp(-e*e/.00002)*.25;
+    // 線寬比照舊版：約 4 成 0.6px、6 成 0.1px 細線＋5px 柔光
+    float px=1./R.y,thick=h(fk+4.)>.6?1.:.35;
+    float ln=smoothstep(px*(.6+thick),0.,e)*thick+exp(-e*e/(px*px*25.))*.18;
     float ci=mod(fk,4.);
     vec3 nc=ci<1.?vec3(0.,.9,1.):ci<2.?vec3(0.,.67,1.):ci<3.?vec3(.44,0.,1.):vec3(.2,1.,.67);
     col+=nc*ln*sin(life*3.1416)*(.05+.13*h(fk+7.))*dim;
