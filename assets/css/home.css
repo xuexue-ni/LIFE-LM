@@ -62,7 +62,7 @@
 .plan-card img { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; display: block; }
 .plan-card > :not(img) { margin-left: 22px; margin-right: 22px; }
 .plan-tag { margin-top: 18px; font-size: .75rem; letter-spacing: 2px; color: var(--c-accent); }
-.plan-card h3 { margin: 6px 0 10px; font-size: 1.25rem; }
+.plan-card h3 { margin: 6px 22px 10px; font-size: 1.25rem; }
 .plan-card p { flex: 1; margin: 0 22px 18px; color: var(--c-text2); line-height: 1.8; font-size: .9375rem; }
 .plan-price { font-size: 1.5rem; margin-bottom: 16px; }
 .plan-price small { font-size: .875rem; color: var(--c-text2); }
@@ -106,6 +106,12 @@
 
 /* LINE 收尾 */
 .home-line .line-qr { display: block; width: 140px; margin: 0 auto 24px; border-radius: 8px; }
+
+@media (max-width: 600px) {
+  .hero-title { font-size: 1.625rem; letter-spacing: 1px; }
+  .hero-lead br { display: none; }
+  .hero-lead { padding: 0 8px; }
+}
 
 @media (max-width: 860px) {
   .plan-grid,
