@@ -41,7 +41,15 @@ void main(){
   }
   // 中央閱讀區遮罩：光球靠兩側
   float lane=smoothstep(.18,.55,abs(uv.x)/max(ar*.5,.5));
-  for(int i=0;i<8;i++){
+  // 靜態小光點：每 28px 格隨機放一顆
+  vec2 g=gl_FragCoord.xy/(28.*R.y/900.),gi=floor(g);
+  float sr=h(dot(gi,vec2(127.1,311.7)));
+  if(sr>.9){
+    vec2 sp=gi+.2+.6*vec2(h(sr*91.),h(sr*57.));
+    float sd=length(g-sp);
+    col+=vec3(.75,.85,1.)*smoothstep(.09,0.,sd)*(.12+.3*h(sr*13.))*dim;
+  }
+  for(int i=0;i<7;i++){
     float f=float(i);
     float side=mod(f,2.)<1.?-1.:1.;
     vec2 c=vec2(side*(.62+.22*sin(T*.05*(.6+h(f))+f*2.1))*ar*.5,
@@ -51,12 +59,7 @@ void main(){
     float core=smoothstep(r*1.4,0.,q);
     float glow=exp(-q*q/(r*r*12.))*.12;
     float k=dim*(.35+.65*lane);
-    if(i==7){
-      float rim=smoothstep(.01,0.,abs(q-r*.8));
-      col=mix(col,vec3(.03,.035,.05),core*.7)+vec3(0.,.9,1.)*(rim*.22+glow*.2)*k;
-    }else{
-      col+=C[i]*(core*.28+glow)*k;
-    }
+    col+=C[i]*(core*.28+glow)*k;
   }
   col+=(h(dot(gl_FragCoord.xy,vec2(12.9898,78.233)))-.5)*.012;
   gl_FragColor=vec4(col,1.);
@@ -81,7 +84,7 @@ void main(){
 
   const U = n => gl.getUniformLocation(pg, n);
   const uR = U('R'), uT = U('T'), uM = U('M'), uS = U('S');
-  const HEX = ['#F2C94C', '#5B8DEF', '#E5484D', '#9B7BE0', '#5FBF8F', '#F29BB8', '#EEE9DE', '#161926'];
+  const HEX = ['#F2C94C', '#5B8DEF', '#E5484D', '#9B7BE0', '#5FBF8F', '#F29BB8', '#EEE9DE', '#161926']; // 第 8 色（黑）目前不畫
   gl.uniform3fv(U('C'), HEX.flatMap(x => [1, 3, 5].map(i => parseInt(x.substr(i, 2), 16) / 255)));
 
   const dpr = Math.min(window.devicePixelRatio || 1, 1.5);
