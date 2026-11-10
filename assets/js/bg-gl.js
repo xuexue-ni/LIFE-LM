@@ -21,10 +21,19 @@ void main(){
   vec2 m=(M-.5*R)/R.y;
   float ar=R.x/R.y;
   float dim=mix(1.,.4,smoothstep(0.,1400.,S));
-  float d=length(uv-m*.35);
-  float rip=sin(d*42.-T*1.1)*.5+.5;
-  rip=pow(rip,18.)*smoothstep(1.4,.1,d);
-  col+=vec3(0.,.9,1.)*rip*.045*dim;
+  // 聲波紋：外擴的起伏環（沿用舊版 2D 版的 6 瓣擾動＋霓虹四色）
+  vec2 p=uv-m*.12;
+  float d=length(p),a=atan(p.y,p.x);
+  for(int k=0;k<12;k++){
+    float fk=float(k),s=h(fk)*150.;
+    float life=fract(T*(.012+.012*h(fk+3.))+fk/12.);
+    float rr=life*1.3;
+    float w=sin(a*6.+s+T*.5)*.02+sin(a*11.-T*.8+s*2.)*.006;
+    float e=abs(d+w-rr);
+    float ln=smoothstep(.0035,0.,e)+exp(-e*e/.00008)*.35;
+    vec3 nc=k-k/4*4==0?vec3(0.,.9,1.):k-k/4*4==1?vec3(0.,.67,1.):k-k/4*4==2?vec3(.44,0.,1.):vec3(.2,1.,.67);
+    col+=nc*ln*sin(life*3.1416)*(.06+.12*h(fk+7.))*dim;
+  }
   // 中央閱讀區遮罩：光球靠兩側
   float lane=smoothstep(.18,.55,abs(uv.x)/max(ar*.5,.5));
   for(int i=0;i<8;i++){
