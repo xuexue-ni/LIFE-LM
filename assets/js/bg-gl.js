@@ -47,7 +47,7 @@ void main(){
   if(sr>.9){
     vec2 sp=gi+.2+.6*vec2(h(sr*91.),h(sr*57.));
     float sd=length(g-sp);
-    col+=vec3(.75,.85,1.)*smoothstep(.09,0.,sd)*(.12+.3*h(sr*13.))*dim;
+    col+=vec3(.75,.85,1.)*smoothstep(.12,0.,sd)*(.25+.45*h(sr*13.))*dim;
   }
   for(int i=0;i<7;i++){
     float f=float(i);
