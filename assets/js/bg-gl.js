@@ -39,17 +39,19 @@ void main(){
     float ln=smoothstep(px*(.6+thick),0.,e)*thick+exp(-e*e/(px*px*25.))*.18;
     float ci=mod(fk,4.);
     vec3 nc=ci<1.?vec3(0.,.9,1.):ci<2.?vec3(0.,.67,1.):ci<3.?vec3(.44,0.,1.):vec3(.2,1.,.67);
-    col+=nc*ln*sin(life*3.1416)*(.05+.13*h(fk+7.))*dim*cm;
+    col+=nc*ln*sin(life*3.1416)*(.05+.13*h(fk+7.))*dim*.9;
   }
   // 中央閱讀區遮罩：光球靠兩側
   float lane=smoothstep(.18,.55,abs(uv.x)/max(ar*.5,.5));
-  // 靜態小光點：每 28px 格隨機放一顆
+  // 靜態小光點（比照舊版：約 40 顆、0.4–1.4px、霓虹四色）
   vec2 g=gl_FragCoord.xy/(28.*R.y/900.),gi=floor(g);
   float sr=h(dot(gi,vec2(127.1,311.7)));
-  if(sr>.9){
+  if(sr>.97){
     vec2 sp=gi+.2+.6*vec2(h(sr*91.),h(sr*57.));
-    float sd=length(g-sp);
-    col+=vec3(.75,.85,1.)*smoothstep(.12,0.,sd)*(.25+.45*h(sr*13.))*dim*cm;
+    float sd=length(g-sp)*28.,rad=.4+h(sr*7.);
+    float sc=floor(h(sr*31.)*4.);
+    vec3 spc=sc<1.?vec3(0.,.9,1.):sc<2.?vec3(0.,.67,1.):sc<3.?vec3(.44,0.,1.):vec3(.2,1.,.67);
+    col+=spc*(smoothstep(rad+.6,rad-.4,sd)+exp(-sd*sd/12.)*.25)*(.15+.35*h(sr*13.))*dim*cm;
   }
   for(int i=0;i<7;i++){
     float f=float(i);
