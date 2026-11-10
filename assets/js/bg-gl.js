@@ -21,19 +21,16 @@ void main(){
   vec2 m=(M-.5*R)/R.y;
   float ar=R.x/R.y;
   float dim=mix(1.,.4,smoothstep(0.,1400.,S));
-  // 聲波紋：外擴的起伏環（沿用舊版 2D 版的 6 瓣擾動＋霓虹四色）
+  // 聲波紋：單次運算的重複環（細、密、不用迴圈）
   vec2 p=uv-m*.12;
   float d=length(p),a=atan(p.y,p.x);
-  for(int k=0;k<12;k++){
-    float fk=float(k),s=h(fk)*150.;
-    float life=fract(T*(.012+.012*h(fk+3.))+fk/12.);
-    float rr=life*1.3;
-    float w=sin(a*6.+s+T*.5)*.02+sin(a*11.-T*.8+s*2.)*.006;
-    float e=abs(d+w-rr);
-    float ln=smoothstep(.0035,0.,e)+exp(-e*e/.00008)*.35;
-    vec3 nc=k-k/4*4==0?vec3(0.,.9,1.):k-k/4*4==1?vec3(0.,.67,1.):k-k/4*4==2?vec3(.44,0.,1.):vec3(.2,1.,.67);
-    col+=nc*ln*sin(life*3.1416)*(.06+.12*h(fk+7.))*dim;
-  }
+  float w=sin(a*6.+T*.5+d*4.)*.02+sin(a*11.-T*.8+d*7.)*.006;
+  float N=30.,ph=(d+w)*N-T*.35,id=floor(ph),fr=fract(ph);
+  float e=min(fr,1.-fr)/N;
+  float ln=smoothstep(.0016,0.,e)+exp(-e*e/.000015)*.25;
+  float ci=mod(id,4.);
+  vec3 nc=ci<1.?vec3(0.,.9,1.):ci<2.?vec3(0.,.67,1.):ci<3.?vec3(.44,0.,1.):vec3(.2,1.,.67);
+  col+=nc*ln*(.05+.12*h(id))*smoothstep(1.4,.05,d)*smoothstep(0.,.12,d)*dim;
   // 中央閱讀區遮罩：光球靠兩側
   float lane=smoothstep(.18,.55,abs(uv.x)/max(ar*.5,.5));
   for(int i=0;i<8;i++){
