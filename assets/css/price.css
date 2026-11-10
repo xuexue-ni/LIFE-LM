@@ -1,0 +1,34 @@
+/* price.html：系列輪播 + FAQ */
+.price-section { max-width: 900px; margin: 60px auto; padding: 0 16px; text-align: center; }
+.price-section h2 { font-weight: 300; letter-spacing: 3px; color: #F0F0F5; margin-bottom: 8px; }
+.price-section .sub { color: #acbdff; font-size: 14px; letter-spacing: 1px; margin-bottom: 28px; }
+
+.series-tabs { display: flex; justify-content: center; gap: 8px; flex-wrap: wrap; margin-bottom: 20px; }
+.series-tab {
+  background: transparent; border: .5px solid rgba(232,234,240,.25); color: #acbdff;
+  padding: 8px 18px; border-radius: 999px; font-size: 14px; letter-spacing: 2px; cursor: pointer;
+  transition: all .3s ease;
+}
+.series-tab:hover { color: #fff; border-color: rgba(0,229,255,.5); }
+.series-tab.active { color: #0A0C12; background: #00e5ff; border-color: #00e5ff; }
+
+.series-stage { position: relative; max-width: 560px; margin: 0 auto; }
+.series-track {
+  display: flex; overflow-x: auto; scroll-snap-type: x mandatory; scroll-behavior: smooth;
+  border-radius: 12px; border: .5px solid rgba(232,234,240,.1); scrollbar-width: none;
+}
+.series-track::-webkit-scrollbar { display: none; }
+.series-track img { flex: 0 0 100%; width: 100%; aspect-ratio: 1/1; object-fit: cover; scroll-snap-align: center; }
+
+.series-arrow {
+  position: absolute; top: 50%; transform: translateY(-50%); width: 40px; height: 40px; border-radius: 50%;
+  background: rgba(10,12,18,.55); border: .5px solid rgba(232,234,240,.2); color: #fff; font-size: 18px; cursor: pointer;
+}
+.series-arrow.prev { left: 10px; }
+.series-arrow.next { right: 10px; }
+.series-dots { display: flex; justify-content: center; gap: 8px; margin-top: 14px; }
+.series-dots span { width: 6px; height: 6px; border-radius: 50%; background: #62687F; transition: all .3s; }
+.series-dots span.active { background: #00e5ff; width: 18px; border-radius: 3px; }
+.series-desc { color: #acbdff; font-size: 14px; line-height: 1.8; letter-spacing: 1px; margin-top: 16px; min-height: 3.6em; }
+
+@media (max-width: 600px) { .series-arrow { display: none; } }
