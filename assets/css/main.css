@@ -1038,232 +1038,60 @@ textarea.form-input-box {
 /* ==========================================================================
    🔮 商品項目橫式列表樣式 (Product Row Layout)
    ========================================================================== */
-.pricing-rows-section {
-  width: 100%;
-  padding: 40px 0 20px;
-  max-width: 800px;
-  margin: 0 auto;
-  background: transparent;
-  color: #ffffff;
-}
+.pricing-rows-section { width: 100%; max-width: 1040px; margin: 0 auto; padding: 40px 0 20px; color: #fff; }
+.pricing-row-header { text-align: center; margin: 20px 0 32px; padding: 0 10px; }
+.pricing-row-header h2 { font-size: clamp(1.375rem, 3.5vw, 1.875rem); font-weight: 600; letter-spacing: 2px; margin: 0 0 10px; color: #3f93ff; }
+.pricing-row-header p { color: rgba(255,255,255,.72); font-size: 1rem; max-width: 700px; margin: 0 auto; line-height: 1.8; }
+.pricing-wrapper { padding: 0 16px; box-sizing: border-box; }
+.rows-container { display: flex; flex-direction: column; gap: 16px; }
 
-.pricing-row-header {
-  text-align: center;
-  margin-bottom: 30px;
-  margin-top: 20px;
-  padding: 0 10px;
-}
-.pricing-row-header h2 {
-  font-size: 1.875rem;
-  font-weight: 800;
-  letter-spacing: 1px;
-  margin-bottom: 16px;
-  color:#3f93ff;;
-}
-.pricing-row-header p {
-  color: #d7e3e9;
-  font-size: 1rem;
-  max-width: 700px;
-  margin: 0 auto;
-  line-height: 1.8;
-}
-
-/* 限制內容最大寬度與留白 */
-.pricing-wrapper {
-  max-width: 800x;
-  margin: 0 auto;
-  padding:10px;
-  box-sizing: border-box;
-}
-
-.rows-container {
-  display: flex;
-  flex-direction: column;
-  gap: 24px; /* 每條商品之間的宇宙留白 */
-}
-
-/* 單條商品橫幅主體 */
+/* 方案列：比照首頁 plan-card */
 .product-row {
-  background: #111420; /* 與你原導覽列、按鈕相符的宇宙深藍黑 */
-  border: 1px solid rgba(232, 234, 240, 0.06);
-  border-radius: 12px;
-  padding:15px 20px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 20px;
-  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  display: grid; grid-template-columns: 200px 1fr 160px; gap: 28px; align-items: start;
+  padding: 28px; border-radius: 12px; text-align: left;
+  background: rgba(10,10,15,.72); border: .5px solid rgba(255,255,255,.12);
+  backdrop-filter: blur(12px); transition: border-color .3s ease;
+}
+.product-row:hover { border-color: rgba(255,255,255,.3); }
+.featured-row { border-color: rgba(0,229,255,.5); }
+.featured-row:hover { border-color: #00e5ff; }
+
+.row-badge { font-size: .75rem; letter-spacing: 2px; color: #00e5ff; }
+.row-meta h3 { margin: 6px 0 0; font-size: 1.25rem; font-weight: 500; letter-spacing: 1px; color: #fff; }
+
+.row-content p { margin: 0 0 12px; font-size: .9375rem; line-height: 1.8; color: rgba(255,255,255,.72); }
+.row-content p:last-child { margin-bottom: 0; }
+.row-content strong { color: #fff; font-weight: 500; }
+.row-content .itemname { color: #92f4ff; font-weight: 500; }
+.row-content .row-fit { color: #fff; }
+.row-content .row-promo {
+  display: inline-block; padding: 4px 12px; border-radius: 999px;
+  border: .5px solid rgba(0,229,255,.5); color: #00e5ff; font-size: .8125rem; letter-spacing: 1px;
 }
 
-/* 橫向三區塊尺寸鎖定 */
-.row-meta {
-  width: 24%;
-  flex-shrink: 0;
-}
-.row-content {
-  width: 60%;
-  text-align: left;
-}
-.row-pricing-action {
-  width: 21%;
-  flex-shrink: 0;
-  text-align: right;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-  gap: 16px;
-}
+/* 價格弱化（與首頁一致） */
+.row-pricing-action { display: flex; flex-direction: column; align-items: stretch; gap: 14px; text-align: right; }
+.row-price { font-size: 1rem; color: rgba(255,255,255,.72); }
+.row-price .currency, .row-price .unit { font-size: .75rem; color: rgba(255,255,255,.72); }
+.row-price .amount { font-size: 1rem; font-weight: 400; margin: 0 2px; color: rgba(255,255,255,.9); }
 
-/* 區塊 1：項目名稱 */
-.row-meta h3 {
-  font-size: 1.125rem;
-  font-weight: 500;
-  color: #ffffff;
-  margin: 8px 0 0 0;
-  letter-spacing: 1px;
-}
-.row-badge {
-  font-size: 0.75rem;
-  font-family: monospace;
-  color: #707585;
-  letter-spacing: 1.5px;
-}
-
-/* 區塊 2：商品內容敘述（橫向展開，完美飽滿） */
-.row-content p {
-  font-size: 0.875rem;
-  line-height: 1.8;
-  color: #b0b5c5;
-  margin: 0;
-  letter-spacing: 0.8px;
-  text-align: left;
-}
-.row-content .itemname{
-  color: #92f4ff;
-  font-weight: 600;
-}
-
-/* 區塊 3：費用與按鈕 */
-.row-price {
-  display: flex;
-  align-items: baseline;
-}
-.row-price .currency {
-  font-size: 0.95rem;
-  color: #d4c4ae; /* 你內斂的金色 */
-  margin-right: 4px;
-}
-.row-price .amount {
-  font-size: 1.25rem;
-  font-weight: 600;
-  color: #d4c4ae;
-  letter-spacing: 0.5px;
-}
-.row-price .unit {
-  font-size: 0.8rem;
-  color: #64748b;
-  margin-left: 6px;
-}
-
-/* 橫式按鈕 */
+/* 按鈕：比照 plan-btn */
 .row-action-btn {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 100%;
-  max-width: 150px;
-  height: 44px;
-  border-radius: 22px;
-  border: 1px solid rgba(232, 234, 240, 0.2);
-  background: transparent;
-  color: #e8eaf0;
-  font-size: 0.9rem;
-  text-decoration: none;
-  letter-spacing: 1px;
-  transition: all 0.3s ease;
+  display: block; padding: 12px; border-radius: 999px; text-align: center; text-decoration: none;
+  font-size: .9375rem; letter-spacing: 1px; color: #fff; border: .5px solid rgba(255,255,255,.4);
+  transition: all .3s ease;
 }
-.row-action-btn:hover {
-  border-color: #ffffff;
-  background: rgba(255, 255, 255, 0.05);
-}
+.row-action-btn:hover { border-color: #00e5ff; color: #00e5ff; }
+.row-action-btn.solid { background: #00e5ff; color: #050508; border-color: #00e5ff; }
+.row-action-btn.solid:hover { background: #00bacc; color: #050508; }
 
-/* ==========================================
-   ✨ Hover 特效與主力方案（進階核心）視覺高亮
-   ========================================== */
-.product-row:hover {
-  transform: translateY(-2px);
-  border-color: rgba(232, 234, 240, 0.15);
-  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.4);
-}
-
-/* 針對 Popular 方案的高階光暈與配色細節 */
-.featured-row {
-  border-color: rgba(0, 229, 255, 0.25);
-  background: #141828; /* 微亮科技藍黑 */
-}
-.featured-row:hover {
-  border-color: #00e5ff;
-  box-shadow: 0 0 25px rgba(0, 229, 255, 0.15);
-}
-.featured-badge {
-  color: #00e5ff;
-}
-.featured-row .row-price .amount,
-.featured-row .row-price .currency {
-  color: #00e5ff; /* 主力方案改為科技藍色價格 */
-}
-.row-action-btn.solid {
-  background: #00e5ff;
-  color: #000000;
-  border: none;
-  font-weight: 600;
-}
-.row-action-btn.solid:hover {
-  background: #00bacc;
-  box-shadow: 0 0 15px rgba(0, 229, 255, 0.4);
-}
-
-/* ==========================================
-   📱 響應式斷點防禦（手機端自動將橫條轉回挺拔的垂直卡片）
-   ========================================== */
-@media (max-width: 992px) {
-  .product-row {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 24px;
-    padding: 32px 28px;
-  }
-  .row-meta, .row-content, .row-pricing-action {
-    width: 100%;
-    text-align: left;
-    align-items: flex-start;
-  }
+@media (max-width: 860px) {
+  .product-row { grid-template-columns: 1fr; gap: 16px; padding: 24px 20px; }
   .row-pricing-action {
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-    border-top: 1px solid rgba(232, 234, 240, 0.06);
-    padding-top: 20px;
-    margin-top: 8px;
+    flex-direction: row; align-items: center; justify-content: space-between; text-align: left;
+    padding-top: 16px; border-top: .5px solid rgba(255,255,255,.12);
   }
-  .row-action-btn {
-    max-width: 160px;
-    margin: 0;
-  }
-}
-
-@media (max-width: 500px) {
-  .product-row {
-    padding: 10px;
-    gap:10px;}
-  .row-pricing-action {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 16px;
-  }
-  .row-action-btn {
-    max-width: 100%;
-  }
+  .row-action-btn { min-width: 140px; }
 }
 
 /* ── Alert ── */
