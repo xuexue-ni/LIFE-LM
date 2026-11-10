@@ -21,9 +21,9 @@ void main(){
   vec2 m=(M-.5*R)/R.y;
   float ar=R.x/R.y;
   float dim=mix(1.,.4,smoothstep(0.,1400.,S));
-  // 聲波紋：10 條獨立環，各自速度／瓣數／偏心，越外越起伏、間距越大
+  // 聲波紋：15 條獨立環，各自速度／瓣數／偏心，越外越起伏、間距越大
   vec2 p=uv-m*.12;
-  for(int k=0;k<10;k++){
+  for(int k=0;k<15;k++){
     float fk=float(k),s=h(fk)*150.;
     float life=fract(T*(.008+.014*h(fk+3.))+h(fk+1.));
     float rr=pow(life,1.5)*1.45;
@@ -32,7 +32,7 @@ void main(){
     float lobes=5.+floor(h(fk+2.)*4.);
     float w=(sin(a*lobes+s+T*.4)*.6+sin(a*2.+s*1.7-T*.25)*.4)*(.006+.05*rr);
     float e=abs(d+w-rr);
-    float ln=smoothstep(.0022,0.,e)+exp(-e*e/.00005)*.3;
+    float ln=smoothstep(.0013,0.,e)+exp(-e*e/.00002)*.25;
     float ci=mod(fk,4.);
     vec3 nc=ci<1.?vec3(0.,.9,1.):ci<2.?vec3(0.,.67,1.):ci<3.?vec3(.44,0.,1.):vec3(.2,1.,.67);
     col+=nc*ln*sin(life*3.1416)*(.05+.13*h(fk+7.))*dim;
