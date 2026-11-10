@@ -2019,3 +2019,12 @@ header h3{
     padding: 40px 28px;
   }
 }
+
+/* 會員登入按鈕 */
+.nav-links a.nav-login {
+  padding: 6px 16px;
+  border: .5px solid rgba(0, 229, 255, .6);
+  border-radius: 999px;
+  color: #00e5ff;
+}
+.nav-links a.nav-login:hover { background: rgba(0, 229, 255, .12); }
