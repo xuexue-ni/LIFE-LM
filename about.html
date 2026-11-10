@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- 官方標準 SEO 核心設定 -->
+    <title>LIFE+｜關於我們・緣起與設計原理</title>
+    <meta name="description" content="LIFE+ Legacy Matrix 的緣起，以及結合東方美學的設計建構方式。">
+    <meta name="keywords" content="人生故事,生命故事,家族故事,回憶整理,客製化回憶錄,長輩回憶錄,父母回憶錄,毛孩紀念,寵物紀念,舊照片整理,數位典藏,紀念禮物">
+    <link rel="canonical" href="https://xuexue-ni.github.io/LIFE-LM/about.html">
+    <meta name="robots" content="index,follow,max-image-preview:large">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="theme-color" content="#E6D8C5">
+    <!-- 社群分享（OG）最佳化 -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="LIFE+｜人生故事典藏・客製化回憶錄・毛孩紀念">
+    <meta property="og:description" content="將人生故事、家族回憶與毛孩紀念，轉化為可傳承的情感典藏作品。">
+    <meta property="og:url" content="https://xuexue-ni.github.io/LIFE-LM/">
+    <meta property="og:image" content="https://xuexue-ni.github.io/LIFE-LM/images/og-image.jpg">
+    <meta property="og:image" content="https://xuexue-ni.github.io/LIFE-LM/assets/images/og-share-cover.jpg">
+    <script
+        type="application/ld+json">{"@context":"https://schema.org","@type":"ProfessionalService","name":"LIFE+ Legacy Matrix","url":"https://xuexue-ni.github.io/LIFE-LM/","description":"提供人生故事整理、客製化回憶錄、家族回憶典藏、毛孩紀念與情感典藏設計服務。","areaServed":"Taiwan","serviceType":["人生故事整理","客製化回憶錄","家族故事典藏","毛孩紀念","情感典藏設計"]}</script>
+    <!-- 樣式連結 -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="./assets/css/main.css">
+    <link rel="stylesheet" href="./assets/css/life-code.css">
+    <link rel="icon" href="assets/images/favicon.svg" type="image/svg+xml">
+    <link rel="icon" href="assets/images/favicon-32x32.png" type="image/png" sizes="32x32">
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+    <link rel="apple-touch-icon" href="assets/images/apple-touch-icon.png" sizes="180x180">
+</head>
+
+<body>
+    <canvas id="life-space-canvas"></canvas>
+    <!-- 社群分享 -->
+    <div class="desktop-social-sidebar">
+        <a href="price.html" target="_blank" class="share-icon-quiz" data-tooltip="看看適合方案"> <span class="icon-txt">✨典藏服務
+            </span></a>
+        <!-- LINE -->
+        <a href="https://social-plugins.line.me/lineit/share?url=https://xuexue-ni.github.io/LIFE-LM/" target="_blank"
+            class="social-btn" title="分享至 LINE">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round">
+                <path
+                    d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z">
+                </path>
+            </svg>
+        </a>
+        <!-- FB -->
+        <a href="https://www.facebook.com/sharer/sharer.php?u=https://xuexue-ni.github.io/LIFE-LM/" target="_blank"
+            class="social-btn" title="分享至 Facebook">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round">
+                <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path>
+            </svg>
+        </a>
+        <!-- Threads -->
+        <a href="https://www.threads.com/@lifeplus.studio" target="_blank" class="social-btn" title="Threads">
+            <svg viewBox="0 0 20 22" class="social-svg threads-svg">
+                <path
+                    d="M12 11c0-1.1-.9-2-2-2s-2 .9-2 2 .9 2 2 2 2-.9 2-2zm0 0v1.5c0 .83.67 1.5 1.5 1.5s1.5-.67 1.5-1.5V11c0-2.76-2.24-5-5-5s-5 2.24-5 5 2.24 5 5 5c1.22 0 2.33-.44 3.2-1.17">
+                </path>
+            </svg>
+        </a>
+        <!-- IG -->
+        <a href="https://www.instagram.com/lifeplus_tw/" target="_blank" class="social-btn" title="Instagram">
+            <svg viewBox="0 0 24 24" class="social-svg">
+                <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+                <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+                <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+            </svg>
+        </a>
+
+        <button class="social-btn" onclick="copyCurrentUrl()" title="複製網頁連結">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round">
+                <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path>
+                <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path>
+            </svg>
+        </button>
+        <!-- 社群測驗分享 -->
+        <a href="event_brain-color.html" class="share-icon-quiz" data-tooltip="馬上分析">
+            <span class="icon-txt">🧠</span>
+        </a>
+    </div>
+    <div id="back-to-top-btn" onclick="scrollToTop()">
+        <span class="arrow-icon">↑</span>
+        <span>TOP</span>
+    </div>
+    <nav>
+        <a href="index.html" class="logo-link-top" title="回到首頁">
+            <div class="logo">
+                <img src="assets/images/logo.png" alt="LIFE+ Legacy Matrix" class="logo-img">
+            </div>
+        </a>
+        <div class="menu-toggle" id="mobile-menu-btn" onclick="toggleMobileMenu()">
+            <span></span>
+            <span></span>
+        </div>
+        <div class="nav-links" id="nav-links-container">
+            <a href="index.html#plans" onclick="closeMobileMenu()">典藏方案</a>
+            <a href="matrix.html" onclick="closeMobileMenu()">矩陣體驗</a>
+            <a href="booking.html" onclick="closeMobileMenu()">專屬預約</a>
+            <a href="about.html" onclick="closeMobileMenu()">關於LIFE+</a>
+            <a href="price.html" onclick="closeMobileMenu()">服務介紹</a>
+
+            <div class="mobile-menu-social-footer" aria-label="社群分享">
+                <a href="https://social-plugins.line.me/lineit/share?url=https://xuexue-ni.github.io/LIFE-LM/"
+                    target="_blank" class="social-btn" title="分享至 LINE" onclick="closeMobileMenu()">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <path
+                            d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z">
+                        </path>
+                    </svg>
+                </a>
+                <!-- FB -->
+                <a href="https://www.facebook.com/sharer/sharer.php?u=https://xuexue-ni.github.io/LIFE-LM/"
+                    target="_blank" class="social-btn" title="分享至 Facebook" onclick="closeMobileMenu()">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path>
+                    </svg>
+                </a>
+                <!-- Threads -->
+                <a href="https://www.threads.com/@lifeplus.studio" target="_blank" class="social-btn" title="Threads">
+                    <svg viewBox="0 0 20 22" class="social-svg threads-svg">
+                        <path
+                            d="M12 11c0-1.1-.9-2-2-2s-2 .9-2 2 .9 2 2 2 2-.9 2-2zm0 0v1.5c0 .83.67 1.5 1.5 1.5s1.5-.67 1.5-1.5V11c0-2.76-2.24-5-5-5s-5 2.24-5 5 2.24 5 5 5c1.22 0 2.33-.44 3.2-1.17">
+                        </path>
+                    </svg>
+                </a>
+                <!-- IG -->
+                <a href="https://www.instagram.com/lifeplus_tw/" target="_blank" class="social-btn" title="Instagram">
+                    <svg viewBox="0 0 24 24" class="social-svg">
+                        <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+                        <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+                        <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+                    </svg>
+                </a>
+                <button class="social-btn" onclick="copyCurrentUrl(); closeMobileMenu();" title="複製網頁連結">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path>
+                        <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path>
+                    </svg>
+                </button>
+                <a href="event_brain-color.html" target="_blank" class="social-btn" title="腦檢中心"
+                    onclick="closeMobileMenu()">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round">
+                    </svg>
+                    🧠
+                </a>
+               <!-----語言切換---->
+                <button class="lang-toggle-btn" style="margin:20px 0;" onclick="switchLang()">EN</button>
+            </div>
+        </div>
+    </nav>
+    <div class="content-container">
+        <div id="what-we-do" class="section-card">
+            <h1 id="wwd-h1">什麼是 LIFE+？</h1>
+            <p id="wwd-p">是將人生回憶轉化為情感資產典藏的設計系統。<br>從生命探索、回憶整理到藝術創作，協助將珍貴故事保存成數位與實體作品。<br>
+                <span style="color:#00fcda;">專人諮詢 → 矩陣系統 → 故事整合 → 專屬設計 → 數位/實體典藏</span><br>
+                <strong>『 全 程 採 一 對 一 客 製 規 劃 』</strong>
+            </p>
+        </div>
+        <!--理念說明 -->
+        <div id="about" class="section-card">
+            <div class="container">
+                <!----計畫緣由 ---->
+                <h1>✦ 緣 起</h1>
+                <h4>創建LIFE+ Legacy Matrix的原因?</h4>
+                <p class="origin-p">
+                    多年的設計工作中，我發現許多人珍惜回憶，卻不知道如何保存；而自己在人生低谷時，也深刻體會到，真正支持一個人的，往往是那些曾經擁有的重要連結。
+                    因此，我希望結合設計專業與生命整理的方法，陪伴更多人，把珍貴的人、事、物，轉化成值得典藏的作品，成為我們人生成長的力量源泉。
+                </p>
+                <br>
+                <h1>✦ 核心原理：古老玄學的現代演算法</h1>
+                <h4>The Four Pillars of Aesthetic Logic</h4>
+                <div class="intro-section">
+                    <p>我們將流淌於基因中的東方五行與占星時空，解構成現代數據演算法。<br>
+                        這不僅是視覺革命，更是一場將古老神祕學轉化為現代美學的生命敘事。</p>
+                    <p>系統以您誕生那一刻的<strong>「個人數據」</strong>為基底，
+                        深度轉譯您與生俱來的時空座標與生命故事。
+                        這串專屬的數位代碼將直接注入設計核心，將冷硬的數據，
+                        轉化為您獨特且帶有靈魂共振的專屬視覺印記。
+                    </p>
+                </div>
+                <!--- 生命矩陣演算法說明--->
+                <button class="toggle-btn" id="toggleBtn">
+                    <span>✨ LIFE+ 四大美學維度演算法</span>
+                    <span class="arrow-icon"></span>
+                </button>
+                <div class="collapse-content" id="collapseContent">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th style="width: 18%;">維度 (Pillars)</th>
+                                <th style="width: 22%;">玄學基礎 (Philosophy)</th>
+                                <th style="width: 25%;">美學應用 (Application)</th>
+                                <th style="width: 35%;">演算邏輯 (Data Logic)</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td data-label="維度">
+                                    <span class="dimension-letter">L</span>
+                                    <span class="dimension-name">Legacy</span><br>陰陽傳承
+                                </td>
+                                <td data-label="玄學基礎">
+                                    <strong>陰陽之道</strong><br>
+                                    天地萬物的虛實對比
+                                </td>
+                                <td data-label="美學應用">
+                                    <strong>畫面構圖與基調</strong><br>
+                                    定義作品的明暗比例
+                                </td>
+                                <td data-label="演算邏輯">
+                                    依生命特質決定構圖重心。
+                                    <ul>
+                                        <li><strong>陽</strong>：高對比、放射構圖</li>
+                                        <li><strong>陰</strong>：低對比、聚合構圖</li>
+                                    </ul>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td data-label="維度">
+                                    <span class="dimension-letter">I</span>
+                                    <span class="dimension-name">Interaction</span><br>五行交感
+                                </td>
+                                <td data-label="玄學基礎">
+                                    <strong>五行生剋</strong><br>
+                                    金木水火土的流動平衡
+                                </td>
+                                <td data-label="美學應用">
+                                    <strong>專屬色譜調候</strong><br>
+                                    Color Palettes 系統
+                                </td>
+                                <td data-label="演算邏輯">
+                                    識別生命能量缺口進行視覺補足。
+                                    <ul>
+                                        <li><strong>補木</strong>：綠色系，啟動生機</li>
+                                        <li><strong>補水</strong>：藍色系，強化流動</li>
+                                    </ul>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td data-label="維度">
+                                    <span class="dimension-letter">F</span>
+                                    <span class="dimension-name">Frequency</span><br>星曜頻率
+                                </td>
+                                <td data-label="玄學基礎">
+                                    <strong>紫微十四主星</strong><br>
+                                    與生俱來的性格天賦
+                                </td>
+                                <td data-label="美學應用">
+                                    <strong>性格幾何</strong><br>
+                                    Personality Geometry
+                                </td>
+                                <td data-label="演算邏輯">
+                                    將性格特質轉化專屬圖紋。
+                                    <ul>
+                                        <li><strong>領袖型</strong>：對稱莊重的色塊</li>
+                                        <li><strong>靈動型</strong>：交錯流線的線條</li>
+                                    </ul>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td data-label="維度">
+                                    <span class="dimension-letter">E</span>
+                                    <span class="dimension-name">Essence</span><br>周易卦象
+                                </td>
+                                <td data-label="玄學基礎">
+                                    <strong>《周易》六十四卦</strong><br>
+                                    生命時空座標的象數
+                                </td>
+                                <td data-label="美學應用">
+                                    <strong>記憶條碼化</strong><br>
+                                    Data Barcoding / UI 比例
+                                </td>
+                                <td data-label="演算邏輯">
+                                    鎖定生命重要瞬間的守護卦象，將<span class="math">陰陽爻（— / - -）</span>轉化為極簡條碼與視覺分割，永恆定格圓滿頻率。
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
+        </div>
+        <!--理念說明 / END -->
+    </div>
+    <div id="footer-placeholder"></div>
+    <script src="assets/js/js.js"></script>
+    <script src="assets/js/lang.js"></script>
+</body>
+
+</html>

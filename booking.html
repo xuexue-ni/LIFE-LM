@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- 官方標準 SEO 核心設定 -->
+    <title>LIFE+｜專屬預約・一對一客製諮詢</title>
+    <meta name="description" content="留下聯繫方式，由專人為你規劃數位或實體的生命故事典藏。">
+    <meta name="keywords" content="人生故事,生命故事,家族故事,回憶整理,客製化回憶錄,長輩回憶錄,父母回憶錄,毛孩紀念,寵物紀念,舊照片整理,數位典藏,紀念禮物">
+    <link rel="canonical" href="https://xuexue-ni.github.io/LIFE-LM/booking.html">
+    <meta name="robots" content="index,follow,max-image-preview:large">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="theme-color" content="#E6D8C5">
+    <!-- 社群分享（OG）最佳化 -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="LIFE+｜人生故事典藏・客製化回憶錄・毛孩紀念">
+    <meta property="og:description" content="將人生故事、家族回憶與毛孩紀念，轉化為可傳承的情感典藏作品。">
+    <meta property="og:url" content="https://xuexue-ni.github.io/LIFE-LM/">
+    <meta property="og:image" content="https://xuexue-ni.github.io/LIFE-LM/images/og-image.jpg">
+    <meta property="og:image" content="https://xuexue-ni.github.io/LIFE-LM/assets/images/og-share-cover.jpg">
+    <script
+        type="application/ld+json">{"@context":"https://schema.org","@type":"ProfessionalService","name":"LIFE+ Legacy Matrix","url":"https://xuexue-ni.github.io/LIFE-LM/","description":"提供人生故事整理、客製化回憶錄、家族回憶典藏、毛孩紀念與情感典藏設計服務。","areaServed":"Taiwan","serviceType":["人生故事整理","客製化回憶錄","家族故事典藏","毛孩紀念","情感典藏設計"]}</script>
+    <!-- 樣式連結 -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="./assets/css/main.css">
+    <link rel="stylesheet" href="./assets/css/life-code.css">
+    <link rel="icon" href="assets/images/favicon.svg" type="image/svg+xml">
+    <link rel="icon" href="assets/images/favicon-32x32.png" type="image/png" sizes="32x32">
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+    <link rel="apple-touch-icon" href="assets/images/apple-touch-icon.png" sizes="180x180">
+</head>
+
+<body>
+    <canvas id="life-space-canvas"></canvas>
+    <!-- 社群分享 -->
+    <div class="desktop-social-sidebar">
+        <a href="price.html" target="_blank" class="share-icon-quiz" data-tooltip="看看適合方案"> <span class="icon-txt">✨典藏服務
+            </span></a>
+        <!-- LINE -->
+        <a href="https://social-plugins.line.me/lineit/share?url=https://xuexue-ni.github.io/LIFE-LM/" target="_blank"
+            class="social-btn" title="分享至 LINE">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round">
+                <path
+                    d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z">
+                </path>
+            </svg>
+        </a>
+        <!-- FB -->
+        <a href="https://www.facebook.com/sharer/sharer.php?u=https://xuexue-ni.github.io/LIFE-LM/" target="_blank"
+            class="social-btn" title="分享至 Facebook">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round">
+                <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path>
+            </svg>
+        </a>
+        <!-- Threads -->
+        <a href="https://www.threads.com/@lifeplus.studio" target="_blank" class="social-btn" title="Threads">
+            <svg viewBox="0 0 20 22" class="social-svg threads-svg">
+                <path
+                    d="M12 11c0-1.1-.9-2-2-2s-2 .9-2 2 .9 2 2 2 2-.9 2-2zm0 0v1.5c0 .83.67 1.5 1.5 1.5s1.5-.67 1.5-1.5V11c0-2.76-2.24-5-5-5s-5 2.24-5 5 2.24 5 5 5c1.22 0 2.33-.44 3.2-1.17">
+                </path>
+            </svg>
+        </a>
+        <!-- IG -->
+        <a href="https://www.instagram.com/lifeplus_tw/" target="_blank" class="social-btn" title="Instagram">
+            <svg viewBox="0 0 24 24" class="social-svg">
+                <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+                <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+                <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+            </svg>
+        </a>
+
+        <button class="social-btn" onclick="copyCurrentUrl()" title="複製網頁連結">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round">
+                <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path>
+                <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path>
+            </svg>
+        </button>
+        <!-- 社群測驗分享 -->
+        <a href="event_brain-color.html" class="share-icon-quiz" data-tooltip="馬上分析">
+            <span class="icon-txt">🧠</span>
+        </a>
+    </div>
+    <div id="back-to-top-btn" onclick="scrollToTop()">
+        <span class="arrow-icon">↑</span>
+        <span>TOP</span>
+    </div>
+    <nav>
+        <a href="index.html" class="logo-link-top" title="回到首頁">
+            <div class="logo">
+                <img src="assets/images/logo.png" alt="LIFE+ Legacy Matrix" class="logo-img">
+            </div>
+        </a>
+        <div class="menu-toggle" id="mobile-menu-btn" onclick="toggleMobileMenu()">
+            <span></span>
+            <span></span>
+        </div>
+        <div class="nav-links" id="nav-links-container">
+            <a href="index.html#plans" onclick="closeMobileMenu()">典藏方案</a>
+            <a href="matrix.html" onclick="closeMobileMenu()">矩陣體驗</a>
+            <a href="booking.html" onclick="closeMobileMenu()">專屬預約</a>
+            <a href="about.html" onclick="closeMobileMenu()">關於LIFE+</a>
+            <a href="price.html" onclick="closeMobileMenu()">服務介紹</a>
+
+            <div class="mobile-menu-social-footer" aria-label="社群分享">
+                <a href="https://social-plugins.line.me/lineit/share?url=https://xuexue-ni.github.io/LIFE-LM/"
+                    target="_blank" class="social-btn" title="分享至 LINE" onclick="closeMobileMenu()">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <path
+                            d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z">
+                        </path>
+                    </svg>
+                </a>
+                <!-- FB -->
+                <a href="https://www.facebook.com/sharer/sharer.php?u=https://xuexue-ni.github.io/LIFE-LM/"
+                    target="_blank" class="social-btn" title="分享至 Facebook" onclick="closeMobileMenu()">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path>
+                    </svg>
+                </a>
+                <!-- Threads -->
+                <a href="https://www.threads.com/@lifeplus.studio" target="_blank" class="social-btn" title="Threads">
+                    <svg viewBox="0 0 20 22" class="social-svg threads-svg">
+                        <path
+                            d="M12 11c0-1.1-.9-2-2-2s-2 .9-2 2 .9 2 2 2 2-.9 2-2zm0 0v1.5c0 .83.67 1.5 1.5 1.5s1.5-.67 1.5-1.5V11c0-2.76-2.24-5-5-5s-5 2.24-5 5 2.24 5 5 5c1.22 0 2.33-.44 3.2-1.17">
+                        </path>
+                    </svg>
+                </a>
+                <!-- IG -->
+                <a href="https://www.instagram.com/lifeplus_tw/" target="_blank" class="social-btn" title="Instagram">
+                    <svg viewBox="0 0 24 24" class="social-svg">
+                        <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+                        <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+                        <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+                    </svg>
+                </a>
+                <button class="social-btn" onclick="copyCurrentUrl(); closeMobileMenu();" title="複製網頁連結">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path>
+                        <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path>
+                    </svg>
+                </button>
+                <a href="event_brain-color.html" target="_blank" class="social-btn" title="腦檢中心"
+                    onclick="closeMobileMenu()">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round">
+                    </svg>
+                    🧠
+                </a>
+               <!-----語言切換---->
+                <button class="lang-toggle-btn" style="margin:20px 0;" onclick="switchLang()">EN</button>
+            </div>
+        </div>
+    </nav>
+    <div class="content-container">
+        <!--專屬預約 -->
+        <div id="booking" class="section-card">
+            <h1>✦ 專屬預約</h1>
+            <p class="desc">請留下您的聯繫方式，為您進行深度生命記憶策展、定製實體記憶紀念。
+                <br>我們將有專人盡快與您取得聯繫。
+            </p>
+            <form class="booking-form" action="https://formspree.io/f/mlgqpygq" method="POST"
+                onsubmit="triggerFormSubmit(event)">
+                <div class="form-row">
+                    <div class="form-col">
+                        <label>聯絡姓名 *</label>
+                        <input type="text" name="Name" class="form-input-box" required placeholder="如何稱呼您">
+                    </div>
+                    <div class="form-col">
+                        <label>聯絡電話 *</label>
+                        <input type="tel" name="Phone" class="form-input-box" required placeholder="0912345678">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>電子郵件 Mail *</label>
+                    <input type="email" name="email" class="form-input-box" required placeholder="example@mail.com">
+                </div>
+                <div class="form-row">
+                    <div class="form-col">
+                        <label>委託對象類別</label>
+                        <select name="TargetCategory" class="form-input-box">
+                            <option>長輩傳承（長輩時空冊）</option>
+                            <option>寵物生命紀念（伴侶生命誌）</option>
+                            <option>個人生活重整（個人數位封存）</option>
+                            <option>其他（數位資產策展）</option>
+                        </select>
+                    </div>
+                    <div class="form-col">
+                        <label>理想封存方式</label>
+                        <select name="ArchiveType" class="form-input-box" id="archiveType">
+                            <option value="digital">數位典藏（語音故事＋個人頁面）</option>
+                            <option value="physical">實體藝術品（一對一客製）</option>
+                            <option value="both">數位＋實體並用（作品內嵌 NFC）</option>
+                            <option value="consult">還不確定，想先諮詢</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>簡單聊聊您想留下的故事或期望（選填）</label>
+                    <textarea name="UserMessage" class="form-input-box"
+                        placeholder="例如：想幫心愛的貓咪留念or想替現在的自己留下紀錄!.."></textarea>
+                </div>
+                <div style="text-align: center; margin-top: 30px;">
+                    <button type="submit" class="message-btn">提交委託意向</button>
+                    <div class="lock-text" style="font-size:0.875rem; color:#798bee; margin-top:16px;">🔒
+                        您的生命資訊受最高規格加密保護。</div>
+                </div>
+            </form>
+
+            <div class="line-shortcut">
+                <label>── 直接加入官方專屬對話 ──</label>
+                <div class="line-qr-mock"><img src="assets/images/line-qr-code.jpg" alt="LINE QR Code"></div>
+                <a href="https://lin.ee/sP2q1SG" target="_blank" rel="noopener">👆點我直接與專屬生命策展人聊聊 →</a>
+            </div>
+            <label>也歡迎透過左下角社群連結與我們聯繫!</label>
+        </div>
+        <!--專屬預約/END -->
+    </div>
+    <!--收信彈窗 -->
+    <div id="custom-alert">
+        <h3 style="color:#00e5ff; font-weight:300; letter-spacing:2px; margin-bottom:15px;">系統已收到委託</h3>
+        <p style="font-size:0.88rem; line-height:1.8; color:#ccc; font-weight:300; margin-bottom:25px;">
+            感謝您定錨生命座標。<br>您的委託意向已成功傳達至後端系統，請靜候專人與您聯絡，啟動一對一生命策展對話。
+        </p>
+        <button class="action-btn" style="padding:10px 30px;" onclick="closeAlert()">確認</button>
+    </div>
+    <!--收信彈窗 / END-->
+    <div id="footer-placeholder"></div>
+    <script>
+        (function () {
+            const t = new URLSearchParams(location.search).get('type');
+            const sel = document.getElementById('archiveType');
+            if (t && sel && sel.querySelector('option[value="' + t + '"]')) sel.value = t;
+        })();
+    </script>
+    <script src="assets/js/js.js"></script>
+    <script src="assets/js/lang.js"></script>
+</body>
+
+</html>

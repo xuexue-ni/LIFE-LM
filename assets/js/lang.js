@@ -1,7 +1,7 @@
 // ── 語言系統 ──
 const LANG = {
   zh: {
-    nav: ['留住記憶','服務介紹','免費體驗','專屬預約','關於LIFE+'],
+    nav: ['典藏方案','矩陣體驗','專屬預約','關於LIFE+','服務介紹'],
     navSub: ['免費體驗','核心原理','留住記憶','服務方案','專屬預約'],
     symQ: 'Q.選擇一個您最有感的符號意義,以極細線條若隱若現地融入畫面背景',
     texQ: 'Q.你最容易被哪種觸覺感或物件感吸引？',
@@ -97,7 +97,6 @@ const LANG = {
     originP1: '原職是一名資深美術設計師，在不順遂的人生中總是奮力向前，終至失力委靡，深陷在失去與不安的黑暗中。我知道這世上有太多人，也在失衡的步調中承載著焦慮、憂鬱與內耗。',
     originP2: '在面對傷痛並與自我療癒的路上，終究明白：真正穩定的能量，源自於先擁抱、理解並看見自己。<br>於是決定善用這份「美的轉譯」能力，開啟一項從「助人」而衍生的設計計畫——<br>旨在協助安定情緒、療癒心理，在科學上也具有活化大腦、減緩未來失智風險的依據。',
     originP3: '願 LIFE+能幫助大家在面對生命突如其來的變故與黑夜時，心中多一份底氣與力量，將瞬間轉化為溫暖而永恆的記憶年輪。',
-    faqItems: [
      faqItems: [
   {n:'01',q:'「LIFE+」是怎樣的產品？紀念品周邊？跟FB/IG這些社群差別在哪?',a:'「LIFE+」是「數位生命資產系統」。是客製化的「數位生命自傳／時間膠囊」。因為「瞬間即永恆」。記憶會隨時間模糊，但數位化的紀錄不會。<br>我們將你重要的文字、語音、照片與轉念時間，透過獨家美學系統，體驗情感療癒的過程，最後精煉成能放在手機桌布、個人網站、數位載體...展示的「專屬數位典藏館」。<br>【為什麼不用免費的FB/IG社群就好？】<br>社群是展示性的社交公域，資料歸平台所有，隨時可能被演算法淹沒、封號或遺失。LIFE+是不上架公域的「私密數據地堡」，幫你把最珍貴更真實的 1% 的記憶純化為永恆資產。這不是日記，而是一份專屬自訂如何永續傳承的精裝版生命典藏。'},
   {n:'02',q:'這是什麼系統？它是算命嗎？',a:'不是算命，它更像是一面「用宇宙幾何為你量身打造的靈魂鏡子」。<br>是科學的論點，我們將在基因中流動的陰陽五行與神秘學規律，透過現代數位設計方式，轉化為乾淨、純粹的三維度視覺座標，並以此為設計基調，為您將流逝歲月的珍貴記憶資產，以藝術品設計形式(數位/實體)進行封存。'},
@@ -118,7 +117,7 @@ const LANG = {
     formLabels: ['聯絡姓名 *','聯絡電話 *','電子郵件 Mail *','委託對象類別','理想封存方式','簡單聊聊您想留下的故事或期望（選填）'],
     formPlaceholders: ['如何稱呼您','0912345678','example@mail.com','','','例如：想幫心愛的貓咪留念or想替現在的自己留下紀錄!..'],
     targetOptions: ['長輩傳承（長輩時空冊）','寵物生命紀念（伴侶生命誌）','個人生活重整（個人數位封存）','其他（數位資產策展）'],
-    archiveOptions: ['純數位雲端封存報告','客製化實體幾何雷雕紀念物','私人策展顧問一對一訪談服務'],
+    archiveOptions: ['數位典藏（語音故事＋個人頁面）','實體藝術品（一對一客製）','數位＋實體並用（作品內嵌 NFC）','還不確定，想先諮詢'],
     submitBtn: '提交委託意向',
     lockText: '🔒 您的生命資訊受最高規格加密保護。',
     lineLabel: '── 直接加入官方專屬對話 ──',
@@ -158,7 +157,7 @@ const LANG = {
     tableHeaders: ['維度 (Pillars)','玄學基礎 (Philosophy)','美學應用 (Application)','演算邏輯 (Data Logic)'],
   },
   en: {
-    nav: ['Preserve Memory','Services','Free Trial','Book Now','About LIFE+'],
+    nav: ['Plans','Matrix Trial','Book Now','About LIFE+','Services'],
     navSub: ['Free Trial','Core Philosophy','Preserve Memory','Service Plans','Book Now'],
     symQ: 'Q. Choose the symbol that resonates most — woven as ultra-fine, barely-visible lines in the background',
     texQ: 'Q. Which tactile or material feeling draws you in most?',
@@ -274,7 +273,7 @@ const LANG = {
     formLabels: ['Contact Name *','Phone Number *','Email Address *','Subject Category','Preferred Archive Type','Tell us briefly about the story or vision you want to preserve (optional)'],
     formPlaceholders: ['How shall we address you?','e.g. 0912345678','example@mail.com','','','e.g. Memorial for my beloved cat, or a record of who I am right now...'],
     targetOptions: ['Elder Heritage (Elder Time Capsule)','Pet Life Memorial (Companion Life Record)','Personal Life Reset (Personal Digital Archive)','Other (Digital Asset Curation)'],
-    archiveOptions: ['Pure Digital Cloud Archive Report','Custom Physical Geometric Laser-Engraved Memorial','Private Curation Consultant One-on-One Interview Service'],
+    archiveOptions: ['Digital archive (voice stories + personal page)','Physical artwork (one-on-one custom)','Digital + physical (NFC embedded)','Not sure yet, consult first'],
     submitBtn: 'Submit Commission Inquiry',
     lockText: '🔒 Your life information is protected by the highest standard encryption.',
     lineLabel: '── Or join the official private conversation directly ──',

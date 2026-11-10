@@ -562,7 +562,7 @@ text-decoration:none;}
 <div class="section-title">
 <br>這只是您宇宙參數的10%顯影。完整的LIFE+Cube將結合您的生命座標與生命故事看板，生成專屬的加密數位方塊。想開啟您的生命方塊嗎？<br></div>
 <div class="booking-btn">
-  <a href="${window.location.href.split('?')[0]}#booking">
+  <a href="${new URL('booking.html', window.location.href).href}">
     預約訂製 · Book Custom Service
   </a>
 </div>
