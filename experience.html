@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>生命圖紋體驗｜LIFE+</title>
+<meta name="description" content="輸入一個重要的日子，生成專屬的生命圖紋。">
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#050508">
+<link rel="stylesheet" href="./assets/css/main.css">
+<link rel="stylesheet" href="./assets/css/home.css">
+<link rel="stylesheet" href="./assets/css/experience.css">
+<link rel="icon" href="assets/images/favicon.svg" type="image/svg+xml">
+</head>
+<body>
+<nav>
+  <a href="index.html" class="logo-link-top" title="回到首頁"><div class="logo"><img src="assets/images/logo.png" alt="LIFE+" class="logo-img"></div></a>
+  <a href="index.html" class="nav-back">回首頁</a>
+</nav>
+
+<div class="content-container">
+<main class="exp-wrap">
+
+  <!-- ① 輸入 -->
+  <section class="scr on" id="s1" aria-label="輸入">
+    <div class="exp-card">
+      <span class="exp-eyebrow">FREE · 生命圖紋</span>
+      <h1 class="exp-h1">用一個重要的日子，<br>生成專屬圖紋</h1>
+      <p class="exp-lead">每個人的圖紋都不同，之後會成為故事頁與作品的視覺基因。</p>
+
+      <div class="field">
+        <span class="field-label">為誰生成？</span>
+        <div class="chips" id="targetChips">
+          <button type="button" class="chip" data-v="elder"><b>👵</b>長輩</button>
+          <button type="button" class="chip" data-v="pet"><b>🐾</b>毛孩</button>
+          <button type="button" class="chip" data-v="self"><b>✦</b>自己</button>
+        </div>
+      </div>
+
+      <div class="field">
+        <label for="iName">稱呼 <small>（選填）</small></label>
+        <input id="iName" type="text" maxlength="12" placeholder="例：阿嬤" autocomplete="off">
+      </div>
+
+      <div class="field">
+        <span class="field-label">日期 <small>（選填，填了圖紋更專屬）</small></span>
+        <div class="chips two" id="dateChips">
+          <button type="button" class="chip" data-v="birth" aria-pressed="true">生日</button>
+          <button type="button" class="chip" data-v="memo" aria-pressed="false">紀念日</button>
+        </div>
+      </div>
+      <div class="field">
+        <label for="iDate" id="dateLabel">生日</label>
+        <input id="iDate" type="date" min="1900-01-01">
+      </div>
+      <div class="field" id="hourField">
+        <label for="iHour">出生時間 <small>（選填）</small></label>
+        <select id="iHour"><option value="">不知道</option></select>
+      </div>
+
+      <button class="btn-main" id="btnGen" disabled>生成圖紋</button>
+      <p class="err" id="err1" aria-live="polite"></p>
+    </div>
+  </section>
+
+  <!-- ② 生成中 -->
+  <section class="scr" id="s2" aria-label="生成中">
+    <div class="exp-card gen">
+      <div class="gen-orb" aria-hidden="true"></div>
+      <p class="gen-step" id="genStep" aria-live="polite">讀取時間座標…</p>
+    </div>
+  </section>
+
+  <!-- ③ 預覽 -->
+  <section class="scr" id="s3" aria-label="預覽">
+    <div class="exp-card">
+      <span class="exp-eyebrow">PREVIEW</span>
+      <h2 class="exp-h1" id="t3">生命圖紋</h2>
+      <p class="exp-lead">這是局部預覽。加 LINE 好友，就能看完整圖紋。</p>
+    </div>
+    <div class="exp-card">
+      <div class="art"><canvas id="cvPreview" width="720" height="720"></canvas><span class="art-tag">預覽</span></div>
+      <div class="genes" id="genes3"></div>
+      <div class="code-box"><b id="code3">——</b><small>你的專屬短碼</small></div>
+      <a class="btn-main line" id="btnLine" target="_blank" rel="noopener">加 LINE 解鎖完整版</a>
+      <p class="hint" id="lineHint">加入後會自動帶入「解鎖 短碼」，送出即可。</p>
+      <button class="btn-text" data-reset>重新生成</button>
+      <a class="proto" id="protoLink">（原型測試）模擬 LINE 解鎖連結 →</a>
+    </div>
+  </section>
+
+  <!-- ④ 完整版 -->
+  <section class="scr" id="s4" aria-label="完整版">
+    <div class="exp-card">
+      <span class="exp-eyebrow">UNLOCKED · <span id="code4"></span></span>
+      <h2 class="exp-h1" id="t4">生命圖紋</h2>
+      <p class="exp-lead" id="lead4"></p>
+    </div>
+    <div class="exp-card">
+      <div class="art"><canvas id="cvFull" width="1080" height="1080"></canvas></div>
+      <div class="genes" id="genes4"></div>
+      <a class="btn-main line" id="btnFirst" target="_blank" rel="noopener">回 LINE 寫第一則故事</a>
+      <p class="hint">一則故事，從一個回憶開始。寫完會變成一顆記憶球。</p>
+    </div>
+    <div class="exp-card">
+      <span class="field-label">想把圖紋和故事一起留下？</span>
+      <div class="plans-mini">
+        <a href="price.html#row-01">輕量 <span>NT$990</span></a>
+        <a href="price.html#row-02" class="featured">標準（推薦） <span>NT$2,480</span></a>
+        <a href="price.html#row-03">完整 <span>NT$3,680</span></a>
+      </div>
+      <a class="btn-sub" href="price.html">看全部方案</a>
+      <button class="btn-text" data-reset>也幫其他人生成</button>
+    </div>
+  </section>
+
+  <!-- 連結失效 -->
+  <section class="scr" id="sErr" aria-label="連結失效">
+    <div class="exp-card">
+      <h2 class="exp-h1">這個連結無法開啟</h2>
+      <p class="exp-lead">短碼或驗證碼不正確，請回 LINE 重新點選解鎖卡。</p>
+      <button class="btn-main" data-reset>重新生成圖紋</button>
+    </div>
+  </section>
+
+</main>
+</div>
+
+<script src="assets/js/bg-gl.js"></script>
+<script src="assets/js/engine.js"></script>
+<script>
+(function () {
+  'use strict';
+  const E = window.LifeEngine;
+
+  // ── 設定：填入 LINE 官方帳號 Basic ID（例 '@123abcde'）後即啟用 oaMessage ──
+  const LINE_BASIC_ID = '';
+  const LINE_ADD = 'https://lin.ee/sP2q1SG';
+  const lineUrl = text => LINE_BASIC_ID
+    ? `https://line.me/R/oaMessage/${encodeURIComponent(LINE_BASIC_ID)}/?${encodeURIComponent(text)}`
+    : LINE_ADD;
+
+  const TARGET = {
+    elder: { ph: '例：阿嬤', who: '長輩', lead: n => `為${n}留下人生故事，從這張圖紋開始。` },
+    pet:   { ph: '例：小黑', who: '毛孩', lead: n => `為${n}留下陪伴的日子，從這張圖紋開始。` },
+    self:  { ph: '你的名字', who: '我',   lead: () => '為自己留下此刻，從這張圖紋開始。' }
+  };
+  const ROLE = ['主色', '輔色', '療癒色'];
+  const $ = id => document.getElementById(id);
+  const st = { target: '', dateType: 'birth' };
+
+  // ── 屏切換 ──
+  function show(id) {
+    document.querySelectorAll('.scr').forEach(s => s.classList.toggle('on', s.id === id));
+    window.scrollTo(0, 0);
+  }
+
+  // ── ① 輸入 ──
+  for (let h = 0; h < 24; h++) $('iHour').add(new Option(String(h).padStart(2, '0') + ':00 – ' + String(h).padStart(2, '0') + ':59', h));
+  $('iDate').max = new Date().toISOString().slice(0, 10);
+
+  function pick(group, v) {
+    group.querySelectorAll('.chip').forEach(c => c.setAttribute('aria-pressed', c.dataset.v === v));
+  }
+  $('targetChips').addEventListener('click', e => {
+    const c = e.target.closest('.chip'); if (!c) return;
+    st.target = c.dataset.v; pick($('targetChips'), st.target);
+    $('iName').placeholder = TARGET[st.target].ph;
+    $('btnGen').disabled = false;
+  });
+  $('dateChips').addEventListener('click', e => {
+    const c = e.target.closest('.chip'); if (!c) return;
+    st.dateType = c.dataset.v; pick($('dateChips'), st.dateType);
+    $('dateLabel').textContent = st.dateType === 'birth' ? '生日' : '紀念日';
+    $('hourField').hidden = st.dateType !== 'birth';
+  });
+
+  $('btnGen').addEventListener('click', () => {
+    const date = $('iDate').value;
+    if (date && (date < '1900-01-01' || date > $('iDate').max)) { $('err1').textContent = '日期需在 1900 年到今天之間'; return; }
+    $('err1').textContent = '';
+    const hour = st.dateType === 'birth' && $('iHour').value !== '' ? +$('iHour').value : null;
+    const input = {
+      target: st.target, dateType: st.dateType, date, hour,
+      name: $('iName').value.trim(),
+      nonce: date ? 0 : Date.now() // 無日期時每次不同
+    };
+    input.code = E.shortCode(input);
+    try { localStorage.setItem('lifeExp:' + input.code, JSON.stringify(input)); } catch (_) {}
+    generate(input);
+  });
+
+  // ── 演算 ──
+  function resolve(input) {
+    if (input.date) {
+      const [y, m, d] = input.date.split('-').map(Number);
+      return E.compute(y, m, d, input.hour);
+    }
+    return E.fromSeed(E.hash(input.code));
+  }
+  function titleOf(input) { return `${input.name || TARGET[input.target].who}的生命圖紋`; }
+
+  // ── ② 生成中 ──
+  function generate(input) {
+    show('s2');
+    const steps = ['讀取時間座標…', '調和色彩基因…', '繪製專屬圖紋…'];
+    let i = 0;
+    $('genStep').textContent = steps[0];
+    const t = setInterval(() => { if (++i < steps.length) $('genStep').textContent = steps[i]; }, 900);
+    setTimeout(() => { clearInterval(t); renderPreview(input); show('s3'); }, 2700);
+  }
+
+  // ── 色彩基因列表 ──
+  function genes(el, res, locked) {
+    el.innerHTML = [res.dom, res.sub, res.mis].map((k, i) => `
+      <div class="gene${locked && i ? ' locked' : ''}">
+        <i style="background:radial-gradient(circle at 35% 35%,${E.ET[k]},${E.EP[k]})"></i>
+        <div>${ROLE[i]}・${E.TONE[k].name}<small>${E.TONE[k].colors}</small></div>
+      </div>`).join('');
+  }
+
+  // ── ③ 預覽：局部＋霧化＋短碼浮水印（畫進像素） ──
+  function renderPreview(input) {
+    const res = resolve(input), code = input.code;
+    const full = document.createElement('canvas'); full.width = full.height = 1080;
+    E.draw(full.getContext('2d'), 1080, res, E.hash(code));
+
+    const cv = $('cvPreview'), ctx = cv.getContext('2d'), W = cv.width;
+    // 局部：取右上 55% 區塊
+    const sx = 1080 * .38, sy = 1080 * .06, sw = 1080 * .55;
+    // 霧化：縮小再放大（不依賴 ctx.filter，iOS 相容）
+    const tiny = document.createElement('canvas'); tiny.width = tiny.height = 90;
+    tiny.getContext('2d').drawImage(full, sx, sy, sw, sw, 0, 0, 90, 90);
+    ctx.imageSmoothingEnabled = true; ctx.imageSmoothingQuality = 'high';
+    ctx.drawImage(tiny, 0, 0, W, W);
+    ctx.globalAlpha = .45; ctx.drawImage(full, sx, sy, sw, sw, 0, 0, W, W); ctx.globalAlpha = 1;
+    const fog = ctx.createRadialGradient(W * .35, W * .6, W * .1, W * .5, W * .5, W * .8);
+    fog.addColorStop(0, 'rgba(230,240,255,0)'); fog.addColorStop(1, 'rgba(230,240,255,.35)');
+    ctx.fillStyle = fog; ctx.fillRect(0, 0, W, W);
+    // 浮水印：斜向平鋪＋中央
+    ctx.save();
+    ctx.translate(W / 2, W / 2); ctx.rotate(-Math.PI / 6);
+    ctx.font = '600 26px "DM Mono", monospace'; ctx.textAlign = 'center';
+    ctx.fillStyle = 'rgba(255,255,255,.16)';
+    for (let y = -W; y <= W; y += 90) for (let x = -W; x <= W; x += 220) ctx.fillText('LIFE+ ' + code, x + (y / 90 % 2 ? 110 : 0), y);
+    ctx.font = '600 56px "DM Mono", monospace'; ctx.fillStyle = 'rgba(255,255,255,.55)';
+    ctx.fillText(code, 0, 18);
+    ctx.restore();
+
+    $('t3').textContent = titleOf(input);
+    $('code3').textContent = code;
+    genes($('genes3'), res, true);
+    $('btnLine').href = lineUrl('解鎖 ' + code);
+    $('lineHint').textContent = LINE_BASIC_ID
+      ? `加入後會自動帶入「解鎖 ${code}」，送出即可。`
+      : `加入好友後，傳送「解鎖 ${code}」即可。`;
+    if (!LINE_BASIC_ID) $('btnLine').onclick = () => { navigator.clipboard?.writeText('解鎖 ' + code).catch(() => {}); };
+    $('protoLink').href = `experience.html?code=${code}&token=${E.token(code)}`;
+  }
+
+  // ── ④ 完整版（LINE 解鎖卡：?code=&token=） ──
+  function renderFull(code) {
+    let input = null;
+    try { input = JSON.parse(localStorage.getItem('lifeExp:' + code)); } catch (_) {}
+    if (!input) input = { code, target: E.targetOf(code), name: '' }; // 正式版由後台依短碼回傳
+    const res = resolve(input);
+    const cv = $('cvFull'), ctx = cv.getContext('2d'), W = cv.width;
+    E.draw(ctx, W, res, E.hash(code));
+    ctx.font = '500 22px "DM Mono", monospace'; ctx.textAlign = 'right';
+    ctx.fillStyle = 'rgba(255,255,255,.4)'; ctx.fillText('LIFE+ · ' + code, W - 28, W - 28);
+
+    $('code4').textContent = code;
+    $('t4').textContent = titleOf(input);
+    $('lead4').textContent = TARGET[input.target].lead(input.name || (input.target === 'pet' ? '牠' : '長輩'));
+    genes($('genes4'), res, false);
+    $('btnFirst').href = lineUrl('寫第一則故事');
+    show('s4');
+  }
+
+  // ── 共用 ──
+  document.querySelectorAll('[data-reset]').forEach(b => b.addEventListener('click', () => {
+    history.replaceState(null, '', 'experience.html'); show('s1');
+  }));
+  document.querySelectorAll('.art').forEach(a => a.addEventListener('contextmenu', e => e.preventDefault()));
+
+  // ── 進入點 ──
+  const q = new URLSearchParams(location.search), code = (q.get('code') || '').toUpperCase();
+  if (code) E.verify(code, q.get('token')) ? renderFull(code) : show('sErr');
+})();
+</script>
+</body>
+</html>

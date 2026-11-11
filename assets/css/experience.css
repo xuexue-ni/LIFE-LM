@@ -1,0 +1,101 @@
+/* experience.css — 圖紋體驗頁（沿用 home.css 卡片變數，手機優先） */
+nav { padding: 16px 20px; }
+.nav-back { color: var(--c-text2); text-decoration: none; font-size: .875rem; }
+
+.exp-wrap { width: 100%; max-width: 480px; margin: 0 auto; padding: 48px 0 64px; }
+.scr { display: none; }
+.scr.on { display: block; animation: scrIn .5s ease; }
+@keyframes scrIn { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: none; } }
+
+.exp-card {
+  background: var(--c-card); border: .5px solid var(--c-border); border-radius: 12px;
+  backdrop-filter: blur(12px); padding: 24px 20px; text-align: left;
+}
+.exp-card + .exp-card { margin-top: 14px; }
+.exp-eyebrow { font-size: .75rem; letter-spacing: 3px; color: var(--c-accent); }
+.exp-h1 { margin: 8px 0 6px; font-size: 1.5rem; line-height: 1.4; letter-spacing: 1px; font-weight: 600; }
+.exp-lead { margin: 0; color: var(--c-text2); line-height: 1.8; font-size: .9375rem; }
+
+.field { margin-top: 20px; }
+.field > label, .field-label { display: block; font-size: .875rem; margin-bottom: 8px; }
+.field small { color: var(--c-text2); font-weight: 400; }
+.field input, .field select {
+  width: 100%; box-sizing: border-box; padding: 12px; font-size: 1rem; font-family: inherit;
+  color: #fff; background: rgba(255, 255, 255, .06); border: .5px solid var(--c-border); border-radius: 8px;
+  color-scheme: dark;
+}
+.field input:focus, .field select:focus { outline: none; border-color: var(--c-accent); }
+
+/* 選項膠囊 */
+.chips { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+.chips.two { grid-template-columns: repeat(2, 1fr); }
+.chip {
+  padding: 12px 6px; font-size: .9375rem; font-family: inherit; cursor: pointer;
+  color: #fff; background: rgba(255, 255, 255, .04); border: .5px solid var(--c-border); border-radius: 10px;
+  transition: border-color .2s, background .2s;
+}
+.chip b { display: block; font-size: 1.25rem; margin-bottom: 2px; font-weight: 400; }
+.chip[aria-pressed="true"] { border-color: var(--c-accent); background: rgba(0, 229, 255, .1); }
+
+.btn-main, .btn-sub {
+  display: block; width: 100%; box-sizing: border-box; margin-top: 24px; padding: 15px;
+  border: 0; border-radius: 999px; font-size: 1rem; font-family: inherit; letter-spacing: 1px;
+  text-align: center; text-decoration: none; cursor: pointer;
+}
+.btn-main { background: var(--c-accent); color: #050508; }
+.btn-main:disabled { opacity: .35; cursor: default; }
+.btn-main.line { background: var(--c-line); color: #fff; }
+.btn-sub { margin-top: 12px; color: #fff; background: transparent; border: .5px solid rgba(255, 255, 255, .4); }
+.btn-text { display: block; margin: 14px auto 0; color: var(--c-text2); font-size: .875rem; background: none; border: 0; font-family: inherit; cursor: pointer; }
+.err { min-height: 1.2em; margin: 10px 0 0; color: #ff8a80; font-size: .8125rem; }
+
+/* 生成中 */
+.gen { text-align: center; padding: 72px 20px; }
+.gen-orb {
+  width: 120px; height: 120px; margin: 0 auto 28px; border-radius: 50%;
+  background: conic-gradient(from 0deg, #6DB85A, #E05545, #C49A6C, #A8AEAA, #5580CC, #6DB85A);
+  filter: blur(14px); animation: spin 2.4s linear infinite;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+.gen-step { color: var(--c-text2); min-height: 1.6em; transition: opacity .3s; }
+
+/* 圖紋畫布 */
+.art {
+  position: relative; border-radius: 12px; overflow: hidden; border: .5px solid var(--c-border);
+  -webkit-user-select: none; user-select: none; -webkit-touch-callout: none;
+}
+.art canvas { display: block; width: 100%; height: auto; pointer-events: none; }
+.art-tag {
+  position: absolute; left: 12px; top: 12px; padding: 4px 10px; border-radius: 999px;
+  font-size: .75rem; background: rgba(5, 5, 8, .6); color: var(--c-text2);
+}
+
+/* 色彩基因 */
+.genes { display: grid; gap: 10px; margin-top: 16px; }
+.gene { display: flex; align-items: center; gap: 12px; }
+.gene i { flex: none; width: 28px; height: 28px; border-radius: 50%; }
+.gene div { font-size: .875rem; line-height: 1.5; }
+.gene small { display: block; color: var(--c-text2); font-size: .75rem; }
+.gene.locked { filter: blur(3px); opacity: .6; }
+
+.code-box {
+  margin-top: 16px; padding: 12px; border-radius: 8px; text-align: center;
+  background: rgba(255, 255, 255, .05); border: .5px dashed var(--c-border);
+}
+.code-box b { font-family: 'DM Mono', monospace; letter-spacing: 4px; font-size: 1.25rem; color: var(--c-accent); }
+.code-box small { display: block; color: var(--c-text2); font-size: .75rem; margin-top: 4px; }
+.hint { color: var(--c-text2); font-size: .8125rem; line-height: 1.7; text-align: center; margin: 10px 0 0; }
+.proto { display: block; margin-top: 18px; text-align: center; font-size: .75rem; color: rgba(255, 255, 255, .4); }
+
+.plans-mini { display: grid; gap: 8px; margin-top: 14px; }
+.plans-mini a {
+  display: flex; justify-content: space-between; padding: 12px 14px; border-radius: 8px;
+  color: #fff; text-decoration: none; border: .5px solid var(--c-border); font-size: .9375rem;
+}
+.plans-mini a span { color: var(--c-text2); }
+.plans-mini a.featured { border-color: rgba(0, 229, 255, .5); }
+
+@media (prefers-reduced-motion: reduce) {
+  .scr.on { animation: none; }
+  .gen-orb { animation: none; }
+}
