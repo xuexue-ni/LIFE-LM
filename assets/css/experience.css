@@ -24,6 +24,7 @@ nav { padding: 16px 20px; }
   color: #fff; background: rgba(255, 255, 255, .06); border: .5px solid var(--c-border); border-radius: 8px;
   color-scheme: dark;
 }
+.field select option { background: #0b0b12; color: #fff; }
 .field input:focus, .field select:focus { outline: none; border-color: var(--c-accent); }
 
 /* 選項膠囊 */
