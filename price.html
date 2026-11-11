@@ -159,113 +159,58 @@
         <!--🔮 服務方案內容區塊 (Pricing Section) -->
        <section class="pricing-rows-section">
             <div class="pricing-wrapper">
-                <div class="pricing-row-header">
+                <div class="pricing-row-header" id="priceHeader">
                     <h2>LIFE+ Legacy Matrix 服務方案</h2>
-                    <p>選擇適合的方案與加值服務，或預約 <strong>私人顧問級訂製</strong>。</p>
+                    <p>一次付費、無月費。期限到期後轉為唯讀，故事<strong>永久保存</strong>、不刪除。</p>
                 </div>
-                <!-- 方案區塊 -->
                 <div class="rows-container">
-                    <div class="product-row">
-                        <div class="row-meta">
-                            <span class="row-badge">00 / BASIC</span>
-                            <h3>免費體驗</h3>
-                        </div>
-                        <div class="row-content">
-                            <p>依個人生命座標進行特質評估與設計分析，部分內容可免費下載。</p>
-                            <p class="row-fit">適合：想先了解自己／初次體驗</p>
-                        </div>
+                    <div class="product-row" id="row-00">
+                        <div class="row-meta"><span class="row-badge">00 / FREE</span><h3>免費體驗</h3></div>
+                        <div class="row-content"><p>輸入生日或紀念日，生成專屬生命圖紋預覽；加入 LINE 好友即可解鎖完整版。</p><p class="row-fit">適合：想先了解自己／初次體驗</p></div>
                         <div class="row-pricing-action">
-                            <div class="row-price"><span class="currency">NT$</span><span class="amount">0</span><span class="unit">單次</span></div>
+                            <div class="row-price"><span class="currency">NT$</span><span class="amount">0</span><span class="unit">預覽</span></div>
                             <a href="matrix.html" class="row-action-btn">開始體驗</a>
                         </div>
                     </div>
-                    <div class="product-row">
-                        <div class="row-meta">
-                            <span class="row-badge">01 / BASIC</span>
-                            <h3>基礎數位憶留</h3>
-                        </div>
-                        <div class="row-content">
-                            <p>將語音、影片、老照片、手寫信等素材，整理成結構化的人生故事，導出輕量數位回憶錄，含 1 次線上校正。</p>
-                            <p>✔ 回憶素材整理<br>✔ 故事結構重整<br>✔ 初步視覺化建議<br>✔ 記憶主題規劃</p>
-                            <p class="row-fit">適合：想替父母／自己整理人生故事的人</p>
-                        </div>
+                    <div class="product-row" id="row-01">
+                        <div class="row-meta"><span class="row-badge">01 / LITE</span><h3>輕量</h3></div>
+                        <div class="row-content"><p>✔ 9 則故事／90 天<br>✔ 生命圖紋生成 3 次</p><p class="row-fit">適合：先為一個人留下幾段重要回憶</p></div>
                         <div class="row-pricing-action">
-                            <div class="row-price"><span class="currency">NT$</span><span class="amount">3,600</span><span class="unit">起</span></div>
-                            <a href="booking.html" class="row-action-btn">啟動資產委託</a>
+                            <div class="row-price"><span class="currency">NT$</span><span class="amount">990</span><span class="unit">一次付費</span></div>
+                            <a href="booking.html?plan=lite" class="row-action-btn">選擇方案</a>
                         </div>
                     </div>
-                    <div class="product-row">
-                        <div class="row-meta">
-                            <span class="row-badge">02 / BASIC</span>
-                            <h3>印記・時光圖譜</h3>
-                        </div>
-                        <div class="row-content">
-                            <p>將出生時令的五行與卦象，轉譯為專屬幾何線譜與「視覺調候」，導出數位圖像，可直接製成實體藝術品。</p>
-                            <p>✔ 專屬時空參數視覺化建議<br>✔ 個人美學風格規劃<br>✔ 生命座標轉譯為當代藝術品</p>
-                            <p class="row-promo">名額限定・體驗價 3,600 元起</p>
-                        </div>
+                    <div class="product-row featured-row" id="row-02">
+                        <div class="row-meta"><span class="row-badge featured-badge">02 / 主推</span><h3>標準</h3></div>
+                        <div class="row-content"><p>✔ 24 則故事／120 天<br>✔ 家人分享<br>✔ 相片修復 10 張<br>✔ 生命圖紋生成 5 次</p><p class="row-fit">適合：替父母或毛孩整理完整的故事</p></div>
                         <div class="row-pricing-action">
-                            <div class="row-price"><span class="currency">NT$</span><span class="amount">4,800</span><span class="unit">起</span></div>
-                            <a href="booking.html" class="row-action-btn">啟動資產委託</a>
+                            <div class="row-price"><span class="currency">NT$</span><span class="amount">2,480</span><span class="unit">一次付費</span></div>
+                            <a href="booking.html?plan=standard" class="row-action-btn solid">選擇方案</a>
                         </div>
                     </div>
-                    <div class="product-row featured-row">
-                        <div class="row-meta">
-                            <span class="row-badge featured-badge">03 / POPULAR</span>
-                            <h3>LIFE+核心典藏</h3>
-                        </div>
-                        <div class="row-content">
-                            <p>最完整的雙軌方案：深度生命紀實＋時空矩陣配置，經 AI 美學轉譯加密保存，並<strong>附贈 1 組客製實體記憶載體</strong>。</p>
-                            <p>✔ 深度回憶整理<br>✔ 主題設計規劃<br>✔ 視覺化作品設計<br>✔ 初版典藏成果</p>
-                            <p class="row-fit">適合：紀念禮物／自留保存</p>
-                            <p class="row-promo">名額限定・體驗價 8,800 元起</p>
-                        </div>
+                    <div class="product-row" id="row-03">
+                        <div class="row-meta"><span class="row-badge">03 / COMPLETE</span><h3>完整</h3></div>
+                        <div class="row-content"><p>半年時光，寫完七個人生章節。</p><p>✔ 48 則故事／180 天<br>✔ 7 章全開<br>✔ 相片修復 30 張<br>✔ 生命圖紋生成不限次數</p><p class="row-promo">相片修復價值 NT$1,500</p></div>
                         <div class="row-pricing-action">
-                            <div class="row-price"><span class="currency">NT$</span><span class="amount">12,800</span><span class="unit">起</span></div>
-                            <a href="booking.html" class="row-action-btn solid">優先客製預約</a>
+                            <div class="row-price"><span class="currency">NT$</span><span class="amount">3,680</span><span class="unit">一次付費</span></div>
+                            <a href="booking.html?plan=complete" class="row-action-btn">選擇方案</a>
                         </div>
                     </div>
-                    <div class="product-row">
-                        <div class="row-meta">
-                            <span class="row-badge">04 / PREMIUM</span>
-                            <h3>永恆資產典藏設計</h3>
-                        </div>
-                        <div class="row-content">
-                            <p>全客製的生命篇章深度整合，純手工平面美術＋數位雙軌訂製，雲端資產永久維護，適合傳家寶或家族圖騰。</p>
-                            <p>✔ 深度訪談整理<br>✔ 高階藝術設計<br>✔ 實體作品製作</p>
-                            <p class="row-fit">適合：重要人生紀念／高情感需求療癒</p>
-                        </div>
+                    <div class="product-row" id="row-04">
+                        <div class="row-meta"><span class="row-badge">04 / DIGITAL + PHYSICAL</span><h3>數位＋實體</h3></div>
+                        <div class="row-content"><p>標準方案＋專屬實體藝術品，內嵌 NFC，手機輕碰即可打開故事頁。</p><p>✔ 含標準方案全部內容<br>✔ 實體藝術品（含 NFC）<br>✔ 已購數位方案可折抵 NT$800</p><p class="row-fit">適合：紀念禮物／擺在身邊的陪伴</p></div>
                         <div class="row-pricing-action">
-                            <div class="row-price"><span class="currency">NT$</span><span class="amount">18,800</span><span class="unit">起</span></div>
-                            <a href="booking.html" class="row-action-btn">尊榮專案洽詢</a>
+                            <div class="row-price"><span class="currency">NT$</span><span class="amount">5,280</span><span class="unit">起</span></div>
+                            <a href="booking.html?type=both" class="row-action-btn">預約諮詢</a>
                         </div>
                     </div>
-                    <div class="product-row extension-row">
-                        <div class="row-meta">
-                            <span class="row-badge">05 / CURATION</span>
-                            <h3>生命策展時空展廳</h3>
-                        </div>
-                        <div class="row-content">
-                            <p>線上虛擬展廳與線下微型展覽規劃，依需求彈性增配。規劃準備中，敬請期待。</p>
-                        </div>
+                    <div class="product-row" id="row-05">
+                        <div class="row-meta"><span class="row-badge">05 / EXTENSIONS</span><h3>加值與補充故事</h3></div>
+                        <div class="row-content"><p><span class="itemname">+10 則</span>　期限內則數用完　NT$390<br><span class="itemname">續寫包</span>　已到期：重開 10 則／60 天　NT$490<br><span class="itemname">升級方案</span>　期限內補差額即可（例：輕量→標準 NT$1,490）<br><span class="itemname">相片修復</span>　單張加購　NT$50／張</p></div>
                         <div class="row-pricing-action">
-                            <div class="row-price"><span class="currency">NT$</span><span class="amount">98,800</span><span class="unit">起</span></div>
-                            <a href="booking.html" class="row-action-btn">傳承信託服務</a>
+                            <div class="row-price"><span class="currency">NT$</span><span class="amount">50</span><span class="unit">起</span></div>
                         </div>
                     </div>
-                    <div class="product-row">
-                        <div class="row-meta">
-                            <span class="row-badge">06 / EXTENSIONS</span>
-                            <h3>多元美學加值配置</h3>
-                        </div>
-                        <div class="row-content">
-                            <p>可依需求自由選配，延伸成數位或實體作品：<br><span class="itemname">數位</span>　專屬故事網頁・影像／音頻處理<br><span class="itemname">實體</span>　精裝書・掛畫・公仔・擺件・塑像・生活周邊</p>
-                        </div>
-                        <div class="row-pricing-action">
-                            <div class="row-price"><span class="currency">另行報價</span><br><span class="unit">依材質、數量、時程報價</span></div>
-                        </div>
-                    </div>
-
                 </div>
             </div>
         </section>
