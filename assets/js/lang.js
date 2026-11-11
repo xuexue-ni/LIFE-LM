@@ -578,26 +578,26 @@ function applyLang() {
 const PRICE_LANG = {
   zh: {
     h2: 'LIFE+ Legacy Matrix 服務方案',
-    p: '一次付費、無月費。期限到期後轉為唯讀，故事<strong>永久保存</strong>、不刪除。',
+    p: '一次付費、無月費。到期後轉為唯讀，讓你的故事<strong>好好保存下來</strong>。',
     rows: {
       '00': { title:'免費體驗', content:'<p>輸入生日或紀念日，生成專屬生命圖紋預覽；加入 LINE 好友即可解鎖完整版。</p><p class="row-fit">適合：想先了解自己／初次體驗</p>', unit:'預覽', btn:'開始體驗' },
-      '01': { title:'輕量', content:'<p>✔ 9 則故事／90 天<br>✔ 生命圖紋生成 3 次</p><p class="row-fit">適合：先為一個人留下幾段重要回憶</p>', unit:'一次付費', btn:'選擇方案' },
-      '02': { title:'標準', content:'<p>✔ 24 則故事／120 天<br>✔ 家人分享<br>✔ 相片修復 10 張<br>✔ 生命圖紋生成 5 次</p><p class="row-fit">適合：替父母或毛孩整理完整的故事</p>', unit:'一次付費', btn:'選擇方案' },
-      '03': { title:'完整', content:'<p>半年時光，寫完七個人生章節。</p><p>✔ 48 則故事／180 天<br>✔ 7 章全開<br>✔ 相片修復 30 張<br>✔ 生命圖紋生成不限次數</p><p class="row-promo">相片修復價值 NT$1,500</p>', unit:'一次付費', btn:'選擇方案' },
+      '01': { title:'輕量', content:'<p>✔ 9 則故事／90 天<br>✔ 生命圖紋 1 組</p><p class="row-fit">先開始留下幾段重要回憶吧！</p>', unit:'一次付費', btn:'選擇方案' },
+      '02': { title:'標準', content:'<p>✔ 24 則故事／120 天<br>✔ 家人分享<br>✔ 相片修復 10 張<br>✔ 生命圖紋 2 組</p><p class="row-fit">適合：替父母或毛孩整理完整的故事</p>', unit:'一次付費', btn:'選擇方案' },
+      '03': { title:'完整', content:'<p>半年時光，寫完七個人生章節。</p><p>✔ 48 則故事／180 天<br>✔ 完整章節解鎖<br>✔ 相片修復 30 張<br>✔ 生命圖紋 4 組</p><p class="row-promo">相片修復價值 NT$1,500</p>', unit:'一次付費', btn:'選擇方案' },
       '04': { title:'數位＋實體', content:'<p>標準方案＋專屬實體藝術品，內嵌 NFC，手機輕碰即可打開故事頁。</p><p>✔ 含標準方案全部內容<br>✔ 實體藝術品（含 NFC）<br>✔ 已購數位方案可折抵 NT$800</p><p class="row-fit">適合：紀念禮物／擺在身邊的陪伴</p>', unit:'起', btn:'預約諮詢' },
-      '05': { title:'加值與補充故事', content:'<p><span class="itemname">+10 則</span>　期限內則數用完　NT$390<br><span class="itemname">續寫包</span>　已到期：重開 10 則／60 天　NT$490<br><span class="itemname">升級方案</span>　期限內補差額即可（例：輕量→標準 NT$1,490）<br><span class="itemname">相片修復</span>　單張加購　NT$50／張</p>', unit:'起' }
+      '05': { title:'加值與補充故事', content:'<p><span class="itemname">續寫包</span>　加量／已到期數位補錄：重開 10 則／60 天　NT$590<br><span class="itemname">升級方案</span>　期限內補差額即可（例：輕量→標準 NT$1,490）<br><span class="itemname">相片修復</span>　單張加購　NT$50／張<br><span class="itemname">影像合成處理</span>　單張計費　NT$200 起</p>', unit:'起' }
     }
   },
   en: {
     h2: 'LIFE+ Legacy Matrix Service Plans',
-    p: 'One-time payment, no subscription. After the term ends, stories become read-only and are <strong>kept forever</strong> — never deleted.',
+    p: 'One-time payment, no subscription. After the term ends, stories become read-only and <strong>stay safely preserved</strong>.',
     rows: {
       '00': { title:'Free Trial', content:'<p>Enter a birthday or memorial date to preview your personal life pattern. Add us on LINE to unlock the full version.</p><p class="row-fit">Best for: first-time exploration</p>', unit:'preview', btn:'Try It Now' },
-      '01': { title:'Lite', content:'<p>✔ 9 stories / 90 days<br>✔ Life pattern generated 3 times</p><p class="row-fit">Best for: keeping a few key memories of one person</p>', unit:'one-time', btn:'Choose Plan' },
-      '02': { title:'Standard', content:'<p>✔ 24 stories / 120 days<br>✔ Family sharing<br>✔ 10 photo restorations<br>✔ Life pattern generated 5 times</p><p class="row-fit">Best for: a full story of a parent or pet</p>', unit:'one-time', btn:'Choose Plan' },
-      '03': { title:'Complete', content:'<p>Half a year to write all seven chapters of a life.</p><p>✔ 48 stories / 180 days<br>✔ All 7 chapters unlocked<br>✔ 30 photo restorations<br>✔ Unlimited life pattern generation</p><p class="row-promo">Photo restoration worth NT$1,500</p>', unit:'one-time', btn:'Choose Plan' },
+      '01': { title:'Lite', content:'<p>✔ 9 stories / 90 days<br>✔ 1 life pattern</p><p class="row-fit">Start by keeping a few key memories!</p>', unit:'one-time', btn:'Choose Plan' },
+      '02': { title:'Standard', content:'<p>✔ 24 stories / 120 days<br>✔ Family sharing<br>✔ 10 photo restorations<br>✔ 2 life patterns</p><p class="row-fit">Best for: a full story of a parent or pet</p>', unit:'one-time', btn:'Choose Plan' },
+      '03': { title:'Complete', content:'<p>Half a year to write all seven chapters of a life.</p><p>✔ 48 stories / 180 days<br>✔ All chapters unlocked<br>✔ 30 photo restorations<br>✔ 4 life patterns</p><p class="row-promo">Photo restoration worth NT$1,500</p>', unit:'one-time', btn:'Choose Plan' },
       '04': { title:'Digital + Physical', content:'<p>Standard plan plus a custom physical artwork with an NFC chip — tap with your phone to open the story page.</p><p>✔ Everything in Standard<br>✔ Physical artwork (with NFC)<br>✔ NT$800 credit if you already own a digital plan</p><p class="row-fit">Best for: memorial gifts / a keepsake by your side</p>', unit:'from', btn:'Book a Consultation' },
-      '05': { title:'Add-Ons & More Stories', content:'<p><span class="itemname">+10 stories</span>　when you run out within the term　NT$390<br><span class="itemname">Continuation pack</span>　after expiry: 10 stories / 60 days　NT$490<br><span class="itemname">Upgrade</span>　pay only the difference within the term (e.g. Lite → Standard NT$1,490)<br><span class="itemname">Photo restoration</span>　NT$50 per photo</p>', unit:'from' }
+      '05': { title:'Add-Ons & More Stories', content:'<p><span class="itemname">Continuation pack</span>　more stories / after expiry: 10 stories / 60 days　NT$590<br><span class="itemname">Upgrade</span>　pay only the difference within the term (e.g. Lite → Standard NT$1,490)<br><span class="itemname">Photo restoration</span>　NT$50 per photo<br><span class="itemname">Image compositing</span>　per image　from NT$200</p>', unit:'from' }
     }
   }
 };
