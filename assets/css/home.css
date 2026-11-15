@@ -16,7 +16,7 @@
 }
 
 /* 主 KV */
-.home-hero { padding: clamp(72px, 14vh, 140px) 0 0; }
+.home-hero { padding: clamp(48px, 9vh, 96px) 0 0; }
 .hero-eyebrow { font-size: .875rem; letter-spacing: 4px; color: var(--c-accent); }
 .hero-title {
   margin: 16px 0 20px;
@@ -26,7 +26,7 @@
   letter-spacing: 2px;
 }
 .hero-lead { color: var(--c-text2); line-height: 1.9; font-size: 1rem; }
-.hero-cta { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; margin: 32px 0 24px; }
+.hero-cta { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; margin: 44px 0 40px; }
 .hero-for {
   list-style: none; padding: 0; margin: 0;
   display: flex; gap: 4px 0; justify-content: center; flex-wrap: wrap;
