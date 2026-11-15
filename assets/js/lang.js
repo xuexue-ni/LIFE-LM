@@ -1,8 +1,8 @@
 // ── 語言系統 ──
 const LANG = {
   zh: {
-    nav: ['典藏方案','圖紋體驗','專屬預約','關於LIFE+','服務介紹'],
-    navSub: ['免費體驗','核心原理','留住記憶','服務方案','專屬預約'],
+    nav: ['典藏方案','圖紋體驗','專屬預約','關於LIFE+','會員登入'],
+    navSub: ['留住記憶','服務介紹','免費體驗','專屬預約','關於LIFE+'],
     symQ: 'Q.選擇一個您最有感的符號意義,以極細線條若隱若現地融入畫面背景',
     texQ: 'Q.你最容易被哪種觸覺感或物件感吸引？',
     heroTagline: '把人生故事與美好紀念，化為可珍藏的客製化典藏作品',
@@ -157,8 +157,8 @@ const LANG = {
     tableHeaders: ['維度 (Pillars)','玄學基礎 (Philosophy)','美學應用 (Application)','演算邏輯 (Data Logic)'],
   },
   en: {
-    nav: ['Plans','Pattern Trial','Book Now','About LIFE+','Services'],
-    navSub: ['Free Trial','Core Philosophy','Preserve Memory','Service Plans','Book Now'],
+    nav: ['Plans','Pattern Trial','Book Now','About LIFE+','Member Login'],
+    navSub: ['Preserve Memory','Services','Free Trial','Book Now','About LIFE+'],
     symQ: 'Q. Choose the symbol that resonates most — woven as ultra-fine, barely-visible lines in the background',
     texQ: 'Q. Which tactile or material feeling draws you in most?',
     heroTagline: 'Turn your life story and cherished memories into a custom, treasured archive',
@@ -341,7 +341,7 @@ function applyLang() {
 
   // nav（依頁面偵測：index.html / price.html+event頁 導覽列項目與順序不同）
   const navLinks = document.querySelectorAll('.nav-links > a');
-  const isPriceOrEvent = !!document.getElementById('priceHeader') || !!document.getElementById('ev-brandTitle');
+  const isPriceOrEvent = !!document.getElementById('ev-brandTitle');
   const navArr = isPriceOrEvent ? L.navSub : L.nav;
   navArr.forEach((txt, i) => { if (navLinks[i]) navLinks[i].textContent = txt; });
 
