@@ -1863,8 +1863,3 @@ header h3{
 }
 .nav-links a.nav-login:hover { background: rgba(0, 229, 255, .12); }
 
-/* 頁尾法律連結 */
-.footer-legal { margin-left: 12px; white-space: nowrap; }
-.footer-legal a { color: inherit; text-decoration: none; opacity: .75; }
-.footer-legal a:hover { color: #00e5ff; opacity: 1; }
-@media (max-width: 768px) { .footer-legal { display: block; margin: 6px 0 0; } }
