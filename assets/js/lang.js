@@ -1,7 +1,7 @@
 // ── 語言系統 ──
 const LANG = {
   zh: {
-    nav: ['典藏方案','矩陣體驗','專屬預約','關於LIFE+','服務介紹'],
+    nav: ['典藏方案','圖紋體驗','專屬預約','關於LIFE+','服務介紹'],
     navSub: ['免費體驗','核心原理','留住記憶','服務方案','專屬預約'],
     symQ: 'Q.選擇一個您最有感的符號意義,以極細線條若隱若現地融入畫面背景',
     texQ: 'Q.你最容易被哪種觸覺感或物件感吸引？',
@@ -157,7 +157,7 @@ const LANG = {
     tableHeaders: ['維度 (Pillars)','玄學基礎 (Philosophy)','美學應用 (Application)','演算邏輯 (Data Logic)'],
   },
   en: {
-    nav: ['Plans','Matrix Trial','Book Now','About LIFE+','Services'],
+    nav: ['Plans','Pattern Trial','Book Now','About LIFE+','Services'],
     navSub: ['Free Trial','Core Philosophy','Preserve Memory','Service Plans','Book Now'],
     symQ: 'Q. Choose the symbol that resonates most — woven as ultra-fine, barely-visible lines in the background',
     texQ: 'Q. Which tactile or material feeling draws you in most?',
