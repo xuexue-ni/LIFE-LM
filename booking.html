@@ -202,6 +202,15 @@
                     </div>
                 </div>
                 <div class="form-group">
+                    <label>數位方案</label>
+                    <select name="Plan" class="form-input-box" id="planSel">
+                        <option value="">尚未選擇／想先諮詢</option>
+                        <option value="lite">輕量｜9 則故事／90 天｜NT$990</option>
+                        <option value="standard">標準（主推）｜24 則故事／120 天｜NT$2,480</option>
+                        <option value="complete">完整｜48 則故事／180 天｜NT$3,680</option>
+                    </select>
+                </div>
+                <div class="form-group">
                     <label>簡單聊聊您想留下的故事或期望（選填）</label>
                     <textarea name="UserMessage" class="form-input-box"
                         placeholder="例如：想幫心愛的貓咪留念or想替現在的自己留下紀錄!.."></textarea>
@@ -234,9 +243,13 @@
     <div id="footer-placeholder"></div>
     <script>
         (function () {
-            const t = new URLSearchParams(location.search).get('type');
-            const sel = document.getElementById('archiveType');
-            if (t && sel && sel.querySelector('option[value="' + t + '"]')) sel.value = t;
+            const q = new URLSearchParams(location.search), set = (id, v) => {
+                const el = document.getElementById(id);
+                if (v && el && el.querySelector('option[value="' + v + '"]')) el.value = v;
+            };
+            set('archiveType', q.get('type'));
+            set('planSel', q.get('plan'));
+            if (q.get('plan') && !q.get('type')) set('archiveType', 'digital'); // 從價格頁選數位方案
         })();
     </script>
     <script src="assets/js/bg-gl.js"></script>
