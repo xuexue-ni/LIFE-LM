@@ -162,11 +162,13 @@
   function pick(group, v) {
     group.querySelectorAll('.chip').forEach(c => c.setAttribute('aria-pressed', c.dataset.v === v));
   }
-  $('targetChips').addEventListener('click', e => {
-    const c = e.target.closest('.chip'); if (!c) return;
-    st.target = c.dataset.v; pick($('targetChips'), st.target);
-    $('iName').placeholder = TARGET[st.target].ph;
+  function setTarget(v) {
+    st.target = v; pick($('targetChips'), v);
+    $('iName').placeholder = TARGET[v].ph;
     $('btnGen').disabled = false;
+  }
+  $('targetChips').addEventListener('click', e => {
+    const c = e.target.closest('.chip'); if (c) setTarget(c.dataset.v);
   });
   $('dateChips').addEventListener('click', e => {
     const c = e.target.closest('.chip'); if (!c) return;
@@ -286,6 +288,7 @@
   // ── 進入點 ──
   const q = new URLSearchParams(location.search), code = (q.get('code') || '').toUpperCase();
   if (code) E.verify(code, q.get('token')) ? renderFull(code) : show('sErr');
+  else if (TARGET[q.get('target')]) setTarget(q.get('target')); // 首頁情境帶入
 })();
 </script>
 </body>
