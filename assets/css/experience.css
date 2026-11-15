@@ -87,6 +87,7 @@ nav { padding: 16px 20px; }
 .code-box small { display: block; color: var(--c-text2); font-size: .75rem; margin-top: 4px; }
 .hint { color: var(--c-text2); font-size: .8125rem; line-height: 1.7; text-align: center; margin: 10px 0 0; }
 .proto { display: block; margin-top: 18px; text-align: center; font-size: .75rem; color: rgba(255, 255, 255, .4); }
+.proto[hidden] { display: none; }
 
 .plans-mini { display: grid; gap: 8px; margin-top: 14px; }
 .plans-mini a {
