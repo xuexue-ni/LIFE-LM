@@ -85,7 +85,7 @@
       <a class="btn-main line" id="btnLine" target="_blank" rel="noopener">加 LINE 解鎖完整版</a>
       <p class="hint" id="lineHint">加入後會自動帶入「解鎖 短碼」，送出即可。</p>
       <button class="btn-text" data-reset>重新生成</button>
-      <a class="proto" id="protoLink">（原型測試）模擬 LINE 解鎖連結 →</a>
+      <a class="proto" id="protoLink" hidden>（原型測試）模擬 LINE 解鎖連結 →</a>
     </div>
   </section>
 
@@ -290,6 +290,7 @@
 
   // ── 進入點 ──
   const q = new URLSearchParams(location.search), code = (q.get('code') || '').toUpperCase();
+  $('protoLink').hidden = !q.has('dev'); // 測試用：網址加 ?dev 才顯示
   if (code) E.verify(code, q.get('token')) ? renderFull(code) : show('sErr');
   else if (TARGET[q.get('target')]) setTarget(q.get('target')); // 首頁情境帶入
 })();
