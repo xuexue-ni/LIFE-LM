@@ -182,9 +182,17 @@ function scrollToTop() {
 // 4. 預約表單提交與彈出式通知
 function triggerFormSubmit(event) {
     event.preventDefault();
+    const form = event.target, btn = form.querySelector('[type=submit]');
     const alertBox = document.getElementById('custom-alert');
-    if (alertBox) alertBox.style.display = 'block';
-    setTimeout(() => { event.target.submit(); }, 1500);
+    if (btn) { btn.disabled = true; btn.dataset.t = btn.textContent; btn.textContent = '送出中…'; }
+    fetch(form.action, { method: 'POST', body: new FormData(form), headers: { Accept: 'application/json' } })
+        .then(r => {
+            if (!r.ok) throw 0;
+            form.reset();
+            if (alertBox) alertBox.style.display = 'block';
+        })
+        .catch(() => alert('送出失敗，請稍後再試，或直接加 LINE 與我們聯繫。'))
+        .finally(() => { if (btn) { btn.disabled = false; btn.textContent = btn.dataset.t; } });
 }
 function closeAlert() { 
     const alertBox = document.getElementById('custom-alert');
