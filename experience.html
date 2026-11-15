@@ -267,7 +267,7 @@
   function renderFull(code) {
     let input = null;
     try { input = JSON.parse(localStorage.getItem('lifeExp:' + code)); } catch (_) {}
-    if (!input) input = { code, target: E.targetOf(code), name: '' }; // 正式版由後台依短碼回傳
+    if (!input) input = { code, target: E.targetOf(code), name: '', ...E.decode(code) }; // 換裝置：由短碼還原日期
     const res = resolve(input);
     const cv = $('cvFull'), ctx = cv.getContext('2d'), W = cv.width;
     E.draw(ctx, W, res, E.hash(code));

@@ -103,11 +103,27 @@
   const TARGET_CH = { elder: 'E', pet: 'P', self: 'S' };
   const CH_TARGET = { E: 'elder', P: 'pet', S: 'self' };
 
-  /** 短碼：L + 對象字元 + 4 碼，例 LE8K2Q */
+  /** 短碼：L + 對象字元 + 5 碼，例 LE8K2QX；有日期時把日期／時辰編進短碼，換裝置也能還原 */
+  const DAY0 = Date.UTC(1900, 0, 1), FLAG = 1 << 24;
   function shortCode(input) {
-    let h = hash(JSON.stringify(input)), s = '';
-    for (let i = 0; i < 4; i++) { s += B32[h % 32]; h = Math.floor(h / 32); }
+    let v;
+    if (input.date) {
+      const days = Math.round((Date.parse(input.date + 'T00:00:00Z') - DAY0) / 864e5);
+      v = days * 25 + (input.hour == null ? 24 : input.hour);
+    } else v = FLAG | (hash(JSON.stringify(input)) & (FLAG - 1)); // 無日期：隨機
+    let s = '';
+    for (let i = 0; i < 5; i++) { s += B32[v % 32]; v = Math.floor(v / 32); }
     return 'L' + (TARGET_CH[input.target] || 'S') + s;
+  }
+  /** 由短碼還原 { date, hour }；無日期或舊格式回 null */
+  function decode(code) {
+    const s = (code || '').slice(2);
+    if (s.length !== 5) return null;
+    let v = 0;
+    for (let i = 4; i >= 0; i--) { const n = B32.indexOf(s[i]); if (n < 0) return null; v = v * 32 + n; }
+    if (v & FLAG) return null;
+    const h = v % 25, date = new Date(DAY0 + Math.floor(v / 25) * 864e5).toISOString().slice(0, 10);
+    return { date, hour: h === 24 ? null : h };
   }
   function targetOf(code) { return CH_TARGET[(code || '')[1]] || 'self'; }
 
@@ -192,6 +208,6 @@
 
   root.LifeEngine = {
     TG, DZ, ELEMS, EC, EB, ET, EP, TONE,
-    compute, fromSeed, hash, rng, shortCode, targetOf, token, verify, draw
+    compute, fromSeed, hash, rng, shortCode, decode, targetOf, token, verify, draw
   };
 })(window);
