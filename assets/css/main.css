@@ -1863,3 +1863,7 @@ header h3{
 }
 .nav-links a.nav-login:hover { background: rgba(0, 229, 255, .12); }
 
+/* 頁尾法律連結：與聯絡資訊區隔 */
+.footer-links .footer-legal { margin-top: 18px; font-size: .75rem; opacity: .55; }
+.footer-links .footer-legal a:hover { color: #00e5ff; }
+.footer-links .footer-legal:hover { opacity: 1; }
