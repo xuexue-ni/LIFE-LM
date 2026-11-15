@@ -166,16 +166,19 @@
     st.target = v; pick($('targetChips'), v);
     $('iName').placeholder = TARGET[v].ph;
     $('btnGen').disabled = false;
+    setDateType(v === 'pet' ? 'memo' : 'birth');
   }
   $('targetChips').addEventListener('click', e => {
     const c = e.target.closest('.chip'); if (c) setTarget(c.dataset.v);
   });
   $('dateChips').addEventListener('click', e => {
-    const c = e.target.closest('.chip'); if (!c) return;
-    st.dateType = c.dataset.v; pick($('dateChips'), st.dateType);
-    $('dateLabel').textContent = st.dateType === 'birth' ? '生日' : '紀念日';
-    $('hourField').hidden = st.dateType !== 'birth';
+    const c = e.target.closest('.chip'); if (c) setDateType(c.dataset.v);
   });
+  function setDateType(v) {
+    st.dateType = v; pick($('dateChips'), v);
+    $('dateLabel').textContent = v === 'birth' ? '生日' : '紀念日';
+    $('hourField').hidden = v !== 'birth';
+  }
 
   $('btnGen').addEventListener('click', () => {
     const date = $('iDate').value;
