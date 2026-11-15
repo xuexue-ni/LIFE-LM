@@ -21,6 +21,7 @@
     <!-- 樣式連結 -->
     <link rel="stylesheet" href="assets/css/main.css">
     <link rel="stylesheet" href="assets/css/life-code.css">
+    <link rel="stylesheet" href="assets/css/price.css">
     <link rel="preconnect" href="https://fonts.googleapis.com/">
     <link rel="stylesheet" href="assets/css/css2">
     <link rel="icon" href="assets/images/favicon.svg" type="image/svg+xml">
@@ -30,7 +31,6 @@
 </head>
 
 <body>
-    <canvas id="life-space-canvas"></canvas>
     <!-- 社群分享 -->
    <div class="desktop-social-sidebar">
         <a href="price.html" target="_blank" class="share-icon-quiz" data-tooltip="看看適合方案"> <span class="icon-txt">✨典藏服務
@@ -97,11 +97,11 @@
             <span></span>
         </div>
         <div class="nav-links" id="nav-links-container">
-            <a href="index.html#solutions" onclick="closeMobileMenu()">留住記憶</a>
-            <a href="price.html" target="_blank" onclick="closeMobileMenu()">服務介紹</a>
-            <a href="index.html#experience" onclick="closeMobileMenu()">免費體驗</a>
-            <a href="index.html#booking" onclick="closeMobileMenu()">專屬預約</a>
-            <a href="index.html#about" onclick="closeMobileMenu()">關於LIFE+</a>
+            <a href="price.html" onclick="closeMobileMenu()">典藏方案</a>
+            <a href="experience.html" onclick="closeMobileMenu()">圖紋體驗</a>
+            <a href="booking.html" onclick="closeMobileMenu()">專屬預約</a>
+            <a href="about.html" onclick="closeMobileMenu()">關於LIFE+</a>
+            <a href="https://life.jimmyy512.com/" class="nav-login" rel="noopener" onclick="closeMobileMenu()">會員登入</a>
             <div class="mobile-menu-social-footer" aria-label="社群分享">
                 <a href="https://social-plugins.line.me/lineit/share?url=https://xuexue-ni.github.io/LIFE-LM/"
                     target="_blank" class="social-btn" title="分享至 LINE" onclick="closeMobileMenu()">
@@ -159,173 +159,122 @@
         <!--🔮 服務方案內容區塊 (Pricing Section) -->
        <section class="pricing-rows-section">
             <div class="pricing-wrapper">
-                <div class="pricing-row-header">
+                <div class="pricing-row-header" id="priceHeader">
                     <h2>LIFE+ Legacy Matrix 服務方案</h2>
-                    <p>可選擇適合您的方案與加值服務或 <strong>私人顧問級訂製</strong>，來為您定錨生命中最珍貴的記憶軌跡。</p>
+                    <p>一次付費、無月費。到期後轉為唯讀，讓你的故事<strong>好好保存下來</strong>。</p>
                 </div>
-                <!-- 方案區塊 -->
                 <div class="rows-container">
-                    <!---00 / free--->
-                    <div class="product-row">
-                        <div class="row-meta">
-                            <span class="row-badge">00 / BASIC</span>
-                            <h3>免費體驗</h3>
-                        </div>
-                        <div class="row-content">
-                            <p>生命矩陣座標解碼:依據個人生命座標，進行特質評估與設計分析。提供部分內容可免費自行下載。</p>
-                            <p>👉 適合：想先了解自己／初次體驗</p>
-                        </div>
+                    <div class="product-row" id="row-00">
+                        <div class="row-meta"><span class="row-badge">00 / FREE</span><h3>免費體驗</h3></div>
+                        <div class="row-content"><p>輸入生日或紀念日，生成專屬生命圖紋預覽；加入 LINE 好友即可解鎖完整版。</p><p class="row-fit">適合：想先了解自己／初次體驗</p></div>
                         <div class="row-pricing-action">
-                            <div class="row-price">
-                                <span class="currency">NT$</span><span class="amount">0</span><span class="unit">/
-                                    單次</span>
-                            </div>
-                            <a href="#booking" class="row-action-btn">啟動資產委託</a>
+                            <div class="row-price"><span class="currency">NT$</span><span class="amount">0</span><span class="unit">預覽</span></div>
+                            <a href="experience.html" class="row-action-btn">開始體驗</a>
                         </div>
                     </div>
-                    <!---01 / BASIC--->
-                    <div class="product-row">
-                        <div class="row-meta">
-                            <span class="row-badge">01 / BASIC</span>
-                            <h3>基礎數位憶留</h3>
-                        </div>
-                        <div class="row-content">
-                            <p>根據個人座標與透過系統建構identify（識別）基礎人生故事軌跡與引導，提供系統演算專屬之設計計畫，專注於生命記憶素材的結構化建檔。完成輕量化數位Memoirs檔案導出，並包含
-                                1次線上資料校正服務。</p>
-                            <p>✔ 回憶素材整理<br>
-                                ✔ 故事結構重整<br>
-                                ✔ 初步視覺化建議<br>
-                                ✔ 記憶主題規劃</p>
-                            <p>語音錄音、生活影片、老照片、手寫信、手稿畫作...等，都適合成為編寫回憶的素材。</p>
-                            <p>👉 適合：想替父母／自己整理人生故事的人</p>
-                        </div>
+                    <div class="product-row" id="row-01">
+                        <div class="row-meta"><span class="row-badge">01 / LITE</span><h3>輕量</h3></div>
+                        <div class="row-content"><p>✔ 9 則故事／90 天<br>✔ 生命圖紋 1 組</p><p class="row-fit">先開始留下幾段重要回憶吧！</p></div>
                         <div class="row-pricing-action">
-                            <div class="row-price">
-                                <span class="currency">NT$</span><span class="amount">3,600</span><span class="unit">/
-                                    起</span>
-                            </div>
-                            <a href="#booking" class="row-action-btn">啟動資產委託</a>
+                            <div class="row-price"><span class="currency">NT$</span><span class="amount">990</span><span class="unit">一次付費</span></div>
+                            <a href="booking.html?plan=lite" class="row-action-btn">選擇方案</a>
                         </div>
                     </div>
-                    <!---02 / BASIC--->
-                    <div class="product-row">
-                        <div class="row-meta">
-                            <span class="row-badge">02 / BASIC</span>
-                            <h3>印記・時光圖譜</h3>
-                        </div>
-                        <div class="row-content">
-                            <p>將出生時令的陰陽五行與時空卦象，轉譯為專屬視覺 DNA。透過平衡與補足，將您的人生座標編織成獨一無二的幾何線譜，為您量身打造專屬的「視覺調候（Visual Tuning）」。
-                                輕量化數位圖像導出，可完美對接實體藝術品製作</p>
-                            <p> ✔ 專屬時空參數之視覺化建議<br>
-                                ✔ 個人美學元素與風格主題規劃<br>
-                                ✔ 將獨一無二的生命座標轉譯為當代藝術品<br>
-                            </p>
-                            <p>👉 一座屬於時間的紀念碑，為您深刻封存與守護。</p>
-                            <span style="color:aqua;"> 名額限定-體驗價 : 3,600元+ </span>
-                        </div>
+                    <div class="product-row featured-row" id="row-02">
+                        <div class="row-meta"><span class="row-badge featured-badge">02 / 主推</span><h3>標準</h3></div>
+                        <div class="row-content"><p>✔ 24 則故事／120 天<br>✔ 家人分享<br>✔ 相片修復 10 張<br>✔ 生命圖紋 1 組</p><p class="row-fit">適合：替父母或毛孩整理完整的故事</p></div>
                         <div class="row-pricing-action">
-                            <div class="row-price">
-                                <span class="currency">NT$</span><span class="amount">4,800</span><span class="unit">/
-                                    起</span>
-                            </div>
-                            <a href="#booking" class="row-action-btn">啟動資產委託</a>
+                            <div class="row-price"><span class="currency">NT$</span><span class="amount">2,480</span><span class="unit">一次付費</span></div>
+                            <a href="booking.html?plan=standard" class="row-action-btn solid">選擇方案</a>
                         </div>
                     </div>
-                    <!---03 / POPULAR--->
-                    <div class="product-row featured-row">
-                        <div class="row-meta">
-                            <span class="row-badge featured-badge">03 / POPULAR</span>
-                            <h3>LIFE+核心典藏</h3>
-                        </div>
-                        <div class="row-content">
-                            <p>最完整的雙軌留存方案。包含深度生命紀實與時空矩陣架構配置，經由 AI 進階美學轉譯，完整儲存於加密型 Meta-Aesthetics 資料模組。本方案**附贈 1 組客製化實體
-                                Physical Memoirs 記憶資產載體**，讓情感永恆傳承。</p>
-                            <p>✔ 深度回憶整理<br>
-                                ✔ 主題設計規劃<br>
-                                ✔ 視覺化作品設計<br>
-                                ✔ 初版典藏成果</p>
-                            <p>👉 適合：「紀念禮物／自留保存」的人生禮物</p>
-                            <span style="color:aqua;font-weight: bold;"> 名額限定-體驗價 : 8,800元+</span>
-                        </div>
+                    <div class="product-row" id="row-03">
+                        <div class="row-meta"><span class="row-badge">03 / COMPLETE</span><h3>完整</h3></div>
+                        <div class="row-content"><p>半年時光，寫完七個人生章節。</p><p>✔ 48 則故事／180 天<br>✔ 完整章節解鎖<br>✔ 相片修復 30 張<br>✔ 生命圖紋 2 組</p><p class="row-promo">相片修復價值 NT$1,500</p></div>
                         <div class="row-pricing-action">
-                            <div class="row-price">
-                                <span class="currency">NT$</span><span class="amount">12,800</span><span class="unit">/
-                                    起</span>
-                            </div>
-                            <a href="#booking" class="row-action-btn solid">優先客製預約</a>
+                            <div class="row-price"><span class="currency">NT$</span><span class="amount">3,680</span><span class="unit">一次付費</span></div>
+                            <a href="booking.html?plan=complete" class="row-action-btn">選擇方案</a>
                         </div>
                     </div>
-                    <!---04 / PREMIUM--->
-                    <div class="product-row">
-                        <div class="row-meta">
-                            <span class="row-badge">04 / PREMIUM</span>
-                            <h3>永恆資產典藏設計</h3>
-                        </div>
-                        <div class="row-content">
-                            <p>頂級全景式生命篇章深度整合。結合 6
-                                大維度記憶軌跡演算法，提供最高規格之純手工平面美術與數位雙軌量身訂製。享有獨立算力通道與專屬雲端數位資產永久維護，適合家族傳家寶或專屬圖騰之極致客製需求。</p>
-                            <p>✔ 全客製流程<br>
-                                ✔ 深度訪談整理<br>
-                                ✔ 高階藝術設計<br>
-                                ✔ 實體作品製作</p>
-                            <p>👉 適合：重要人生紀念／高情感需求療癒</p>
-                        </div>
+                    <div class="product-row" id="row-04">
+                        <div class="row-meta"><span class="row-badge">04 / DIGITAL + PHYSICAL</span><h3>數位＋實體</h3></div>
+                        <div class="row-content"><p>標準方案＋專屬實體藝術品，內嵌 NFC，手機輕碰即可打開故事頁。</p><p>✔ 含標準方案全部內容<br>✔ 實體藝術品（含 NFC）<br>✔ 已購數位方案可折抵 NT$800</p><p class="row-promo">實體藝術品費用依實際報價而定</p><p class="row-fit">適合：紀念禮物／擺在身邊的陪伴</p></div>
                         <div class="row-pricing-action">
-                            <div class="row-price">
-                                <span class="currency">NT$</span><span class="amount">18,800</span><span class="unit">/
-                                    起</span>
-                            </div>
-                            <a href="#booking" class="row-action-btn">尊榮專案洽詢</a>
+                            <div class="row-price"><span class="currency">NT$</span><span class="amount">5,280</span><span class="unit">起</span></div>
+                            <a href="booking.html?type=both" class="row-action-btn">預約諮詢</a>
                         </div>
                     </div>
-                    <!---05 / EXTENSIONS--->
-                        <div class="product-row extension-row">
-                            <div class="row-meta">
-                                <span class="row-badge">05 / CURATION</span>
-                                <h3>生命策展時空展廳</h3>
-                            </div>
-                            <div class="row-content">
-                                <p>專屬線上虛擬展廳與線下微型展覽規劃設計。依據委託需求彈性增配。<br>
-                            🌟 規劃準備中，敬請期待!</p>
-                            </div>
-                            <div class="row-pricing-action">
-                                <div class="row-price">
-                                    <span class="currency">NT$</span><span class="amount">98,800</span><span class="unit">/
-                                        起</span>
-                                </div>
-                                <a href="#booking" class="row-action-btn">傳承信託服務</a>
-                            </div>
+                    <div class="product-row" id="row-05">
+                        <div class="row-meta"><span class="row-badge">05 / EXTENSIONS</span><h3>加值與補充故事</h3></div>
+                        <div class="row-content"><p><span class="itemname">續寫包</span>　加量／已到期數位補錄：重開 10 則／60 天　NT$590<br><span class="itemname">升級方案</span>　期限內補差額即可（例：輕量→標準 NT$1,490）<br><span class="itemname">相片修復</span>　單張加購　NT$50／張<br><span class="itemname">影像合成處理</span>　單張計費　NT$200 起</p></div>
+                        <div class="row-pricing-action">
+                            <div class="row-price"><span class="currency">NT$</span><span class="amount">50</span><span class="unit">起</span></div>
                         </div>
+                    </div>
+                </div>
+            </div>
+        </section>
 
-                     <div class="product-row">
-                        <div class="row-meta">
-                            <span class="row-badge">05 / EXTENSIONS</span>
-                            <h3>多元美學加值配置</h3>
-                        </div>
-                        <div class="row-content">
-                            <p>提供全方位記憶資產的延伸解碼與實體高階工藝配置，可以個人需求喜好選配</p>
-                            <p> 📖 <span class="itemname">時光冊</span> :<br>
-                               〈數位〉個人專屬數位網頁設計<br>
-                               〈實體〉精裝書 <br>
-                                🖼 <span class="itemname">光軌</span> :融入現代居家空間的質感陪伴<br>
-                                〈數位〉專屬數位網頁設計或影像/音頻處理<br>
-                                〈實體〉e.g.掛畫、公仔展示、擺件、常用周邊<br> 
-                                🎁 <span class="itemname">我在</span>:<br>
-                                〈數位〉專屬數位網頁設計或影像/音頻處理<br> 
-                                〈實體〉藝術展示品:e.g.掛畫、公仔展示、擺件、常用周邊<br>
-                                💾 <span class="itemname">生命樹</span>:<br>
-                                〈數位〉專屬數位網頁設計或影像處理<br>
-                                〈實體〉藝術展示品:e.g.掛畫、塑像、各式材質擺件<br>
-                            </p>
-                        </div>
-                        <div class="row-pricing-action">
-                            <div class="row-price">
-                                <span class="currency">另行報價</span><br>
-                                <span class="unit">材質/數量/時程，製作成本各有不同</span>
-                            </div>
-                        </div>
-                    </div>
+        <!-- 系列輪播 -->
+        <section id="series" class="price-section">
+            <h2>✦ 典藏系列</h2>
+            <p class="sub">每一件作品，都從一段真實的故事開始</p>
+            <div class="series-tabs"></div>
+            <div class="series-stage">
+                <div class="series-track"></div>
+                <button class="series-arrow prev" type="button" aria-label="上一張">‹</button>
+                <button class="series-arrow next" type="button" aria-label="下一張">›</button>
+            </div>
+            <div class="series-dots"></div>
+            <p class="series-desc"></p>
+        </section>
 
+        <!-- FAQ -->
+        <section class="price-section">
+            <div class="faq-geometric-session">
+                <h4>✦ F A Q</h4>
+                <div class="faq-item" onclick="toggleFaq(this)">
+                    <div class="faq-question">
+                        <span class="faq-number">01</span>
+                        <h3>「LIFE+」是怎樣的產品？跟 FB/IG 差在哪？</h3>
+                        <span class="faq-icon">+</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>「LIFE+」是客製化的「數位生命自傳／時間膠囊」。社群是公開展示、資料歸平台所有；LIFE+ 不上架公域，只把你最珍貴的 1% 記憶純化為可傳承的典藏。</p>
+                    </div>
+                </div>
+                <div class="faq-item" onclick="toggleFaq(this)">
+                    <div class="faq-question">
+                        <span class="faq-number">02</span>
+                        <h3>這是算命嗎？</h3>
+                        <span class="faq-icon">+</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>不是。我們把陰陽五行等規律轉為三維視覺座標，作為設計基調，再以藝術品形式（數位／實體）封存你的記憶。</p>
+                    </div>
+                </div>
+                <div class="faq-item" onclick="toggleFaq(this)">
+                    <div class="faq-question">
+                        <span class="faq-number">03</span>
+                        <h3>流程怎麼進行？</h3>
+                        <span class="faq-icon">+</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p><strong style="color:#c4c8ff;">專人諮詢 → 矩陣系統 → 故事整合 → 專屬設計 → 數位/實體典藏</strong><br>不需要懂命理或設計，輸入生辰或珍貴時刻，其餘交給系統與策展人。</p>
+                    </div>
+                </div>
+                <div class="faq-item" onclick="toggleFaq(this)">
+                    <div class="faq-question">
+                        <span class="faq-number">04</span>
+                        <h3>數位、實體、並用差在哪？我該怎麼選？</h3>
+                        <span class="faq-icon">+</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p><strong style="color:#c4c8ff;">數位</strong>：用 LINE 錄下聲音與故事，整理成專屬故事頁，隨時打開、方便分享給家人。<br>
+                            <strong style="color:#c4c8ff;">實體</strong>：一對一設計成可擺放、可贈送的作品，背面刻印專屬短碼。<br>
+                            <strong style="color:#c4c8ff;">並用</strong>：實體作品內嵌 NFC，手機輕碰就能打開故事頁、聽見原本的聲音。<br>
+                            想先留住聲音選「數位」；想送禮或擺在身邊選「實體」；想兩者都有、最完整的傳承選「並用」。價格依選購方案內容而定，不確定也沒關係，預約諮詢時我們會一起討論。</p>
+                    </div>
                 </div>
             </div>
         </section>
@@ -401,9 +350,11 @@
     </div>
     <div id="footer-placeholder"></div>
     <!-- JS-->
+    <script src="assets/js/bg-gl.js"></script>
     <script src="assets/js/js.js"></script>
     <script src="assets/js/code-data.js"></script>
     <script src="assets/js/lang.js"></script>
+    <script src="assets/js/series.js"></script>
 </body>
 
 </html>

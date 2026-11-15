@@ -1,7 +1,7 @@
 // ── 語言系統 ──
 const LANG = {
   zh: {
-    nav: ['留住記憶','服務介紹','免費體驗','專屬預約','關於LIFE+'],
+    nav: ['典藏方案','圖紋體驗','專屬預約','關於LIFE+','服務介紹'],
     navSub: ['免費體驗','核心原理','留住記憶','服務方案','專屬預約'],
     symQ: 'Q.選擇一個您最有感的符號意義,以極細線條若隱若現地融入畫面背景',
     texQ: 'Q.你最容易被哪種觸覺感或物件感吸引？',
@@ -97,7 +97,6 @@ const LANG = {
     originP1: '原職是一名資深美術設計師，在不順遂的人生中總是奮力向前，終至失力委靡，深陷在失去與不安的黑暗中。我知道這世上有太多人，也在失衡的步調中承載著焦慮、憂鬱與內耗。',
     originP2: '在面對傷痛並與自我療癒的路上，終究明白：真正穩定的能量，源自於先擁抱、理解並看見自己。<br>於是決定善用這份「美的轉譯」能力，開啟一項從「助人」而衍生的設計計畫——<br>旨在協助安定情緒、療癒心理，在科學上也具有活化大腦、減緩未來失智風險的依據。',
     originP3: '願 LIFE+能幫助大家在面對生命突如其來的變故與黑夜時，心中多一份底氣與力量，將瞬間轉化為溫暖而永恆的記憶年輪。',
-    faqItems: [
      faqItems: [
   {n:'01',q:'「LIFE+」是怎樣的產品？紀念品周邊？跟FB/IG這些社群差別在哪?',a:'「LIFE+」是「數位生命資產系統」。是客製化的「數位生命自傳／時間膠囊」。因為「瞬間即永恆」。記憶會隨時間模糊，但數位化的紀錄不會。<br>我們將你重要的文字、語音、照片與轉念時間，透過獨家美學系統，體驗情感療癒的過程，最後精煉成能放在手機桌布、個人網站、數位載體...展示的「專屬數位典藏館」。<br>【為什麼不用免費的FB/IG社群就好？】<br>社群是展示性的社交公域，資料歸平台所有，隨時可能被演算法淹沒、封號或遺失。LIFE+是不上架公域的「私密數據地堡」，幫你把最珍貴更真實的 1% 的記憶純化為永恆資產。這不是日記，而是一份專屬自訂如何永續傳承的精裝版生命典藏。'},
   {n:'02',q:'這是什麼系統？它是算命嗎？',a:'不是算命，它更像是一面「用宇宙幾何為你量身打造的靈魂鏡子」。<br>是科學的論點，我們將在基因中流動的陰陽五行與神秘學規律，透過現代數位設計方式，轉化為乾淨、純粹的三維度視覺座標，並以此為設計基調，為您將流逝歲月的珍貴記憶資產，以藝術品設計形式(數位/實體)進行封存。'},
@@ -118,7 +117,7 @@ const LANG = {
     formLabels: ['聯絡姓名 *','聯絡電話 *','電子郵件 Mail *','委託對象類別','理想封存方式','簡單聊聊您想留下的故事或期望（選填）'],
     formPlaceholders: ['如何稱呼您','0912345678','example@mail.com','','','例如：想幫心愛的貓咪留念or想替現在的自己留下紀錄!..'],
     targetOptions: ['長輩傳承（長輩時空冊）','寵物生命紀念（伴侶生命誌）','個人生活重整（個人數位封存）','其他（數位資產策展）'],
-    archiveOptions: ['純數位雲端封存報告','客製化實體幾何雷雕紀念物','私人策展顧問一對一訪談服務'],
+    archiveOptions: ['數位典藏（語音故事＋個人頁面）','實體藝術品（一對一客製）','數位＋實體並用（作品內嵌 NFC）','還不確定，想先諮詢'],
     submitBtn: '提交委託意向',
     lockText: '🔒 您的生命資訊受最高規格加密保護。',
     lineLabel: '── 直接加入官方專屬對話 ──',
@@ -158,7 +157,7 @@ const LANG = {
     tableHeaders: ['維度 (Pillars)','玄學基礎 (Philosophy)','美學應用 (Application)','演算邏輯 (Data Logic)'],
   },
   en: {
-    nav: ['Preserve Memory','Services','Free Trial','Book Now','About LIFE+'],
+    nav: ['Plans','Pattern Trial','Book Now','About LIFE+','Services'],
     navSub: ['Free Trial','Core Philosophy','Preserve Memory','Service Plans','Book Now'],
     symQ: 'Q. Choose the symbol that resonates most — woven as ultra-fine, barely-visible lines in the background',
     texQ: 'Q. Which tactile or material feeling draws you in most?',
@@ -274,7 +273,7 @@ const LANG = {
     formLabels: ['Contact Name *','Phone Number *','Email Address *','Subject Category','Preferred Archive Type','Tell us briefly about the story or vision you want to preserve (optional)'],
     formPlaceholders: ['How shall we address you?','e.g. 0912345678','example@mail.com','','','e.g. Memorial for my beloved cat, or a record of who I am right now...'],
     targetOptions: ['Elder Heritage (Elder Time Capsule)','Pet Life Memorial (Companion Life Record)','Personal Life Reset (Personal Digital Archive)','Other (Digital Asset Curation)'],
-    archiveOptions: ['Pure Digital Cloud Archive Report','Custom Physical Geometric Laser-Engraved Memorial','Private Curation Consultant One-on-One Interview Service'],
+    archiveOptions: ['Digital archive (voice stories + personal page)','Physical artwork (one-on-one custom)','Digital + physical (NFC embedded)','Not sure yet, consult first'],
     submitBtn: 'Submit Commission Inquiry',
     lockText: '🔒 Your life information is protected by the highest standard encryption.',
     lineLabel: '── Or join the official private conversation directly ──',
@@ -579,26 +578,26 @@ function applyLang() {
 const PRICE_LANG = {
   zh: {
     h2: 'LIFE+ Legacy Matrix 服務方案',
-    p: '可選擇適合您的方案與加值服務或 <strong>私人顧問級訂製</strong>，來為您定錨生命中最珍貴的記憶軌跡。',
+    p: '一次付費、無月費。到期後轉為唯讀，讓你的故事<strong>好好保存下來</strong>。',
     rows: {
-      '00': { title:'免費體驗', content:'<p>生命矩陣座標解碼:依據個人生命座標，進行特質評估與設計分析。提供部分內容可免費自行下載。</p><p>👉 適合：想先了解自己／初次體驗</p>', unit:'/ 單次', btn:'啟動資產委託' },
-      '01': { title:'基礎數位憶留', content:'<p>根據個人座標與透過系統建構identify（識別）基礎人生故事軌跡與引導，提供系統演算專屬之設計計畫，專注於生命記憶素材的結構化建檔。完成輕量化數位Memoirs檔案導出，並包含 1次線上資料校正服務。</p><p>✔ 回憶素材整理<br>✔ 故事結構重整<br>✔ 初步視覺化建議<br>✔ 記憶主題規劃</p><p>語音錄音、生活影片、老照片、手寫信、手稿畫作...等，都適合成為編寫回憶的素材。</p><p>👉 適合：想替父母／自己整理人生故事的人</p>', unit:'/ 起', btn:'啟動資產委託' },
-      '02': { title:'印記・時光圖譜', content:'<p>將出生時令的陰陽五行與時空卦象，轉譯為專屬視覺 DNA。透過平衡與補足，將您的人生座標編織成獨一無二的幾何線譜，為您量身打造專屬的「視覺調候（Visual Tuning）」。輕量化數位圖像導出，可完美對接實體藝術品製作</p><p> ✔ 專屬時空參數之視覺化建議<br>✔ 個人美學元素與風格主題規劃<br>✔ 將獨一無二的生命座標轉譯為當代藝術品<br></p><p>👉 一座屬於時間的紀念碑，為您深刻封存與守護。</p>', unit:'/ 起', btn:'啟動資產委託' },
-      '03': { title:'LIFE+核心典藏', content:'<p>最完整的雙軌留存方案。包含深度生命紀實與時空矩陣架構配置，經由 AI 進階美學轉譯，完整儲存於加密型 Meta-Aesthetics 資料模組。本方案附贈 1 組客製化實體 Physical Memoirs 記憶資產載體，讓情感永恆傳承。</p><p>✔ 深度回憶整理<br>✔ 主題設計規劃<br>✔ 視覺化作品設計<br>✔ 初版典藏成果</p><p>👉 適合：「紀念禮物／自留保存」的人生禮物</p>', unit:'/ 起', btn:'優先客製預約' },
-      '04': { title:'永恆資產典藏設計', content:'<p>頂級全景式生命篇章深度整合。結合 6 大維度記憶軌跡演算法，提供最高規格之純手工平面美術與數位雙軌量身訂製。享有獨立算力通道與專屬雲端數位資產永久維護，適合家族傳家寶或專屬圖騰之極致客製需求。</p><p>✔ 全客製流程<br>✔ 深度訪談整理<br>✔ 高階藝術設計<br>✔ 實體作品製作</p><p>👉 適合：重要人生紀念／高情感需求療癒</p>', unit:'/ 起', btn:'尊榮專案洽詢' },
-      '05': { title:'多元美學加值配置', content:'<p>提供全方位記憶資產的延伸解碼與實體高階工藝配置，可以個人需求喜好選配</p><p> 📖 <span class="itemname">時光冊</span> :<br>〈數位〉個人專屬數位網頁設計<br>〈實體〉精裝書 <br>🖼 <span class="itemname">光軌</span> :融入現代居家空間的質感陪伴<br>〈數位〉專屬數位網頁設計或影像處理<br>〈實體〉e.g.掛畫、公仔展示、擺件、常用周邊<br>🎁 <span class="itemname">我在</span>:<br>〈數位〉專屬數位網頁設計或影像處理<br>〈實體〉藝術展示品:e.g.掛畫、公仔展示、擺件、常用周邊<br>💾 <span class="itemname">生命樹</span>:<br>〈數位〉專屬數位網頁設計或影像處理<br>〈實體〉藝術展示品:e.g.掛畫、塑像、各式材質擺件<br></p>', price:'另行報價', unit2:'材質數量皆為製作成本調整因素' }
+      '00': { title:'免費體驗', content:'<p>輸入生日或紀念日，生成專屬生命圖紋預覽；加入 LINE 好友即可解鎖完整版。</p><p class="row-fit">適合：想先了解自己／初次體驗</p>', unit:'預覽', btn:'開始體驗' },
+      '01': { title:'輕量', content:'<p>✔ 9 則故事／90 天<br>✔ 生命圖紋 1 組</p><p class="row-fit">先開始留下幾段重要回憶吧！</p>', unit:'一次付費', btn:'選擇方案' },
+      '02': { title:'標準', content:'<p>✔ 24 則故事／120 天<br>✔ 家人分享<br>✔ 相片修復 10 張<br>✔ 生命圖紋 1 組</p><p class="row-fit">適合：替父母或毛孩整理完整的故事</p>', unit:'一次付費', btn:'選擇方案' },
+      '03': { title:'完整', content:'<p>半年時光，寫完七個人生章節。</p><p>✔ 48 則故事／180 天<br>✔ 完整章節解鎖<br>✔ 相片修復 30 張<br>✔ 生命圖紋 2 組</p><p class="row-promo">相片修復價值 NT$1,500</p>', unit:'一次付費', btn:'選擇方案' },
+      '04': { title:'數位＋實體', content:'<p>標準方案＋專屬實體藝術品，內嵌 NFC，手機輕碰即可打開故事頁。</p><p>✔ 含標準方案全部內容<br>✔ 實體藝術品（含 NFC）<br>✔ 已購數位方案可折抵 NT$800</p><p class="row-promo">實體藝術品費用依實際報價而定</p><p class="row-fit">適合：紀念禮物／擺在身邊的陪伴</p>', unit:'起', btn:'預約諮詢' },
+      '05': { title:'加值與補充故事', content:'<p><span class="itemname">續寫包</span>　加量／已到期數位補錄：重開 10 則／60 天　NT$590<br><span class="itemname">升級方案</span>　期限內補差額即可（例：輕量→標準 NT$1,490）<br><span class="itemname">相片修復</span>　單張加購　NT$50／張<br><span class="itemname">影像合成處理</span>　單張計費　NT$200 起</p>', unit:'起' }
     }
   },
   en: {
     h2: 'LIFE+ Legacy Matrix Service Plans',
-    p: 'Choose a plan and add-ons that suit you, or opt for <strong>private-consultant-level customization</strong> to anchor your life\'s most precious memory trace.',
+    p: 'One-time payment, no subscription. After the term ends, stories become read-only and <strong>stay safely preserved</strong>.',
     rows: {
-      '00': { title:'Free Trial', content:'<p>Life Matrix Coordinate Decode: trait assessment and design analysis based on your personal life coordinate. Some content is available as a free download.</p><p>👉 Best for: first-time exploration or self-discovery</p>', unit:'/ one-time', btn:'Start My Commission' },
-      '01': { title:'Basic Digital Memoir', content:'<p>Builds a foundational life-story timeline and guided prompts from your personal coordinate, delivering an algorithm-generated design plan focused on structuring your memory materials. Includes a lightweight digital Memoirs export plus 1 online data review session.</p><p>✔ Memory material organization<br>✔ Story structure editing<br>✔ Preliminary visual suggestions<br>✔ Memory theme planning</p><p>Voice recordings, home videos, old photos, handwritten letters, sketches — all make great source material.</p><p>👉 Best for: organizing your own or your parents\' life story</p>', unit:'/ from', btn:'Start My Commission' },
-      '02': { title:'Imprint · Time Atlas', content:'<p>Translates the Yin-Yang Five Elements and hexagram of your birth moment into exclusive visual DNA. Through balance and supplementation, your life coordinate is woven into a one-of-a-kind geometric score — a bespoke "Visual Tuning." Lightweight digital image export, ready for physical artwork production.</p><p> ✔ Visual suggestions from your space-time parameters<br>✔ Personal aesthetic elements & style planning<br>✔ Translating your unique life coordinate into contemporary art<br></p><p>👉 A monument of time — deeply archived and safeguarded for you.</p>', unit:'/ from', btn:'Start My Commission' },
-      '03': { title:'LIFE+ Core Archive', content:'<p>Our most complete dual-track preservation plan. In-depth life documentation and space-time matrix configuration, translated through advanced AI aesthetics and stored in an encrypted Meta-Aesthetics data module. Includes 1 custom Physical Memoirs artifact, carrying emotion forward forever.</p><p>✔ In-depth memory curation<br>✔ Thematic design planning<br>✔ Visual artwork design<br>✔ First archival edition</p><p>👉 Best for: memorial gifts or a keepsake for yourself</p>', unit:'/ from', btn:'Priority Custom Booking' },
-      '04': { title:'Eternal Legacy Design', content:'<p>The ultimate panoramic integration of your life chapters. Combines a 6-dimension memory-trace algorithm with top-tier hand-crafted fine art and bespoke digital dual-track production. Includes a dedicated compute channel and permanent cloud asset maintenance — ideal for family heirlooms or fully custom totems.</p><p>✔ Fully custom process<br>✔ In-depth interview curation<br>✔ Premium art design<br>✔ Physical artwork production</p><p>👉 Best for: major life milestones / deep emotional healing needs</p>', unit:'/ from', btn:'Inquire: Premium Project' },
-      '05': { title:'Aesthetic Add-On Options', content:'<p>Full-spectrum extended decoding and premium physical craftsmanship add-ons, selectable to your preference</p><p> 📖 <span class="itemname">Chronicle</span> :<br>〈Digital〉Personal web page design<br>〈Physical〉Hardcover book <br>🖼 <span class="itemname">Light Trail</span> : tasteful companionship for modern living spaces<br>〈Digital〉Custom web design or image processing<br>〈Physical〉e.g. wall art, figure display, ornaments, everyday items<br>🎁 <span class="itemname">I Was Here</span>:<br>〈Digital〉Custom web design or image processing<br>〈Physical〉Art display: e.g. wall art, figure display, ornaments, everyday items<br>💾 <span class="itemname">Life Tree</span>:<br>〈Digital〉Custom web design or image processing<br>〈Physical〉Art display: e.g. wall art, sculpture, various material ornaments<br></p>', price:'Custom Quote', unit2:'Material & quantity affect final cost' }
+      '00': { title:'Free Trial', content:'<p>Enter a birthday or memorial date to preview your personal life pattern. Add us on LINE to unlock the full version.</p><p class="row-fit">Best for: first-time exploration</p>', unit:'preview', btn:'Try It Now' },
+      '01': { title:'Lite', content:'<p>✔ 9 stories / 90 days<br>✔ 1 life pattern</p><p class="row-fit">Start by keeping a few key memories!</p>', unit:'one-time', btn:'Choose Plan' },
+      '02': { title:'Standard', content:'<p>✔ 24 stories / 120 days<br>✔ Family sharing<br>✔ 10 photo restorations<br>✔ 1 life pattern</p><p class="row-fit">Best for: a full story of a parent or pet</p>', unit:'one-time', btn:'Choose Plan' },
+      '03': { title:'Complete', content:'<p>Half a year to write all seven chapters of a life.</p><p>✔ 48 stories / 180 days<br>✔ All chapters unlocked<br>✔ 30 photo restorations<br>✔ 2 life patterns</p><p class="row-promo">Photo restoration worth NT$1,500</p>', unit:'one-time', btn:'Choose Plan' },
+      '04': { title:'Digital + Physical', content:'<p>Standard plan plus a custom physical artwork with an NFC chip — tap with your phone to open the story page.</p><p>✔ Everything in Standard<br>✔ Physical artwork (with NFC)<br>✔ NT$800 credit if you already own a digital plan</p><p class="row-promo">Physical artwork priced by actual quote</p><p class="row-fit">Best for: memorial gifts / a keepsake by your side</p>', unit:'from', btn:'Book a Consultation' },
+      '05': { title:'Add-Ons & More Stories', content:'<p><span class="itemname">Continuation pack</span>　more stories / after expiry: 10 stories / 60 days　NT$590<br><span class="itemname">Upgrade</span>　pay only the difference within the term (e.g. Lite → Standard NT$1,490)<br><span class="itemname">Photo restoration</span>　NT$50 per photo<br><span class="itemname">Image compositing</span>　per image　from NT$200</p>', unit:'from' }
     }
   }
 };

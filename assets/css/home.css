@@ -1,0 +1,144 @@
+/* home.css — 首頁（主 KV／方案卡／入口卡／LINE 收尾） */
+:root {
+  --c-accent: #00e5ff;
+  --c-line: #06c755;
+  --c-text2: rgba(255, 255, 255, .72);
+  --c-border: rgba(255, 255, 255, .12);
+  --c-card: rgba(10, 10, 15, .72);
+}
+
+.home-hero,
+.home-section {
+  width: 100%;
+  max-width: 1040px;
+  margin: 0 auto clamp(48px, 8vw, 96px);
+  text-align: center;
+}
+
+/* 主 KV */
+.home-hero { padding: clamp(72px, 14vh, 140px) 0 0; }
+.hero-eyebrow { font-size: .875rem; letter-spacing: 4px; color: var(--c-accent); }
+.hero-title {
+  margin: 16px 0 20px;
+  font-size: clamp(1.75rem, 5vw, 3rem);
+  line-height: 1.35;
+  font-weight: 600;
+  letter-spacing: 2px;
+}
+.hero-lead { color: var(--c-text2); line-height: 1.9; font-size: 1rem; }
+.hero-cta { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; margin: 32px 0 24px; }
+.hero-for {
+  list-style: none; padding: 0; margin: 0;
+  display: flex; gap: 4px 0; justify-content: center; flex-wrap: wrap;
+}
+.hero-for li { font-size: .875rem; color: var(--c-text2); letter-spacing: 1px; }
+.hero-for li + li::before { content: '+'; margin: 0 12px; color: #00e5ff; }
+.hero-for a { color: #7fd9ff; text-decoration: none; transition: color .2s; }
+.hero-for a:hover, .hero-for a:focus-visible { color: #fff; }
+
+/* 按鈕 */
+.btn-line,
+.btn-ghost {
+  display: inline-block; padding: 14px 28px; border-radius: 999px;
+  font-size: 1rem; text-decoration: none; letter-spacing: 1px;
+}
+.btn-line { background: var(--c-line); color: #fff; }
+.btn-ghost { color: #fff; border: .5px solid rgba(255, 255, 255, .4); }
+.btn-ghost:hover { border-color: var(--c-accent); color: var(--c-accent); }
+
+/* 區塊標題 */
+.home-h2 { font-size: clamp(1.375rem, 3.5vw, 1.875rem); color: #3f93ff; letter-spacing: 2px; margin: 0 0 10px; }
+.home-sub { color: var(--c-text2); margin: 0 0 32px; line-height: 1.8; }
+.home-more { display: inline-block; margin-top: 28px; color: var(--c-accent); text-decoration: none; }
+
+/* 方案卡 */
+.plan-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+.plan-card {
+  display: flex; flex-direction: column; text-align: left;
+  padding: 0 0 24px; overflow: hidden;
+  background: var(--c-card); border: .5px solid var(--c-border); border-radius: 12px;
+  backdrop-filter: blur(12px);
+}
+.plan-card img { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; display: block; }
+.plan-card > :not(img) { margin-left: 22px; margin-right: 22px; }
+.plan-tag { margin-top: 18px; font-size: .75rem; letter-spacing: 2px; color: var(--c-accent); }
+.plan-card h3 { margin: 6px 22px 10px; font-size: 1.25rem; }
+.plan-card p { flex: 1; margin: 0 22px 18px; color: var(--c-text2); line-height: 1.8; font-size: .9375rem; }
+.plan-price { font-size: 1rem; margin-bottom: 16px; color: var(--c-text2); }
+.plan-price small { font-size: .75rem; }
+.plan-card .plan-price:not(:has(small)) { font-size: 1rem; color: var(--c-text2); }
+.plan-btn {
+  text-align: center; padding: 12px; border-radius: 999px; text-decoration: none;
+  color: #fff; border: .5px solid rgba(255, 255, 255, .4);
+}
+.plan-btn.solid { background: var(--c-accent); color: #050508; border-color: var(--c-accent); }
+.plan-card.featured { border-color: rgba(0, 229, 255, .5); }
+
+/* 入口卡 */
+.entry-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+.entry-card {
+  position: relative; display: flex; flex-direction: column; gap: 8px;
+  padding: 26px 22px; text-align: left; text-decoration: none; color: #fff; margin: 0;
+  background: var(--c-card); border: .5px solid var(--c-border); border-radius: 12px;
+}
+.entry-card h3 { margin: 0; font-size: 1.125rem; }
+.entry-card p { margin: 0; flex: 1; color: var(--c-text2); line-height: 1.8; font-size: .9375rem; }
+.entry-go { color: var(--c-accent); font-size: .9375rem; }
+.entry-badge {
+  position: absolute; top: 18px; right: 18px; font-size: .75rem;
+  padding: 3px 10px; border-radius: 999px; background: rgba(0, 229, 255, .15); color: var(--c-accent);
+}
+.entry-badge.soon { background: rgba(255, 255, 255, .1); color: var(--c-text2); }
+.entry-card.is-soon { opacity: .55; cursor: default; }
+.code-row { display: flex; gap: 8px; }
+.code-row input {
+  flex: 1; min-width: 0; padding: 10px 12px; font-size: 1rem; letter-spacing: 2px; text-transform: uppercase;
+  color: #fff; background: rgba(255, 255, 255, .06); border: .5px solid var(--c-border); border-radius: 8px;
+}
+.code-row button {
+  padding: 10px 16px; font-size: .9375rem; cursor: pointer;
+  color: #050508; background: var(--c-accent); border: 0; border-radius: 8px;
+}
+.code-msg { min-height: 1.2em; color: var(--c-text2); font-size: .8125rem; }
+
+/* FAQ 沿用 main.css，僅限寬 */
+.home-section .faq-geometric-session { max-width: 800px; margin: 0 auto; }
+
+/* LINE 收尾 */
+.home-line .line-qr { display: block; width: 140px; margin: 0 auto 24px; border-radius: 8px; }
+
+@media (max-width: 600px) {
+  .hero-title { font-size: 1.625rem; letter-spacing: 1px; }
+  .hero-lead br { display: none; }
+  .hero-lead { padding: 0 8px; }
+  .hero-cta { flex-direction: column; align-items: center; }
+  .hero-cta a { width: 100%; max-width: 280px; text-align: center; box-sizing: border-box; }
+}
+
+@media (max-width: 860px) {
+  .plan-grid,
+  .entry-grid { grid-template-columns: 1fr; max-width: 480px; margin: 0 auto; }
+}
+
+/* 動態效果 */
+html.fx .reveal { opacity: 0; transform: translateY(24px); transition: opacity .8s ease, transform .8s ease; }
+html.fx .reveal.in { opacity: 1; transform: none; }
+
+.btn-line.breathe { animation: breathe 3.2s ease-in-out infinite; }
+@keyframes breathe {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(6, 199, 85, 0); }
+  50% { box-shadow: 0 0 22px 4px rgba(6, 199, 85, .45); }
+}
+
+.plan-card { transition: transform .35s ease, border-color .35s ease, box-shadow .35s ease; }
+.plan-card img { transition: transform .6s ease; }
+.plan-card:hover { transform: translateY(-6px); border-color: rgba(0, 229, 255, .55); box-shadow: 0 18px 40px rgba(0, 229, 255, .08); }
+.plan-card:hover img { transform: scale(1.04); }
+.plan-btn { transition: background .25s ease, color .25s ease; }
+.plan-btn:not(.solid):hover { background: rgba(255, 255, 255, .08); }
+
+@media (prefers-reduced-motion: reduce) {
+  html.fx .reveal { opacity: 1; transform: none; transition: none; }
+  .btn-line.breathe { animation: none; }
+  .plan-card, .plan-card img { transition: none; }
+}
