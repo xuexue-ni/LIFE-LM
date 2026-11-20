@@ -466,7 +466,7 @@ p.desc {
 .faq-item {
   border-bottom: 0.5px solid rgba(232, 234, 240, 0.15);
   /* 極細下邊框 */
-  padding: 20px 10px;
+  padding: 22px 10px;
   cursor: pointer;
   transition: all 0.3s ease;
 }
@@ -480,7 +480,7 @@ p.desc {
 
 .faq-number {
   font-family: 'DM Mono', monospace;
-  font-size: 13px;
+  font-size: 14px;
   color: #00e5ff;
   /* 霓虹青藍，指引視覺焦點 */
   letter-spacing: 1px;
@@ -488,9 +488,10 @@ p.desc {
 
 .faq-question h3 {
   font-family: 'Noto Serif TC', serif;
-  font-size: 16px;
-  /* 舒適的手機與網頁適讀大小 */
-  font-weight: 300;
+  font-size: 19px;
+  /* 放大以利長輩閱讀 */
+  font-weight: 400;
+  line-height: 1.7;
   color: #F0F0F5;
   margin: 0;
   letter-spacing: 1.5px;
@@ -499,7 +500,7 @@ p.desc {
 }
 
 .faq-icon {
-  font-size: 16px;
+  font-size: 20px;
   color: #62687F;
   transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
@@ -515,15 +516,21 @@ p.desc {
 
 .faq-answer p {
   font-family: 'Noto Serif TC', serif;
-  font-size: 14px;
-  /* 👈 高於 12px 絕對易讀線，繁體中文字體舒展 */
-  line-height: 1.6;
-  color: #acbdff;
-  /* 煙雨灰藍 */
-  padding: 15px 0 5px 38px;
+  font-size: 17px;
+  /* 放大以利長輩閱讀 */
+  line-height: 1.95;
+  color: #c0cdff;
+  /* 煙雨灰藍，提亮以增強對比 */
+  padding: 16px 0 6px 40px;
   /* 留出對齊縮排，視覺動線更乾淨 */
   margin: 0;
   letter-spacing: 1px;
+}
+
+@media (max-width: 480px) {
+  .faq-question { gap: 12px; }
+  .faq-question h3 { font-size: 18px; letter-spacing: 1px; }
+  .faq-answer p { font-size: 16.5px; padding-left: 28px; letter-spacing: 0.5px; }
 }
 
 /* 💡 Hover 觸發時的細微霓虹律動 */
@@ -534,7 +541,7 @@ p.desc {
 
 /* 當被激活打開時 (.active) 的樣式狀態 */
 .faq-item.active .faq-answer {
-  max-height: 500px;
+  max-height: 800px;
   /* 給予足夠的展開空間 */
   opacity: 1;
 }
